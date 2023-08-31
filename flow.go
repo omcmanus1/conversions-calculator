@@ -17,7 +17,7 @@ func Flow(data types.Setup) {
 	}
 
 	if data.InputUnit == "millilitres" {
-		result = MlConversion(data)
+		result, err = MlConversion(data)
 	} else if data.InputUnit == "grams" {
 		result, err = GramConversion(data)
 	} else {
