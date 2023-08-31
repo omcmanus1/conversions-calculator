@@ -21,12 +21,12 @@ func Flow(data types.Setup) {
 	} else if data.InputUnit == "grams" {
 		result, err = GramConversion(data)
 	} else {
-		err = errors.New("unsupported input unit")
+		err = errors.New("unsupported input unit" + data.InputUnit)
 	}
 
 	if err != nil {
 		log.Fatal("Error: ", err)
+	} else {
+		fmt.Printf("%v %v --> %v %v\n", data.Amount, data.InputUnit, result, data.OutputUnit)
 	}
-
-	fmt.Printf("%v %v --> %v %v\n", data.Amount, data.InputUnit, result, data.OutputUnit)
 }
