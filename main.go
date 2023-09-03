@@ -8,7 +8,7 @@ func main() {
 		InputSystem: "US",
 		InputUnit:   "cups",
 		OutputUnit:  "grams",
-		Type:        "weight",
+		Type:        "vol",
 		Amount:      25,
 	}
 	Flow(data)

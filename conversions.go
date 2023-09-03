@@ -57,13 +57,15 @@ func VolumeUS(inp types.Setup) (float64, error) {
 	}
 
 	if inp.OutputUnit == "millilitres" {
-		return math.Round(output), nil
+		output = math.Round(output)
 	} else if inp.OutputUnit == "litres" {
 		output = output / 1000
-		return float64(int(output*10)) / 10, nil
+		output = float64(int(output*10)) / 10
 	} else {
 		return 0.0, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
+
+	return output, nil
 }
 
 func WeightMetric(inp types.Setup) (float64, error) {
