@@ -28,6 +28,8 @@ func Flow(inp types.Setup) {
 		} else {
 			result, err = WeightMetric(inp)
 		}
+	} else {
+		err = errors.New("invalid measurement type: " + inp.Type)
 	}
 
 	if err != nil {
