@@ -4,11 +4,12 @@ import "github.com/omcmanus1/converter/types"
 
 func main() {
 	data := types.Setup{
-		InputSystem: "metric",
-		InputUnit:   "millilitres",
-		OutputUnit:  "fluid oz",
-		Baking:      false,
-		Amount:      245,
+		Ingredient:  "haribos",
+		InputSystem: "US",
+		InputUnit:   "cups",
+		OutputUnit:  "grams",
+		Type:        "weight",
+		Amount:      25,
 	}
 	Flow(data)
 }

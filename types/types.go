@@ -1,9 +1,10 @@
 package types
 
 type Setup struct {
+	Ingredient  string
 	InputSystem string
 	InputUnit   string
 	OutputUnit  string
-	State       string
+	Type       string
 	Amount      int
 }

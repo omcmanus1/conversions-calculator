@@ -8,25 +8,31 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func Flow(data types.Setup) {
+func Flow(inp types.Setup) {
 	var result float64
 	var err error
 
-	if data.Amount <= 0 {
+	if inp.Amount <= 0 {
 		fmt.Println(errors.New("please supply a valid amount"))
 	}
 
-	if data.InputUnit == "millilitres" {
-		result, err = LiquidConversion(data)
-	} else if data.InputUnit == "grams" {
-		result, err = SolidConversion(data)
-	} else {
-		err = errors.New("unsupported input unit" + data.InputUnit)
+	if inp.Type == "volume" {
+		if inp.InputSystem == "US" {
+			result, err = VolumeUS(inp)
+		} else {
+			result, err = VolumeMetric(inp)
+		}
+	} else if inp.Type == "weight" {
+		if inp.InputSystem == "US" {
+			result, err = WeightUS(inp)
+		} else {
+			result, err = WeightMetric(inp)
+		}
 	}
 
 	if err != nil {
 		log.Fatal("Error: ", err)
 	} else {
-		fmt.Printf("%v %v --> %v %v\n", data.Amount, data.InputUnit, result, data.OutputUnit)
+		fmt.Printf("%v %v --> %v %v of %v\n", inp.Amount, inp.InputUnit, result, inp.OutputUnit, inp.Ingredient)
 	}
 }
