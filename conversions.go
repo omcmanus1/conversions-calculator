@@ -7,7 +7,7 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func MlConversion(inp types.Setup) (float64, error) {
+func LiquidConversion(inp types.Setup) (float64, error) {
 	var output float64
 
 	if inp.OutputUnit == "fluid oz" {
@@ -26,7 +26,7 @@ func MlConversion(inp types.Setup) (float64, error) {
 	return output, nil
 }
 
-func GramConversion(inp types.Setup) (float64, error) {
+func SolidConversion(inp types.Setup) (float64, error) {
 	var output float64
 
 	if inp.OutputUnit == "oz" {

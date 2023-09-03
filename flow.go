@@ -17,9 +17,9 @@ func Flow(data types.Setup) {
 	}
 
 	if data.InputUnit == "millilitres" {
-		result, err = MlConversion(data)
+		result, err = LiquidConversion(data)
 	} else if data.InputUnit == "grams" {
-		result, err = GramConversion(data)
+		result, err = SolidConversion(data)
 	} else {
 		err = errors.New("unsupported input unit" + data.InputUnit)
 	}
