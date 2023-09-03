@@ -11,17 +11,19 @@ func MlConversion(inp types.Setup) (float64, error) {
 	var output float64
 
 	if inp.OutputUnit == "fluid oz" {
-		output = float64(inp.Amount) / 28.413
+		output = math.Round(float64(inp.Amount) / 28.413)
+		output = math.Round(output)
 	} else if inp.OutputUnit == "cups" {
 		if inp.Amount < 40 {
 			return 0.0, errors.New("too small for cups")
 		}
 		output = float64(inp.Amount) / 236.6
+		output = float64(int(output*10)) / 10
 	} else {
 		return 0.0, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
-	return math.Round(output/0.05) * 0.05, nil
+	return output, nil
 }
 
 func GramConversion(inp types.Setup) (float64, error) {
@@ -34,9 +36,10 @@ func GramConversion(inp types.Setup) (float64, error) {
 			return 0.0, errors.New("too small for cups")
 		}
 		output = float64(inp.Amount) / 250
+		output = float64(int(output*10)) / 10
 	} else {
 		return 0.0, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
-	return math.Round(output/0.05) * 0.05, nil
+	return output, nil
 }
