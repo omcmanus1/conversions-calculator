@@ -8,33 +8,44 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func Flow(inp types.Setup) {
-	var result float64
-	var err error
+func Flow(inp []types.Input) []types.Output {
+	var output []string
+	var arrOutput []types.Output
 
-	if inp.Amount <= 0 {
-		fmt.Println(errors.New("please supply a valid amount"))
-	}
+	for _, entry := range inp {
+		var result float64
+		var err error
 
-	if inp.Type == "volume" {
-		if inp.InputSystem == "US" {
-			result, err = VolumeUS(inp)
-		} else {
-			result, err = VolumeMetric(inp)
+		if entry.Amount <= 0 {
+			fmt.Println(errors.New("please supply a valid amount"))
 		}
-	} else if inp.Type == "weight" {
-		if inp.InputSystem == "US" {
-			result, err = WeightUS(inp)
-		} else {
-			result, err = WeightMetric(inp)
-		}
-	} else {
-		err = errors.New("invalid measurement type: " + inp.Type)
-	}
 
-	if err != nil {
-		log.Fatal("Error: ", err)
-	} else {
-		fmt.Printf("%v %v --> %v %v of %v\n", inp.Amount, inp.InputUnit, result, inp.OutputUnit, inp.Ingredient)
+		if entry.Type == "volume" {
+			if entry.InputSystem == "US" {
+				result, err = VolumeUS(entry)
+			} else {
+				result, err = VolumeMetric(entry)
+			}
+		} else if entry.Type == "weight" {
+			if entry.InputSystem == "US" {
+				result, err = WeightUS(entry)
+			} else {
+				result, err = WeightMetric(entry)
+			}
+		} else {
+			err = errors.New("invalid measurement type: " + entry.Type)
+		}
+
+		if err != nil {
+			log.Fatal("Error: ", err)
+		}
+
+		structOutput := types.Output{Ingredient: entry.Ingredient, OutputSystem: entry.OutputSystem, OutputUnit: entry.OutputUnit, Type: entry.Type, Amount: result}
+		arrOutput = append(arrOutput, structOutput)
+		formattedAnswer := fmt.Sprintf("%v %v ----> %v %v of %v\n", entry.Amount, entry.InputUnit, result, entry.OutputUnit, entry.Ingredient)
+		output = append(output, formattedAnswer)
+
 	}
+	fmt.Println(output)
+	return arrOutput
 }
