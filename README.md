@@ -6,8 +6,10 @@ A basic Golang app to translate US recipe measurements into UK formats. Mainly a
 
 - Automatically return most appropriate units based on amount (e.g. 1.5l vs 1500ml)
   - If no OutputUnit is provided?
-- Update Flow function to accept array of Setup structs for full ingredient list
-- Add tests
+- ~~Update Flow function to accept array of Setup structs for full ingredient list~~
+- Testing
+  - ~~Add first test~~
+  - Learn more / complete
 - Create server endpoint for potential frontend usage
   - Return JSON
 - Build frontend calculator?
