@@ -7,7 +7,7 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func VolumeMetric(inp types.Setup) (float64, error) {
+func VolumeMetric(inp types.Input) (float64, error) {
 	var input float64
 	var output float64
 
@@ -39,7 +39,7 @@ func VolumeMetric(inp types.Setup) (float64, error) {
 	return float64(int(output*10)) / 10, nil
 }
 
-func VolumeUS(inp types.Setup) (float64, error) {
+func VolumeUS(inp types.Input) (float64, error) {
 	var output float64
 
 	if inp.InputUnit == "cups" {
@@ -68,7 +68,7 @@ func VolumeUS(inp types.Setup) (float64, error) {
 	return output, nil
 }
 
-func WeightMetric(inp types.Setup) (float64, error) {
+func WeightMetric(inp types.Input) (float64, error) {
 	var input float64
 	var output float64
 
@@ -96,7 +96,7 @@ func WeightMetric(inp types.Setup) (float64, error) {
 	return float64(int(output*10)) / 10, nil
 }
 
-func WeightUS(inp types.Setup) (float64, error) {
+func WeightUS(inp types.Input) (float64, error) {
 	var output float64
 
 	if inp.InputUnit == "cups" {
