@@ -33,5 +33,5 @@ func getHandlerMarshal(w http.ResponseWriter, r *http.Request) {
 }
 
 func getHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(Flow(data.Input))
+	EncodeJSON(w, r, data.Input, Flow)
 }
