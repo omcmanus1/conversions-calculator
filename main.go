@@ -1,45 +1,27 @@
 package main
 
-import "github.com/omcmanus1/converter/types"
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/omcmanus1/converter/data"
+)
+
+func getHandler(w http.ResponseWriter, r *http.Request) {
+	result, err := json.MarshalIndent(Flow(data.Input), "", " ")
+	if err != nil {
+		log.Println("unable to encode JSON")
+	}
+	w.Write([]byte(result))
+}
 
 func main() {
-	data := []types.Input{
-		{
-			Ingredient:   "haribos",
-			InputSystem:  "US",
-			InputUnit:    "cups",
-			OutputSystem: "metric",
-			OutputUnit:   "grams",
-			Type:         "weight",
-			Amount:       2,
-		},
-		{
-			Ingredient:   "basmati rice",
-			InputSystem:  "US",
-			InputUnit:    "lbs",
-			OutputSystem: "metric",
-			OutputUnit:   "grams",
-			Type:         "weight",
-			Amount:       1.5,
-		},
-		{
-			Ingredient:   "chicken thighs",
-			InputSystem:  "US",
-			InputUnit:    "oz",
-			OutputSystem: "metric",
-			OutputUnit:   "grams",
-			Type:         "weight",
-			Amount:       12,
-		},
-		{
-			Ingredient:   "peas",
-			InputSystem:  "metric",
-			InputUnit:    "kg",
-			OutputSystem: "US",
-			OutputUnit:   "lbs",
-			Type:         "weight",
-			Amount:       12,
-		},
-	}
-	Flow(data)
+	r := chi.NewRouter()
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("welcome"))
+	})
+	r.Get("/convert", getHandler)
+	http.ListenAndServe(":8080", r)
 }

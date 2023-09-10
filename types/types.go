@@ -11,9 +11,9 @@ type Input struct {
 }
 
 type Output struct {
-	Ingredient   string
-	OutputSystem string
-	OutputUnit   string
-	Type         string
-	Amount       float64
+	Ingredient   string  `json:"ingredient"`
+	OutputSystem string  `json:"system"`
+	OutputUnit   string  `json:"unit"`
+	Type         string  `json:"type"`
+	Amount       float64 `json:"amount"`
 }
