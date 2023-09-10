@@ -10,6 +10,9 @@ A basic Golang app to translate US recipe measurements into UK formats. Mainly a
 - Testing
   - ~~Add first test~~
   - Learn more / complete
-- Create server endpoint for potential frontend usage
-  - Return JSON
+- Create server endpoints for potential frontend usage
+  - ~~Initial GET requests~~
+  - ~~Return JSON~~
+  - Add standalone POST requests per input
+
 - Build frontend calculator?
