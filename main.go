@@ -9,6 +9,10 @@ import (
 	"github.com/omcmanus1/converter/data"
 )
 
+func home(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("welcome"))
+}
+
 func getHandler(w http.ResponseWriter, r *http.Request) {
 	result, err := json.MarshalIndent(Flow(data.Input), "", " ")
 	if err != nil {
@@ -19,9 +23,7 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
-	})
+	r.Get("/", home)
 	r.Get("/convert", getHandler)
 	http.ListenAndServe(":8080", r)
 }
