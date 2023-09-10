@@ -40,7 +40,7 @@ func Flow(inp []types.Input) []types.Output {
 			log.Fatal("Error: ", err)
 		}
 
-		structOutput := types.Output{Ingredient: entry.Ingredient, OutputSystem: entry.OutputSystem, OutputUnit: entry.OutputUnit, Type: entry.Type, Amount: result}
+		structOutput := types.Output{Ingredient: entry.Ingredient, OutputUnit: entry.OutputUnit, Amount: result}
 		arrOutput = append(arrOutput, structOutput)
 		formattedAnswer := fmt.Sprintf("%v %v ----> %v %v of %v\n", entry.Amount, entry.InputUnit, result, entry.OutputUnit, entry.Ingredient)
 		output = append(output, formattedAnswer)
