@@ -18,6 +18,7 @@ func main() {
 	r.Get("/api", Home)
 	r.Get("/api/get-encode", GetHandlerEncode)
 	r.Get("/api/get-marshal", GetHandlerMarshal)
+	r.Post("/api/convert", PostConversions)
 	fmt.Println("Listening on port " + port)
 	err := http.ListenAndServe(port, r)
 	if err != nil {
