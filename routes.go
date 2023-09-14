@@ -13,6 +13,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	result, err := json.MarshalIndent(Flow(data.Input), "", " ")
 	if err != nil {
 		log.Println("unable to encode JSON")
