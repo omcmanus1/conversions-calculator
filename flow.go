@@ -20,17 +20,17 @@ func Flow(inp []types.Input) []types.Output {
 			fmt.Println(errors.New("please supply a valid amount"))
 		}
 
-		if entry.Type == "volume" {
-			if entry.InputSystem == "US" {
+		if entry.InputSystem == "US" {
+			if entry.Type == "volume" {
 				result, err = VolumeUS(entry)
 			} else {
-				result, err = VolumeMetric(entry)
-			}
-		} else if entry.Type == "weight" {
-			if entry.InputSystem == "US" {
 				result, err = WeightUS(entry)
-			} else {
+			}
+		} else if entry.InputSystem == "metric" {
+			if entry.Type == "weight" {
 				result, err = WeightMetric(entry)
+			} else {
+				result, err = VolumeMetric(entry)
 			}
 		} else {
 			err = errors.New("invalid measurement type: " + entry.Type)
