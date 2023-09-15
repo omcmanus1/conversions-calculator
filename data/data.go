@@ -40,3 +40,13 @@ var Input = []types.Input{
 		Amount:       12,
 	},
 }
+
+var EmptyInput = types.Input{
+	Ingredient:   "",
+	InputSystem:  "",
+	InputUnit:    "",
+	OutputSystem: "",
+	OutputUnit:   "",
+	Type:         "",
+	Amount:       0.0,
+}

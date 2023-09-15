@@ -3,13 +3,17 @@ package main
 import (
 	"testing"
 
-	"github.com/omcmanus1/converter/types"
+	"github.com/omcmanus1/converter/data"
 )
 
 func TestVolumeMetricEmpty(t *testing.T) {
-	inp := types.Input{Ingredient: "", InputSystem: "", InputUnit: "", OutputSystem: "", OutputUnit: "", Type: "", Amount: 0.0}
-	msg, err := VolumeMetric(inp)
-	if msg != 0.0 || err == nil {
-		t.Fatalf(`VolumeMetric() = %v, %v, want 0.0, error`, msg, err)
+	inp := data.EmptyInput
+	got, err := VolumeMetric(inp)
+	want := 0.0
+	if got != want {
+		t.Errorf(`got %v want %v`, got, want)
+	}
+	if err == nil {
+		t.Errorf("got %v want nil", err)
 	}
 }
