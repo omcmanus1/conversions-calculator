@@ -11,6 +11,14 @@ func VolumeMetric(inp types.Input) (float64, error) {
 	var input float64
 	var output float64
 
+	if inp.Type != "volume" {
+		return 0.0, errors.New("invalid conversion type" + inp.Type)
+	}
+
+	if inp.InputSystem != "metric" {
+		return 0.0, errors.New("invalid input unit: " + inp.InputUnit)
+	}
+
 	if inp.InputUnit == "litres" {
 		input = float64(inp.Amount) * 1000
 	} else if inp.InputUnit == "millilitres" {

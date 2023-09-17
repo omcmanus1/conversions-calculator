@@ -31,12 +31,12 @@ var Input = []types.Input{
 		Amount:       12,
 	},
 	{
-		Ingredient:   "peas",
+		Ingredient:   "golden syrup",
 		InputSystem:  "metric",
-		InputUnit:    "kg",
+		InputUnit:    "millilitres",
 		OutputSystem: "US",
-		OutputUnit:   "lbs",
-		Type:         "weight",
+		OutputUnit:   "fluid oz",
+		Type:         "volume",
 		Amount:       12,
 	},
 }
@@ -49,4 +49,14 @@ var EmptyInput = types.Input{
 	OutputUnit:   "",
 	Type:         "",
 	Amount:       0.0,
+}
+
+var VMBadInput = types.Input{
+	Ingredient:   "haribos",
+	InputSystem:  "dollars",
+	InputUnit:    "litres",
+	OutputSystem: "US",
+	OutputUnit:   "fluid oz",
+	Type:         "weight",
+	Amount:       24,
 }
