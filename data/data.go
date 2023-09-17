@@ -57,6 +57,6 @@ var VMBadInput = types.Input{
 	InputUnit:    "litres",
 	OutputSystem: "US",
 	OutputUnit:   "fluid oz",
-	Type:         "weight",
+	Type:         "volume",
 	Amount:       24,
 }

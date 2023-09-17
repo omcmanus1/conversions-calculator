@@ -4,20 +4,22 @@ import (
 	"testing"
 
 	"github.com/omcmanus1/converter/data"
+	"github.com/stretchr/testify/assert"
 )
 
-func checkGotWant(t testing.TB, got, want interface{}) {
+func checkGotWant(t testing.TB, got, want float64) {
 	t.Helper()
 	if got != want {
 		t.Errorf(`got %v want %v`, got, want)
 	}
 }
 
-func checkError(t testing.TB, err interface{}) {
+func checkError(t testing.TB, err error, expectedErrMsg string) {
 	t.Helper()
 	if err == nil {
 		t.Errorf("got %v want nil", err)
 	}
+	assert.ErrorContains(t, err, expectedErrMsg)
 }
 
 func TestVMEmpty(t *testing.T) {
@@ -50,13 +52,13 @@ func TestVolumeMetric(t *testing.T) {
 		got, err := VolumeMetric(inp)
 		want := 0.0
 		checkGotWant(t, got, want)
-		checkError(t, err)
+		checkError(t, err, "please submit an ingredient name")
 	})
 	t.Run("invalid input system result in error", func(t *testing.T) {
 		inp := data.VMBadInput
 		got, err := VolumeMetric(inp)
 		want := 0.0
 		checkGotWant(t, got, want)
-		checkError(t, err)
+		checkError(t, err, "invalid input system")
 	})
 }

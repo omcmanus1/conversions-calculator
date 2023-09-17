@@ -11,12 +11,16 @@ func VolumeMetric(inp types.Input) (float64, error) {
 	var input float64
 	var output float64
 
+	if inp.Ingredient == "" {
+		return 0.0, errors.New("please submit an ingredient name")
+	}
+
 	if inp.Type != "volume" {
 		return 0.0, errors.New("invalid conversion type" + inp.Type)
 	}
 
 	if inp.InputSystem != "metric" {
-		return 0.0, errors.New("invalid input unit: " + inp.InputUnit)
+		return 0.0, errors.New("invalid input system: " + inp.InputSystem)
 	}
 
 	if inp.InputUnit == "litres" {
