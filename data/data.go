@@ -41,6 +41,18 @@ var Input = []types.Input{
 	},
 }
 
+var SingleInput = []types.Input{
+	{
+		Ingredient:   "chickpeas",
+		InputSystem:  "US",
+		InputUnit:    "oz",
+		OutputSystem: "metric",
+		OutputUnit:   "grams",
+		Type:         "weight",
+		Amount:       15.0,
+	},
+}
+
 var EmptyInput = types.Input{
 	Ingredient:   "",
 	InputSystem:  "",

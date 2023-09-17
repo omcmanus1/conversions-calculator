@@ -24,7 +24,7 @@ func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	EncodeJSON(w, r, data.Input, Flow)
+	EncodeJSON(w, r, data.SingleInput, Flow)
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
