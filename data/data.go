@@ -43,13 +43,13 @@ var Input = []types.Input{
 
 var SingleInput = []types.Input{
 	{
-		Ingredient:   "chickpeas",
+		Ingredient:   "tomatoes",
 		InputSystem:  "US",
-		InputUnit:    "oz",
+		InputUnit:    "cups",
 		OutputSystem: "metric",
 		OutputUnit:   "grams",
 		Type:         "weight",
-		Amount:       15.0,
+		Amount:       1.5,
 	},
 }
 

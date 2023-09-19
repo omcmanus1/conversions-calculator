@@ -16,11 +16,19 @@ func Home(w http.ResponseWriter, r *http.Request) {
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	result, err := json.MarshalIndent(Flow(data.Input), "", " ")
+	result, err := Flow(data.Input)
 	if err != nil {
-		log.Println("unable to encode JSON")
+		log.Printf("Conversion error (Flow func): %v", err)
+		http.Error(w, "Conversion error (Flow func)", http.StatusBadRequest)
+		return
 	}
-	w.Write([]byte(result))
+	jsonResult, err := json.MarshalIndent(result, "", " ")
+	if err != nil {
+		log.Printf("Unable to encode JSON: %v", err)
+		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonResult)
 }
 
 func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
@@ -31,13 +39,48 @@ func PostConversions(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var input []types.Input
-	
+
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-		log.Println("unable to decode JSON")
+		log.Printf("Unable to decode JSON: %v", err)
+		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
+		return
 	}
-	result, err := json.MarshalIndent(Flow(input), "", "  ")
+	result, err := Flow(input)
 	if err != nil {
-		log.Println("unable to encode JSON")
+		log.Printf("Conversion error: %v", err)
+		http.Error(w, "Conversion error", http.StatusInternalServerError)
+		return
 	}
-	w.Write([]byte(result))
+	jsonResult, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		log.Printf("Unable to encode JSON: %v", err)
+		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonResult)
+}
+
+func PostWeightUS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	var input types.Input
+
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		log.Printf("Unable to decode JSON: %v", err)
+		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
+		return
+	}
+	result, err := WeightUS(input)
+	if err != nil {
+		log.Printf("Conversion error: %v", err)
+		http.Error(w, "Conversion error", http.StatusInternalServerError)
+		return
+	}
+	jsonResult, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		log.Printf("Unable to encode JSON: %v", err)
+		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonResult)
 }

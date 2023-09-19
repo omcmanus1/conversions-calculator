@@ -126,6 +126,8 @@ func WeightUS(inp types.Input) (float64, error) {
 	} else if inp.OutputUnit == "kg" {
 		output = output / 1000
 		output = float64(int(output*10)) / 10
+	} else {
+		return 0.0, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	return output, nil

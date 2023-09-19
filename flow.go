@@ -8,32 +8,36 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func Flow(inp []types.Input) []types.Output {
+func Flow(inp []types.Input) ([]types.Output, error) {
 	var output []string
 	var arrOutput []types.Output
+	var err error
 
 	for _, entry := range inp {
 		var result float64
-		var err error
 
 		if entry.Amount <= 0 {
-			fmt.Println(errors.New("please supply a valid amount"))
+			return nil, errors.New("please supply a valid amount")
 		}
 
 		if entry.InputSystem == "US" {
 			if entry.Type == "volume" {
 				result, err = VolumeUS(entry)
-			} else {
+			} else if entry.Type == "weight" {
 				result, err = WeightUS(entry)
+			} else {
+				return nil, errors.New("invalid measurement type: " + entry.Type)
 			}
 		} else if entry.InputSystem == "metric" {
 			if entry.Type == "weight" {
 				result, err = WeightMetric(entry)
-			} else {
+			} else if entry.Type == "volume" {
 				result, err = VolumeMetric(entry)
+			} else {
+				return nil, errors.New("invalid measurement type: " + entry.Type)
 			}
 		} else {
-			err = errors.New("invalid measurement type: " + entry.Type)
+			return nil, errors.New("invalid system: " + entry.InputSystem)
 		}
 
 		if err != nil {
@@ -47,5 +51,5 @@ func Flow(inp []types.Input) []types.Output {
 
 	}
 	fmt.Println(output)
-	return arrOutput
+	return arrOutput, err
 }
