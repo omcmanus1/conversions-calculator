@@ -14,5 +14,10 @@ A basic Golang app to translate US recipe measurements into UK formats. Mainly a
   - ~~Initial GET requests~~
   - ~~Return JSON~~
   - Add standalone POST requests per input
+  - Implement JSON response for each request
+  - Check error handling
+- Refactor
+  - Abstract JSON logic from routes into util functions
+  - Create controllers for each endpoint (input / output validation checks)
 
 - Build frontend calculator?
