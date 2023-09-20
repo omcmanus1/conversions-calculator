@@ -18,6 +18,6 @@ A basic Golang app to translate US recipe measurements into UK formats. Mainly a
   - ~~Abstract JSON logic from routes into util functions~~
   - Create controllers for each endpoint (input / output validation checks)
 - Simplify Logic
-- Automatically return most appropriate units based on amount (e.g. 1.5l vs 1500ml) if no OutputUnit is provided?
+  - Automatically return most appropriate units based on amount (e.g. 1.5l vs 1500ml) if no OutputUnit is provided?
 
 - Build frontend calculator?
