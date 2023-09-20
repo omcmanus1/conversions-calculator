@@ -9,6 +9,10 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
+// type FuncInput interface {
+// 	types.Input | []types.Input
+// }
+
 func EncodeJSON(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
@@ -34,10 +38,10 @@ func EncodeJSON(w http.ResponseWriter, r *http.Request, data []types.Input, inpu
 	w.Write(prettyJSON.Bytes())
 }
 
-func PostSingleConversion(w http.ResponseWriter, r *http.Request, inputFn func(data types.Input) (types.Output, error)) {
+func HandlePostRequest[I types.Input | []types.Input, O types.Output | []types.Output](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var input types.Input
+	var input I
 
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		log.Printf("Unable to decode JSON: %v", err)

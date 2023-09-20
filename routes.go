@@ -9,6 +9,9 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
+type MyInput types.Input
+type MyOutput types.Output
+
 func Home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello, welcome to the recipe converter..."))
 }
@@ -36,42 +39,21 @@ func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	var input []types.Input
-
-	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-		log.Printf("Unable to decode JSON: %v", err)
-		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
-		return
-	}
-	result, err := Flow(input)
-	if err != nil {
-		log.Printf("Conversion error: %v", err)
-		http.Error(w, "Conversion error", http.StatusInternalServerError)
-		return
-	}
-	jsonResult, err := json.MarshalIndent(result, "", "  ")
-	if err != nil {
-		log.Printf("Unable to encode JSON: %v", err)
-		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
-		return
-	}
-	w.Write(jsonResult)
+	HandlePostRequest(w, r, Flow)
 }
 
 func PostWeightUS(w http.ResponseWriter, r *http.Request) {
-	PostSingleConversion(w, r, WeightUS)
+	HandlePostRequest(w, r, WeightUS)
 }
 
 func PostVolumeUS(w http.ResponseWriter, r *http.Request) {
-	PostSingleConversion(w, r, VolumeUS)
+	HandlePostRequest(w, r, VolumeUS)
 }
 
 func PostWeightMetric(w http.ResponseWriter, r *http.Request) {
-	PostSingleConversion(w, r, WeightMetric)
+	HandlePostRequest(w, r, WeightMetric)
 }
 
 func PostVolumeMetric(w http.ResponseWriter, r *http.Request) {
-	PostSingleConversion(w, r, VolumeMetric)
+	HandlePostRequest(w, r, VolumeMetric)
 }
