@@ -14,7 +14,7 @@ func Flow(inp []types.Input) ([]types.Output, error) {
 	var err error
 
 	for _, entry := range inp {
-		var result float64
+		var result types.Output
 
 		if entry.Amount <= 0 {
 			return nil, errors.New("please supply a valid amount")
@@ -44,9 +44,9 @@ func Flow(inp []types.Input) ([]types.Output, error) {
 			log.Fatal("Error: ", err)
 		}
 
-		structOutput := types.Output{Ingredient: entry.Ingredient, OutputUnit: entry.OutputUnit, Amount: result}
+		structOutput := result
 		arrOutput = append(arrOutput, structOutput)
-		formattedAnswer := fmt.Sprintf("%v %v ----> %v %v of %v\n", entry.Amount, entry.InputUnit, result, entry.OutputUnit, entry.Ingredient)
+		formattedAnswer := fmt.Sprintf("%v %v ----> %v %v of %v\n", entry.Amount, entry.InputUnit, result.Amount, result.OutputUnit, entry.Ingredient)
 		output = append(output, formattedAnswer)
 
 	}
