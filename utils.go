@@ -9,11 +9,25 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-// type FuncInput interface {
-// 	types.Input | []types.Input
-// }
+func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
+	w.Header().Set("Content-Type", "application/json")
 
-func EncodeJSON(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
+	result, err := inputFn(data)
+	if err != nil {
+		log.Printf("Conversion error (Flow func): %v", err)
+		http.Error(w, "Conversion error (Flow func)", http.StatusBadRequest)
+		return
+	}
+	jsonResult, err := json.MarshalIndent(result, "", " ")
+	if err != nil {
+		log.Printf("Unable to encode JSON: %v", err)
+		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonResult)
+}
+
+func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
 	result, err := inputFn(data)

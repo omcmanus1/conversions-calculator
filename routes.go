@@ -1,41 +1,40 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
 	"net/http"
+	"time"
 
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
 	"github.com/omcmanus1/converter/data"
-	"github.com/omcmanus1/converter/types"
 )
 
-type MyInput types.Input
-type MyOutput types.Output
+func SetupRoutes() *chi.Mux {
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Use(middleware.Timeout(60 * time.Second))
+	r.Get("/api", Home)
+	r.Get("/api/convert/get-encode", GetHandlerEncode)
+	r.Get("/api/convert/get-marshal", GetHandlerMarshal)
+	r.Post("/api/convert/list", PostConversions)
+	r.Post("/api/convert/weight-us", PostWeightUS)
+	r.Post("/api/convert/volume-us", PostVolumeUS)
+	r.Post("/api/convert/weight-metric", PostWeightMetric)
+	r.Post("/api/convert/volume-metric", PostVolumeMetric)
+
+	return r
+}
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello, welcome to the recipe converter..."))
 }
 
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	result, err := Flow(data.Input)
-	if err != nil {
-		log.Printf("Conversion error (Flow func): %v", err)
-		http.Error(w, "Conversion error (Flow func)", http.StatusBadRequest)
-		return
-	}
-	jsonResult, err := json.MarshalIndent(result, "", " ")
-	if err != nil {
-		log.Printf("Unable to encode JSON: %v", err)
-		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
-		return
-	}
-	w.Write(jsonResult)
+	HandleGetRequestMarshal(w, r, data.Input, Flow)
 }
 
 func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	EncodeJSON(w, r, data.SingleInput, Flow)
+	HandleGetRequestEncode(w, r, data.SingleInput, Flow)
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
