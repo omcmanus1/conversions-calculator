@@ -61,26 +61,17 @@ func PostConversions(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostWeightUS(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	PostSingleConversion(w, r, WeightUS)
+}
 
-	var input types.Input
+func PostVolumeUS(w http.ResponseWriter, r *http.Request) {
+	PostSingleConversion(w, r, VolumeUS)
+}
 
-	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-		log.Printf("Unable to decode JSON: %v", err)
-		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
-		return
-	}
-	result, err := WeightUS(input)
-	if err != nil {
-		log.Printf("Conversion error: %v", err)
-		http.Error(w, "Conversion error", http.StatusInternalServerError)
-		return
-	}
-	jsonResult, err := json.MarshalIndent(result, "", "  ")
-	if err != nil {
-		log.Printf("Unable to encode JSON: %v", err)
-		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
-		return
-	}
-	w.Write(jsonResult)
+func PostWeightMetric(w http.ResponseWriter, r *http.Request) {
+	PostSingleConversion(w, r, WeightMetric)
+}
+
+func PostVolumeMetric(w http.ResponseWriter, r *http.Request) {
+	PostSingleConversion(w, r, VolumeMetric)
 }

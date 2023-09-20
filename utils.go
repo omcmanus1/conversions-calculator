@@ -33,3 +33,28 @@ func EncodeJSON(w http.ResponseWriter, r *http.Request, data []types.Input, inpu
 	// Write the indented JSON data to the response writer
 	w.Write(prettyJSON.Bytes())
 }
+
+func PostSingleConversion(w http.ResponseWriter, r *http.Request, inputFn func(data types.Input) (types.Output, error)) {
+	w.Header().Set("Content-Type", "application/json")
+
+	var input types.Input
+
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		log.Printf("Unable to decode JSON: %v", err)
+		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
+		return
+	}
+	result, err := inputFn(input)
+	if err != nil {
+		log.Printf("Conversion error: %v", err)
+		http.Error(w, "Conversion error", http.StatusInternalServerError)
+		return
+	}
+	jsonResult, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		log.Printf("Unable to encode JSON: %v", err)
+		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonResult)
+}
