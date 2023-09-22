@@ -7,7 +7,7 @@ build: clean
 	@GOARCH=amd64 GOOS=windows go build -o bin/${BINARY_NAME}/windows
 
 run: build
-	@./bin/build
+	@./bin/${BINARY_NAME}/darwin
 
 clean:
 	@rm -rf ./bin/build
