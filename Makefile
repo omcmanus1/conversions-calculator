@@ -11,7 +11,6 @@ run: build
 
 clean:
 	@rm -rf ./bin/build
-	@rm coverage.out
 
 test: 
 	go test -v ./... -count=1
