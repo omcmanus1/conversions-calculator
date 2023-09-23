@@ -9,6 +9,12 @@ build: clean
 run: build
 	@./bin/${BINARY_NAME}/darwin
 
+run_linux: build
+	@./bin/${BINARY_NAME}/linux
+
+run_windows: build
+	@./bin/${BINARY_NAME}/windows
+
 clean:
 	@rm -rf ./bin/build
 
