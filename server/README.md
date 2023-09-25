@@ -1,9 +1,7 @@
-# Recipe Measurements Converter - Go Backend
-
-A basic Golang app to translate US recipe measurements into UK formats. Mainly aiming to get used to Golang syntax & concepts
+# Go Backend
+A basic Go server with endpoints to translate US recipe measurements into UK formats. 
 
 ## TODO
-
 - ~~Update Flow function to accept array of Setup structs for full ingredient list~~
 - Testing
   - ~~Add first test~~

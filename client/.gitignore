@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+template_README.md
 
 # debug
 npm-debug.log*
