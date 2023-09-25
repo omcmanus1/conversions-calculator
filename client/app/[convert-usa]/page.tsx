@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <Button variant="outline" asChild>
-      <Link href="/convert-usa">Don't Click Me</Link>
+      <Link href="/">Why Did You Do That?</Link>
     </Button>
   );
 }
