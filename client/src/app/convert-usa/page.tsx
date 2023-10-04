@@ -1,12 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function Page() {
-  return (
-    <Button variant="outline" asChild>
-      <Link href="/">Why Did You Do That?</Link>
-    </Button>
-  );
+  return <Button variant="outline">Convert From Freedom Units</Button>;
 }

@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const navigationTabs = [
-    { title: "Home", path: "/home" },
+    // { title: "Home", path: "/home" },
     { title: "Convert US To Metric", path: "/convert-usa" },
     { title: "Convert Metric To US", path: "/convert-metric" },
   ];
