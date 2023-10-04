@@ -33,12 +33,13 @@ export default function Navigation({
           const isSelected = pathname.includes(tab.path);
           return (
             <NavigationMenuItem key={`${tab.path}_key`}>
-              <Button variant="outline" className="mr-2" asChild>
+              <Button className="mr-2" asChild>
                 <Link href={tab.path} legacyBehavior passHref>
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      isSelected && "underline"
+                      isSelected && "underline",
+                      "border border-blue-300"
                     )}
                   >
                     {tab.title}
