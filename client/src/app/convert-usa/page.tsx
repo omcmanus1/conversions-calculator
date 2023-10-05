@@ -16,11 +16,12 @@ export default function Page() {
     type: "",
     amount: 0,
   });
-  console.log("🚀 ~ file: page.tsx:19 ~ Page ~ input:", input);
   const volumeInputs = ["cups", "gallons", "quarts", "pints", "fluid oz"];
   const weightInputs = ["cups", "lbs", "oz"];
   const volumeOutputs = ["millilitres", "litres"];
   const weightOutputs = ["grams", "kg"];
+
+  console.log("🚀 ~ file: page.tsx:19 ~ Page ~ input:", input);
 
   const handleInput = <K extends keyof singleInput>(
     property: K,
@@ -40,14 +41,14 @@ export default function Page() {
         placeholder="Ingredient"
         onChange={(e) => handleInput("ingredient", e.target.value)}
       />
-      {input.ingredient && (
+      {!!input.ingredient && (
         <SelectSh
           handleChange={(e) => handleInput("type", e)}
           placeholder="Type"
           selectContent={["weight", "volume"]}
         />
       )}
-      {input.type && (
+      {!!input.type && (
         <SelectSh
           handleChange={(e) => handleInput("inputUnit", e)}
           placeholder="Input Unit"
@@ -60,7 +61,15 @@ export default function Page() {
           }
         />
       )}
-      {input.inputUnit && (
+      {!!input.inputUnit && (
+        <Input
+          className="mb-1"
+          type="number"
+          placeholder="Amount"
+          onChange={(e) => handleInput("amount", Number(e.target.value))}
+        />
+      )}
+      {!!input.amount && (
         <SelectSh
           handleChange={(e) => handleInput("outputUnit", e)}
           placeholder="Output Unit"
@@ -73,9 +82,10 @@ export default function Page() {
           }
         />
       )}
-      <Button className="mt-3" disabled variant="outline">
+      <Button className="mt-3 mb-3" disabled variant="outline">
         Convert From Freedom Units
       </Button>
+      <Input disabled />
     </>
   );
 }
