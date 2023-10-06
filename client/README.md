@@ -8,3 +8,16 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 - [Tailwind CSS](https://tailwindcss.com/docs/guides/nextjs)
 - Components: [ShadCN](https://ui.shadcn.com/docs)
 - Icons: [Hero Icons](https://heroicons.com/)
+
+## TODO
+- Page Structure
+  - Add Top Level routes (recipe converter, measurements, etc.)
+  - New Pages
+    - Heights/weights
+- Refactor
+  - Reusable component for single conversion
+- API
+  - Single axios request
+  - Set up API endpoints
+    - Route Handler?
+    - React Query?

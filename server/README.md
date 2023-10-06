@@ -11,15 +11,14 @@ A basic Go server with endpoints to translate US recipe measurements into UK for
   - ~~Return JSON~~
   - ~~Add standalone POST requests per input~~
   - ~~Implement JSON response for each request~~
+  - Add CORS (if necessary)?
   - Check error handling
+- Write basic endpoint docs
 - Refactor
   - ~~Abstract JSON logic from routes into util functions~~
+  - Refactor if chain to use maps for calculation reference
   - Create controllers for each endpoint (input / output validation checks)
 - Simplify Logic
   - Automatically return most appropriate units based on amount (e.g. 1.5l vs 1500ml) if no OutputUnit is provided?
 - New Features
   - Add list of recipe links with example calcs
-- New Pages
-  - Heights/weights
-
-
