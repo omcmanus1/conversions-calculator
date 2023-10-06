@@ -4,6 +4,12 @@ import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import SelectSh from "@/components/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { singleInput, singleOutput } from "@/types/conversionTypes";
 import { useState } from "react";
 import { getRequest, postRequest } from "../api/fetchRequests";
@@ -20,7 +26,7 @@ export default function Page() {
   });
   const [output, setOutput] = useState<singleOutput>({
     ingredient: "",
-    outputUnit: "",
+    unit: "",
     amount: 0,
   });
   const inputComplete = Object.values(input).every((item) => !!item);
@@ -112,7 +118,16 @@ export default function Page() {
         <ChevronDoubleRight className="w-5" />
         Metric
       </Button>
-      {!!output?.amount && <Input disabled value={output?.amount} />}
+      {!!output?.amount && (
+        <Card>
+          <CardHeader>
+            <CardTitle>{output?.ingredient}</CardTitle>
+            <CardDescription>
+              {`${output?.amount} ${output?.unit}`}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      )}
     </div>
   );
 }

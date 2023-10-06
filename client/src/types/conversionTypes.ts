@@ -10,6 +10,6 @@ export type singleInput = {
 
 export type singleOutput = {
   ingredient: string;
-  outputUnit: string;
+  unit: string;
   amount: number;
 };
