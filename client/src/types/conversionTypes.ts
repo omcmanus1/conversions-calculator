@@ -7,3 +7,9 @@ export type singleInput = {
   type: string;
   amount: number;
 };
+
+export type singleOutput = {
+  ingredient: string;
+  outputUnit: string;
+  amount: number;
+};
