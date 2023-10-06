@@ -61,7 +61,7 @@ export default function Page() {
 
   const convertWeightUS = async () => {
     const data = await postRequest(
-      "http://localhost:8080/api/convert/volume-us",
+      "http://localhost:8080/api/convert/weight-us",
       input
     );
     setOutput(data);
