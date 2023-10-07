@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/card";
 import { singleInput, singleOutput } from "@/types/conversionTypes";
 import { useState } from "react";
-import { getRequest, postRequest } from "../../api/fetchRequests";
+import { postRequest } from "../../api/fetchRequests";
 
-export default function Page() {
+export default function Page(): JSX.Element {
   const [input, setInput] = useState<singleInput>({
     ingredient: "",
     inputSystem: "usa",
@@ -46,24 +46,11 @@ export default function Page() {
     });
   };
 
-  const getSampleData = async () => {
-    const data = await getRequest();
-    setOutput(data);
-  };
-
-  const convertVolumeUS = async () => {
-    const data = await postRequest(
-      "http://localhost:8080/api/convert/volume-us",
-      input
-    );
-    setOutput(data);
-  };
-
-  const convertWeightUS = async () => {
-    const data = await postRequest(
-      "http://localhost:8080/api/convert/weight-us",
-      input
-    );
+  const handleConversion = async () => {
+    let data = { ingredient: "", unit: "", amount: 0 };
+    input.type === "volume"
+      ? (data = await postRequest("volume-us", input))
+      : (data = await postRequest("weight-us", input));
     setOutput(data);
   };
 
@@ -112,7 +99,7 @@ export default function Page() {
         className={`mt-3 mb-3 ${inputComplete && "hover:bg-lime-100"}`}
         disabled={!inputComplete}
         variant="outline"
-        onClick={input.type === "volume" ? convertVolumeUS : convertWeightUS}
+        onClick={handleConversion}
       >
         Freedom
         <ChevronDoubleRight className="w-5" />
