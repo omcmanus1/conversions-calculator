@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { singleInput, singleOutput } from "@/types/conversionTypes";
 import { useState } from "react";
-import { postRequest } from "../../api/fetchRequests";
+import { postRequest } from "../../../api/fetchRequests";
 
 export default function Page(): JSX.Element {
   const [input, setInput] = useState<singleInput>({
