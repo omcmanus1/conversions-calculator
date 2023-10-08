@@ -9,30 +9,43 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { singleInput, singleOutput } from "@/types/conversionTypes";
-import React from "react";
+import React, { useState } from "react";
 import { postRequest } from "@/api/fetchRequests";
+import { usePathname } from "next/navigation";
 
 export default function SingleConversion({
-  input,
-  setInput,
-  output,
-  setOutput,
   weightInputs,
   volumeInputs,
   weightOutputs,
   volumeOutputs,
   list = false,
 }: {
-  input: singleInput;
-  setInput: React.Dispatch<React.SetStateAction<singleInput>>;
-  output: singleOutput;
-  setOutput: React.Dispatch<React.SetStateAction<singleOutput>>;
   weightInputs: Array<string>;
   volumeInputs: Array<string>;
   weightOutputs: Array<string>;
   volumeOutputs: Array<string>;
   list?: boolean;
 }) {
+  const pathname = usePathname();
+  const subPath = !!pathname.match(/\/recipes\/(.+)/)
+    ? pathname.match(/\/recipes\/(.+)/)![1]
+    : null;
+
+  const [input, setInput] = useState<singleInput>({
+    ingredient: "",
+    inputSystem: subPath === "convert-usa" ? "usa" : "metric",
+    inputUnit: "",
+    outputSystem: subPath === "convert-usa" ? "metric" : "usa",
+    outputUnit: "",
+    type: "",
+    amount: 0,
+  });
+  const [output, setOutput] = useState<singleOutput>({
+    ingredient: "",
+    unit: "",
+    amount: 0,
+  });
+
   const inputComplete = Object.values(input).every((item) => !!item);
 
   const handleInput = <K extends keyof singleInput>(
@@ -100,9 +113,9 @@ export default function SingleConversion({
         variant="outline"
         onClick={handleConversion}
       >
-        Freedom
+        {input.inputSystem === "usa" ? "Freedom" : "Metric"}
         <ChevronDoubleRight className="w-5" />
-        Metric
+        {input.inputSystem === "usa" ? "Metric" : "Freedom"}
       </Button>
       {!!output?.amount && (
         <Card>
