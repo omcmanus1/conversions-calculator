@@ -60,9 +60,16 @@ export default function SingleConversion({
 
   const handleConversion = async () => {
     let data = { ingredient: "", unit: "", amount: 0 };
-    input.type === "volume"
-      ? (data = await postRequest("volume-us", input))
-      : (data = await postRequest("weight-us", input));
+    switch (input.inputSystem) {
+      case "usa":
+        input.type === "volume"
+          ? (data = await postRequest("volume-us", input))
+          : (data = await postRequest("weight-us", input));
+      case "metric":
+        input.type === "volume"
+          ? (data = await postRequest("volume-metric", input))
+          : (data = await postRequest("weight-metric", input));
+    }
     setOutput(data);
   };
 
