@@ -65,10 +65,12 @@ export default function SingleConversion({
         input.type === "volume"
           ? (data = await postRequest("volume-us", input))
           : (data = await postRequest("weight-us", input));
+        break;
       case "metric":
         input.type === "volume"
           ? (data = await postRequest("volume-metric", input))
           : (data = await postRequest("weight-metric", input));
+        break;
     }
     setOutput(data);
   };
@@ -82,11 +84,13 @@ export default function SingleConversion({
         onChange={(e) => handleInput("ingredient", e.target.value)}
       />
       <SelectSh
+        disabled={!input.ingredient}
         handleChange={(e) => handleInput("type", e)}
         placeholder="Type"
         selectContent={["weight", "volume"]}
       />
       <SelectSh
+        disabled={!input.type}
         handleChange={(e) => handleInput("inputUnit", e)}
         placeholder="Input Unit"
         selectContent={
@@ -99,11 +103,13 @@ export default function SingleConversion({
       />
       <Input
         className="mb-1"
+        disabled={!input.inputUnit}
         type="number"
         placeholder="Amount"
         onChange={(e) => handleInput("amount", Number(e.target.value))}
       />
       <SelectSh
+        disabled={!input.amount}
         handleChange={(e) => handleInput("outputUnit", e)}
         placeholder="Output Unit"
         selectContent={
