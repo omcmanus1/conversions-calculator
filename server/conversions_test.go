@@ -3,63 +3,100 @@ package main
 import (
 	"testing"
 
-	"github.com/omcmanus1/converter/data"
 	"github.com/omcmanus1/converter/types"
-	"github.com/stretchr/testify/assert"
 )
 
-func checkGotWant(t testing.TB, got, want types.Output) {
-	t.Helper()
-	if got != want {
-		t.Errorf(`got %v want %v`, got, want)
-	}
-}
-
-func checkError(t testing.TB, err error, expectedErrMsg string) {
-	t.Helper()
-	if err == nil {
-		t.Errorf("got %v want nil", err)
-	}
-	assert.ErrorContains(t, err, expectedErrMsg)
-}
-
-func TestVMEmpty(t *testing.T) {
-	inp := data.EmptyInput
-	got, err := VolumeMetric(inp)
-	want := types.Output{}
-	if got != want {
-		t.Errorf(`got %v want %v`, got, want)
-	}
-	if err == nil {
-		t.Errorf("got %v want nil", err)
-	}
-}
-
-func TestVMBadInput(t *testing.T) {
-	badInp := data.VMBadInput
-	got, err := VolumeMetric(badInp)
-	want := types.Output{}
-	if got != want {
-		t.Errorf(`got %v want %v`, got, want)
-	}
-	if err == nil {
-		t.Errorf("got %v want nil", err)
-	}
-}
-
 func TestVolumeMetric(t *testing.T) {
-	t.Run("empty inputs result in error", func(t *testing.T) {
-		inp := data.EmptyInput
+	t.Run("empty inputs results in error", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:   "",
+			InputSystem:  "",
+			InputUnit:    "",
+			OutputSystem: "",
+			OutputUnit:   "",
+			Type:         "",
+			Amount:       0.0,
+		}
 		got, err := VolumeMetric(inp)
 		want := types.Output{}
-		checkGotWant(t, got, want)
-		checkError(t, err, "please submit an ingredient name")
+		CheckGotWant(t, got, want)
+		CheckError(t, err, "please submit an ingredient name")
 	})
-	t.Run("invalid input system result in error", func(t *testing.T) {
-		inp := data.VMBadInput
+	t.Run("invalid input system results in error", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:   "haribos",
+			InputSystem:  "dollars",
+			InputUnit:    "litres",
+			OutputSystem: "US",
+			OutputUnit:   "fluid oz",
+			Type:         "volume",
+			Amount:       24,
+		}
 		got, err := VolumeMetric(inp)
 		want := types.Output{}
-		checkGotWant(t, got, want)
-		checkError(t, err, "invalid input system")
+		CheckGotWant(t, got, want)
+		CheckError(t, err, "invalid input system")
+	})
+	t.Run("invalid ingredient results in error", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:  "",
+			Type:        "volume",
+			InputSystem: "metric",
+			InputUnit:   "millilitres",
+			OutputUnit:  "fluid oz",
+			Amount:      344,
+		}
+		got, err := VolumeMetric(inp)
+		want := types.Output{}
+		CheckGotWant(t, got, want)
+		CheckError(t, err, "please submit an ingredient name")
+	})
+	t.Run("invalid conversion type results in error", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:  "sugar",
+			Type:        "weight",
+			InputSystem: "metric",
+			InputUnit:   "millilitres",
+			OutputUnit:  "fluid oz",
+			Amount:      1000,
+		}
+		got, err := VolumeMetric(inp)
+		want := types.Output{}
+		CheckGotWant(t, got, want)
+		CheckError(t, err, "invalid conversion type")
+	})
+	t.Run("valid millilitres to fluid oz conversion", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:  "water",
+			Type:        "volume",
+			InputSystem: "metric",
+			InputUnit:   "millilitres",
+			OutputUnit:  "fluid oz",
+			Amount:      1000,
+		}
+		got := types.Output{
+			Ingredient: "water",
+			OutputUnit: "fluid oz",
+			Amount:     33.8,
+		}
+		result, _ := VolumeMetric(inp)
+		CheckGotWant(t, result, got)
+	})
+	t.Run("valid litres to cups conversion", func(t *testing.T) {
+		inp := types.Input{
+			Ingredient:  "milk",
+			Type:        "volume",
+			InputSystem: "metric",
+			InputUnit:   "litres",
+			OutputUnit:  "cups",
+			Amount:      2,
+		}
+		got := types.Output{
+			Ingredient: "milk",
+			OutputUnit: "cups",
+			Amount:     8.4,
+		}
+		result, _ := VolumeMetric(inp)
+		CheckGotWant(t, result, got)
 	})
 }

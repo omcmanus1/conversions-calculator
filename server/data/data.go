@@ -52,23 +52,3 @@ var SingleInput = []types.Input{
 		Amount:       1.5,
 	},
 }
-
-var EmptyInput = types.Input{
-	Ingredient:   "",
-	InputSystem:  "",
-	InputUnit:    "",
-	OutputSystem: "",
-	OutputUnit:   "",
-	Type:         "",
-	Amount:       0.0,
-}
-
-var VMBadInput = types.Input{
-	Ingredient:   "haribos",
-	InputSystem:  "dollars",
-	InputUnit:    "litres",
-	OutputSystem: "US",
-	OutputUnit:   "fluid oz",
-	Type:         "volume",
-	Amount:       24,
-}
