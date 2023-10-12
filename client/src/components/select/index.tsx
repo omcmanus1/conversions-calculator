@@ -10,17 +10,19 @@ type selectType = {
   handleChange?: (inp: string, val?: string) => void;
   placeholder: string;
   selectContent: Array<string>;
+  disabled?: boolean;
 };
 
 export default function SelectSh({
   handleChange,
   placeholder,
   selectContent,
+  disabled = false,
 }: selectType) {
   return (
     <div className="mb-1">
       <Select onValueChange={handleChange}>
-        <SelectTrigger>
+        <SelectTrigger disabled={disabled}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
