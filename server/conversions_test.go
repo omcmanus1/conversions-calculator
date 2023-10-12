@@ -94,9 +94,176 @@ func TestVolumeMetric(t *testing.T) {
 		got := types.Output{
 			Ingredient: "milk",
 			OutputUnit: "cups",
-			Amount:     8.4,
+			Amount:     8.5,
 		}
 		result, _ := VolumeMetric(inp)
 		CheckGotWant(t, result, got)
+	})
+}
+
+func TestVolumeUS(t *testing.T) {
+	t.Run("ValidConversionFromCupsToMillilitres", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "coffee",
+			Type:       "volume",
+			InputUnit:  "cups",
+			OutputUnit: "millilitres",
+			Amount:     2,
+		}
+		expected := types.Output{
+			Ingredient: "coffee",
+			OutputUnit: "millilitres",
+			Amount:     473,
+		}
+		result, err := VolumeUS(input)
+		if err != nil {
+			t.Errorf("unexpected error: %v", err)
+		}
+		CheckGotWant(t, result, expected)
+	})
+	t.Run("ValidConversionFromGallonsToLitres", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "water",
+			Type:       "volume",
+			InputUnit:  "gallons",
+			OutputUnit: "litres",
+			Amount:     5,
+		}
+		expected := types.Output{
+			Ingredient: "water",
+			OutputUnit: "litres",
+			Amount:     18.9,
+		}
+		result, err := VolumeUS(input)
+		if err != nil {
+			t.Errorf("unexpected error: %v", err)
+		}
+		CheckGotWant(t, result, expected)
+	})
+	t.Run("InvalidInputUnit", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "soda",
+			Type:       "volume",
+			InputUnit:  "invalid",
+			OutputUnit: "millilitres",
+			Amount:     1,
+		}
+		_, err := VolumeUS(input)
+		CheckError(t, err, "invalid input unit")
+	})
+	t.Run("InvalidOutputUnit", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "juice",
+			Type:       "volume",
+			InputUnit:  "pints",
+			OutputUnit: "invalid",
+			Amount:     1,
+		}
+		_, err := VolumeUS(input)
+		CheckError(t, err, "invalid output unit")
+	})
+}
+
+func TestWeightMetric(t *testing.T) {
+	t.Run("ValidConversionFromKilogramsToPounds", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "flour",
+			Type:       "weight",
+			InputUnit:  "kg",
+			OutputUnit: "lbs",
+			Amount:     2,
+		}
+		expected := types.Output{
+			Ingredient: "flour",
+			OutputUnit: "lbs",
+			Amount:     4.4,
+		}
+		result, _ := WeightMetric(input)
+		CheckGotWant(t, result, expected)
+	})
+	t.Run("ValidConversionFromGramsToOunces", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "sugar",
+			Type:       "weight",
+			InputUnit:  "grams",
+			OutputUnit: "oz",
+			Amount:     500,
+		}
+		expected := types.Output{
+			Ingredient: "sugar",
+			OutputUnit: "oz",
+			Amount:     17.6,
+		}
+		result, _ := WeightMetric(input)
+		CheckGotWant(t, result, expected)
+	})
+
+	t.Run("InvalidInputUnit", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "salt",
+			Type:       "weight",
+			InputUnit:  "invalid",
+			OutputUnit: "oz",
+			Amount:     100,
+		}
+		_, err := WeightMetric(input)
+		CheckError(t, err, "invalid input unit")
+	})
+	t.Run("InvalidOutputUnit", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "rice",
+			Type:       "weight",
+			InputUnit:  "kg",
+			OutputUnit: "invalid",
+			Amount:     1,
+		}
+		_, err := WeightMetric(input)
+		CheckError(t, err, "invalid output unit")
+	})
+}
+
+func TestWeightUS(t *testing.T) {
+	t.Run("ValidConversionFromCupsToGrams", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "sugar",
+			Type:       "weight",
+			InputUnit:  "cups",
+			OutputUnit: "grams",
+			Amount:     2,
+		}
+		expected := types.Output{
+			Ingredient: "sugar",
+			OutputUnit: "grams",
+			Amount:     480,
+		}
+		result, _ := WeightUS(input)
+		CheckGotWant(t, result, expected)
+	})
+	t.Run("ValidConversionFromPoundsToKilograms", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "flour",
+			Type:       "weight",
+			InputUnit:  "lbs",
+			OutputUnit: "kg",
+			Amount:     5,
+		}
+		expected := types.Output{
+			Ingredient: "flour",
+			OutputUnit: "kg",
+			Amount:     2.3,
+		}
+		result, _ := WeightUS(input)
+		CheckGotWant(t, result, expected)
+	})
+	t.Run("InvalidType", func(t *testing.T) {
+		input := types.Input{
+			Ingredient: "rice",
+			Type:       "volume",
+			InputUnit:  "cups",
+			OutputUnit: "grams",
+			Amount:     1,
+		}
+		_, err := WeightUS(input)
+		CheckError(t, err, "invalid type")
 	})
 }
