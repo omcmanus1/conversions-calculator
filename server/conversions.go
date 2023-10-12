@@ -52,7 +52,7 @@ func VolumeMetric(inp types.Input) (types.Output, error) {
 		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
-	result.Amount = float64(int(output*10)) / 10
+	result.Amount = float64(math.Round(output*10)) / 10
 
 	return result, nil
 }
@@ -82,7 +82,7 @@ func VolumeUS(inp types.Input) (types.Output, error) {
 		output = math.Round(output)
 	} else if inp.OutputUnit == "litres" {
 		output = output / 1000
-		output = float64(int(output*10)) / 10
+		output = float64(math.Round(output*10)) / 10
 	} else {
 		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
@@ -121,7 +121,7 @@ func WeightMetric(inp types.Input) (types.Output, error) {
 		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
-	result.Amount = float64(int(output*10)) / 10
+	result.Amount = float64(math.Round(output*10)) / 10
 
 	return result, nil
 }
@@ -151,7 +151,7 @@ func WeightUS(inp types.Input) (types.Output, error) {
 		output = math.Round(output)
 	} else if inp.OutputUnit == "kg" {
 		output = output / 1000
-		output = float64(int(output*10)) / 10
+		output = float64(math.Round(output*10)) / 10
 	} else {
 		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
