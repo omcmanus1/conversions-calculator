@@ -23,7 +23,7 @@ export default function RootLayout({
         <title>Recipe Unit Converter</title>
       </head>
       <body
-        className={`flex flex-col h-full items-center bg-slate-200 ${inter.className}`}
+        className={`flex flex-col min-h-screen items-center bg-slate-200 ${inter.className}`}
       >
         <header className="m-5 flex flex-col items-center">
           <h1 className="m-5 text-6xl uppercase">Recipe Unit Converter</h1>
