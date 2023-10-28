@@ -15,6 +15,9 @@ run_linux: build
 run_windows: build
 	@./bin/${BINARY_NAME}/windows
 
+run_dev: build
+	@air
+
 clean:
 	@rm -rf ./bin/build
 
