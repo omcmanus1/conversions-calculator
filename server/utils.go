@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"testing"
 
 	"github.com/omcmanus1/converter/types"
+	"github.com/stretchr/testify/assert"
 )
 
 func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
@@ -75,4 +77,26 @@ func HandlePostRequest[I types.Input | []types.Input, O types.Output | []types.O
 		return
 	}
 	w.Write(jsonResult)
+}
+
+func CheckGotWant(t testing.TB, got, want types.Output) {
+	t.Helper()
+	if got != want {
+		t.Errorf(`got %v want %v`, got, want)
+	}
+}
+
+func CheckError(t testing.TB, err error, expectedErrMsg string) {
+	print(err)
+	t.Helper()
+	if err == nil {
+		t.Errorf("got %v want nil", err)
+	}
+	assert.ErrorContains(t, err, expectedErrMsg)
+}
+
+func copyArray(arr []any) []any {
+	arrCopy := make([]any, len(arr))
+	copy(arrCopy, arr)
+	return arrCopy
 }
