@@ -1,3 +1,4 @@
+import { postRequest } from "@/api/fetchRequests";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,34 +7,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  METRIC_VOLUME,
+  METRIC_WEIGHT,
+  US_VOLUME,
+  US_WEIGHT,
+} from "@/constants/measures";
 import { singleInput, singleOutput } from "@/types/conversionTypes";
-import React, { useState } from "react";
-import { postRequest } from "@/api/fetchRequests";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 import SingleInput from "./SingleInput";
 
 export default function SingleConversion({
-  weightInputs,
-  volumeInputs,
-  weightOutputs,
-  volumeOutputs,
+  conversionType,
 }: {
-  weightInputs: Array<string>;
-  volumeInputs: Array<string>;
-  weightOutputs: Array<string>;
-  volumeOutputs: Array<string>;
-  list?: boolean;
+  conversionType: "usa" | "metric";
 }) {
-  const pathname = usePathname();
-  const subPath = !!pathname.match(/\/recipes\/(.+)/)
-    ? pathname.match(/\/recipes\/(.+)/)![1]
-    : null;
+  const weightInputs = conversionType === "usa" ? US_WEIGHT : METRIC_WEIGHT;
+  const weightOutputs = conversionType === "usa" ? METRIC_WEIGHT : US_WEIGHT;
+  const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
+  const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
 
   const [input, setInput] = useState<singleInput>({
     ingredient: "",
-    inputSystem: subPath === "convert-usa" ? "usa" : "metric",
+    inputSystem: conversionType === "usa" ? "usa" : "metric",
     inputUnit: "",
-    outputSystem: subPath === "convert-usa" ? "metric" : "usa",
+    outputSystem: conversionType === "usa" ? "metric" : "usa",
     outputUnit: "",
     type: "",
     amount: 0,
