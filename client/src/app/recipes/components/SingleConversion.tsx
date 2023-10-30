@@ -8,25 +8,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  METRIC_VOLUME,
-  METRIC_WEIGHT,
-  US_VOLUME,
-  US_WEIGHT,
-} from "@/constants/measures";
-import { singleInput, singleOutput } from "@/types/conversionTypes";
+  conversionTypes,
+  singleInput,
+  singleOutput,
+} from "@/types/conversionTypes";
 import { useState } from "react";
 import SingleInput from "./SingleInput";
 
+export type Props = {
+  conversionType: conversionTypes;
+  list?: boolean;
+};
+
 export default function SingleConversion({
   conversionType,
-}: {
-  conversionType: "usa" | "metric";
-}) {
-  const weightInputs = conversionType === "usa" ? US_WEIGHT : METRIC_WEIGHT;
-  const weightOutputs = conversionType === "usa" ? METRIC_WEIGHT : US_WEIGHT;
-  const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
-  const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
-
+  list = false,
+}: Props) {
   const [input, setInput] = useState<singleInput>({
     ingredient: "",
     inputSystem: conversionType === "usa" ? "usa" : "metric",
@@ -44,17 +41,7 @@ export default function SingleConversion({
 
   const inputComplete = Object.values(input).every((item) => !!item);
 
-  const handleInput = <K extends keyof singleInput>(
-    property: K,
-    value: singleInput[K]
-  ) => {
-    setInput({
-      ...input,
-      [property]: value === "string" ? value.toLowerCase() : value,
-    });
-  };
-
-  const handleConversion = async () => {
+  const handleSingleConversion = async () => {
     let data = { ingredient: "", unit: "", amount: 0 };
     switch (input.inputSystem) {
       case "usa":
@@ -75,17 +62,14 @@ export default function SingleConversion({
     <div className="text-center">
       <SingleInput
         input={input}
-        weightInputs={weightInputs}
-        volumeInputs={volumeInputs}
-        weightOutputs={weightOutputs}
-        volumeOutputs={volumeOutputs}
-        handleInput={handleInput}
+        setInput={setInput}
+        conversionType={conversionType}
       />
       <Button
         className={`mt-3 mb-3 ${inputComplete && "hover:bg-lime-100"}`}
         disabled={!inputComplete}
         variant="outline"
-        onClick={handleConversion}
+        onClick={handleSingleConversion}
       >
         {input.inputSystem === "usa" ? "Freedom" : "Metric"}
         <ChevronDoubleRight className="w-5" />

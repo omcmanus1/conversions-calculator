@@ -1,44 +1,49 @@
 import SelectSh from "@/components/select";
 import { Input } from "@/components/ui/input";
-import { singleInput } from "@/types/conversionTypes";
+import {
+  METRIC_VOLUME,
+  METRIC_WEIGHT,
+  US_VOLUME,
+  US_WEIGHT,
+} from "@/constants/measures";
+import { conversionTypes, singleInput } from "@/types/conversionTypes";
+import { Dispatch, SetStateAction } from "react";
+import { handleInput } from "@/utils/recipe";
 
 interface Props {
   input: singleInput;
-  weightInputs: Array<string>;
-  volumeInputs: Array<string>;
-  weightOutputs: Array<string>;
-  volumeOutputs: Array<string>;
-  handleInput: <K extends keyof singleInput>(
-    property: K,
-    value: singleInput[K]
-  ) => void;
+  setInput: Dispatch<SetStateAction<singleInput>>;
+  conversionType: conversionTypes;
 }
 
 export default function SingleInput({
   input,
-  weightInputs,
-  volumeInputs,
-  weightOutputs,
-  volumeOutputs,
-  handleInput,
+  setInput,
+  conversionType,
 }: Props) {
+  const weightInputs = conversionType === "usa" ? US_WEIGHT : METRIC_WEIGHT;
+  const weightOutputs = conversionType === "usa" ? METRIC_WEIGHT : US_WEIGHT;
+  const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
+  const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
   return (
     <>
       <Input
         className="mb-1"
         type="text"
         placeholder="Ingredient"
-        onChange={(e) => handleInput("ingredient", e.target.value)}
+        onChange={(e) =>
+          handleInput(setInput, input, "ingredient", e.target.value)
+        }
       />
       <SelectSh
         disabled={!input.ingredient}
-        handleChange={(e) => handleInput("type", e)}
+        handleChange={(e) => handleInput(setInput, input, "type", e)}
         placeholder="Type"
         selectContent={["weight", "volume"]}
       />
       <SelectSh
         disabled={!input.type}
-        handleChange={(e) => handleInput("inputUnit", e)}
+        handleChange={(e) => handleInput(setInput, input, "inputUnit", e)}
         placeholder="Input Unit"
         selectContent={
           input.type === "weight"
@@ -53,11 +58,13 @@ export default function SingleInput({
         disabled={!input.inputUnit}
         type="number"
         placeholder="Amount"
-        onChange={(e) => handleInput("amount", Number(e.target.value))}
+        onChange={(e) =>
+          handleInput(setInput, input, "amount", Number(e.target.value))
+        }
       />
       <SelectSh
         disabled={!input.amount}
-        handleChange={(e) => handleInput("outputUnit", e)}
+        handleChange={(e) => handleInput(setInput, input, "outputUnit", e)}
         placeholder="Output Unit"
         selectContent={
           input.type === "weight"
