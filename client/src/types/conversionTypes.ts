@@ -1,8 +1,10 @@
+export type conversionTypes = "usa" | "metric";
+
 export type singleInput = {
   ingredient: string;
-  inputSystem: "usa" | "metric";
+  inputSystem: conversionTypes;
   inputUnit: string;
-  outputSystem: "usa" | "metric";
+  outputSystem: conversionTypes;
   outputUnit: string;
   type: string;
   amount: number;
