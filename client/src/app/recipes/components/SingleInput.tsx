@@ -8,7 +8,6 @@ import {
 } from "@/constants/measures";
 import { conversionTypes, singleInput } from "@/types/conversionTypes";
 import { Dispatch, SetStateAction } from "react";
-import { handleInput } from "@/utils/recipe";
 
 interface Props {
   input: singleInput;
@@ -25,25 +24,34 @@ export default function SingleInput({
   const weightOutputs = conversionType === "usa" ? METRIC_WEIGHT : US_WEIGHT;
   const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
   const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
+
+  const handleInput = <K extends keyof singleInput>(
+    property: K,
+    value: singleInput[K]
+  ) => {
+    setInput({
+      ...input,
+      [property]: value === "string" ? value.toLowerCase() : value,
+    });
+  };
+
   return (
     <>
       <Input
         className="mb-1"
         type="text"
         placeholder="Ingredient"
-        onChange={(e) =>
-          handleInput(setInput, input, "ingredient", e.target.value)
-        }
+        onChange={(e) => handleInput("ingredient", e.target.value)}
       />
       <SelectSh
         disabled={!input.ingredient}
-        handleChange={(e) => handleInput(setInput, input, "type", e)}
+        handleChange={(e) => handleInput("type", e)}
         placeholder="Type"
         selectContent={["weight", "volume"]}
       />
       <SelectSh
         disabled={!input.type}
-        handleChange={(e) => handleInput(setInput, input, "inputUnit", e)}
+        handleChange={(e) => handleInput("inputUnit", e)}
         placeholder="Input Unit"
         selectContent={
           input.type === "weight"
@@ -58,13 +66,11 @@ export default function SingleInput({
         disabled={!input.inputUnit}
         type="number"
         placeholder="Amount"
-        onChange={(e) =>
-          handleInput(setInput, input, "amount", Number(e.target.value))
-        }
+        onChange={(e) => handleInput("amount", Number(e.target.value))}
       />
       <SelectSh
         disabled={!input.amount}
-        handleChange={(e) => handleInput(setInput, input, "outputUnit", e)}
+        handleChange={(e) => handleInput("outputUnit", e)}
         placeholder="Output Unit"
         selectContent={
           input.type === "weight"
