@@ -18,8 +18,9 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 - Refactor
   - ~~Reusable component for single conversion~~
   - ~~Fix prop drilling~~
-  - Refactor volume/weight inputs (reusable object?)
-  - Abstract inputs component - reuse for single & list conversion
+  - ~~Refactor volume/weight inputs (reusable object?)~~
+  - ~~Abstract inputs component - reuse for single & list conversion~~
+  - Make new input list component (multiple items in one card)
 - API
   - ~~Single fetch request~~
   - Set up API endpoints
