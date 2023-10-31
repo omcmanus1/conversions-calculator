@@ -11,7 +11,10 @@ export const getRequest = async () => {
   return jsonData[0];
 };
 
-export const postRequest = async (path: string, data: singleInput) => {
+export const postRequest = async (
+  path: string,
+  data: singleInput | Array<singleInput>
+) => {
   const res = await fetch(`${baseUrl}/${path}`, {
     method: "POST",
     mode: "cors",

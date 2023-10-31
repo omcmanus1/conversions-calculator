@@ -1,3 +1,7 @@
-export default function ConvertList() {
-  return <h1>CONVERT A LIST HERE</h1>;
+"use client";
+
+import MultipleConversions from "../components/MultipleConversions";
+
+export default function Page(): JSX.Element {
+  return <MultipleConversions />;
 }
