@@ -12,3 +12,7 @@ export const handleInput = <K extends keyof singleInput>(
     [property]: value === "string" ? value.toLowerCase() : value,
   });
 };
+
+export const inputComplete = (input: singleInput): boolean => {
+  return Object.values(input).every((item) => !!item);
+};

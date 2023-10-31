@@ -12,6 +12,7 @@ import {
   singleInput,
   singleOutput,
 } from "@/types/conversionTypes";
+import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInput from "./SingleInput";
 
@@ -39,8 +40,6 @@ export default function SingleConversion({
     amount: 0,
   });
 
-  const inputComplete = Object.values(input).every((item) => !!item);
-
   const handleSingleConversion = async () => {
     let data = { ingredient: "", unit: "", amount: 0 };
     switch (input.inputSystem) {
@@ -66,7 +65,7 @@ export default function SingleConversion({
         conversionType={conversionType}
       />
       <Button
-        className={`mt-3 mb-3 ${inputComplete && "hover:bg-lime-100"}`}
+        className={`mt-3 mb-3 ${inputComplete(input) && "hover:bg-lime-100"}`}
         disabled={!inputComplete}
         variant="outline"
         onClick={handleSingleConversion}
