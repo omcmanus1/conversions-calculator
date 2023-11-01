@@ -8,16 +8,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  conversionTypes,
-  singleInput,
-  singleOutput,
+  ConversionSystem,
+  SingleInput,
+  SingleOutput,
 } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
-import SingleInput from "./SingleInput";
+import SingleInputComp from "./SingleInput";
 
 export type Props = {
-  conversionType: conversionTypes;
+  conversionType: ConversionSystem;
   list?: boolean;
 };
 
@@ -25,7 +25,7 @@ export default function SingleConversion({
   conversionType,
   list = false,
 }: Props) {
-  const [input, setInput] = useState<singleInput>({
+  const [input, setInput] = useState<SingleInput>({
     ingredient: "",
     inputSystem: conversionType === "usa" ? "usa" : "metric",
     inputUnit: "",
@@ -34,7 +34,7 @@ export default function SingleConversion({
     type: "",
     amount: 0,
   });
-  const [output, setOutput] = useState<singleOutput>({
+  const [output, setOutput] = useState<SingleOutput>({
     ingredient: "",
     unit: "",
     amount: 0,
@@ -59,7 +59,7 @@ export default function SingleConversion({
 
   return (
     <div className="text-center">
-      <SingleInput
+      <SingleInputComp
         input={input}
         setInput={setInput}
         conversionType={conversionType}

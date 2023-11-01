@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type selectType = {
+type selectProps = {
   handleChange?: (inp: string, val?: string) => void;
   placeholder: string;
   selectContent: Array<string>;
@@ -18,7 +18,7 @@ export default function SelectSh({
   placeholder,
   selectContent,
   disabled = false,
-}: selectType) {
+}: selectProps) {
   return (
     <div className="mb-1">
       <Select onValueChange={handleChange}>

@@ -1,29 +1,19 @@
-export type conversionTypes = "usa" | "metric";
+export type ConversionSystem = "usa" | "metric";
 
-export type singleInput = {
+export type ConversionType = "volume" | "weight";
+
+export type SingleInput = {
   ingredient: string;
-  inputSystem: conversionTypes;
+  inputSystem: ConversionSystem;
   inputUnit: string;
-  outputSystem: conversionTypes;
+  outputSystem: ConversionSystem;
   outputUnit: string;
   type: string;
   amount: number;
 };
 
-export type singleOutput = {
+export type SingleOutput = {
   ingredient: string;
   unit: string;
   amount: number;
-};
-
-export type usVolume = ["cups", "gallons", "quarts", "pints", "fluid oz"];
-export type usWeight = ["cups", "lbs", "oz"];
-export type metricVolume = ["millilitres", "litres"];
-export type metricWeight = ["grams", "kg"];
-
-export type measures = {
-  usVolume: Array<usVolume>;
-  usWeight: Array<usWeight>;
-  metricVolume: Array<metricVolume>;
-  metricWeight: Array<usVolume>;
 };

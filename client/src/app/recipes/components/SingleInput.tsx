@@ -6,13 +6,13 @@ import {
   US_VOLUME,
   US_WEIGHT,
 } from "@/constants/measures";
-import { conversionTypes, singleInput } from "@/types/conversionTypes";
+import { ConversionSystem, SingleInput } from "@/types/conversionTypes";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  input: singleInput;
-  setInput: Dispatch<SetStateAction<singleInput>>;
-  conversionType: conversionTypes;
+  input: SingleInput;
+  setInput: Dispatch<SetStateAction<SingleInput>>;
+  conversionType: ConversionSystem;
 }
 
 export default function SingleInput({
@@ -25,9 +25,9 @@ export default function SingleInput({
   const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
   const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
 
-  const handleInput = <K extends keyof singleInput>(
+  const handleInput = <K extends keyof SingleInput>(
     property: K,
-    value: singleInput[K]
+    value: SingleInput[K]
   ) => {
     setInput({
       ...input,
