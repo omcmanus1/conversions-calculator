@@ -15,7 +15,7 @@ interface Props {
   conversionType: ConversionSystem;
 }
 
-export default function SingleInput({
+export default function SingleInputComp({
   input,
   setInput,
   conversionType,
