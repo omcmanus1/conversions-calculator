@@ -31,7 +31,7 @@ export default function SingleInputComp({
   ) => {
     setInput({
       ...input,
-      [property]: value === "string" ? value.toLowerCase() : value,
+      [property]: typeof value === "string" ? value.toLowerCase() : value,
     });
   };
 
