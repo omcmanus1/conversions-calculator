@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type ConversionSystem = "usa" | "metric";
 
 export type ConversionType = "volume" | "weight";
@@ -18,4 +20,9 @@ export type SingleOutput = {
   ingredient: string;
   unit: string;
   amount: number;
+};
+
+export type InputListProps = {
+  inputList: SingleInput[];
+  setInputList: Dispatch<SetStateAction<SingleInput[]>>;
 };

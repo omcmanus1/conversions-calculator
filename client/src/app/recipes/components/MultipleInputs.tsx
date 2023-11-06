@@ -7,18 +7,16 @@ import {
   US_VOLUME,
   US_WEIGHT,
 } from "@/constants/measures";
-import { InputFields, SingleInput } from "@/types/conversionTypes";
-import { Dispatch, SetStateAction } from "react";
-
-type MultipleInputProps = {
-  inputList: SingleInput[];
-  setInputList: Dispatch<SetStateAction<SingleInput[]>>;
-};
+import {
+  InputFields,
+  InputListProps,
+  SingleInput,
+} from "@/types/conversionTypes";
 
 export default function MultipleInputsComp({
   inputList,
   setInputList,
-}: MultipleInputProps) {
+}: InputListProps) {
   const handleInputChange = (
     val: string | number,
     index: number,
