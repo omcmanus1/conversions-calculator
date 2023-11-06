@@ -1,49 +1,42 @@
 import { postRequest } from "@/api/fetchRequests";
-import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  conversionTypes,
-  singleInput,
-  singleOutput,
+  ConversionSystem,
+  ConversionType,
+  SingleInput,
+  SingleOutput,
 } from "@/types/conversionTypes";
-import { useState } from "react";
-import SingleInput from "./SingleInput";
-import { PlusIcon } from "lucide-react";
 import { inputComplete } from "@/utils/recipe";
+import { useState } from "react";
+import MultipleInputsComp from "./MultipleInputs";
+import AddInputDropdown from "./AddInputDropdown";
 
 export default function MultipleConversions() {
-  const [conversionType, setConversionType] = useState<conversionTypes>("usa");
-  const [input, setInput] = useState<singleInput>({
+  const [conversionSystem, setConversionSystem] =
+    useState<ConversionSystem>("usa");
+  const [conversionType, setConversionType] =
+    useState<ConversionType>("volume");
+
+  const [input, setInput] = useState<SingleInput>({
     ingredient: "",
-    inputSystem: conversionType === "usa" ? "usa" : "metric",
+    inputSystem: conversionSystem === "usa" ? "usa" : "metric",
     inputUnit: "",
-    outputSystem: conversionType === "usa" ? "usa" : "metric",
+    outputSystem: conversionSystem === "usa" ? "usa" : "metric",
     outputUnit: "",
     type: "",
     amount: 0,
   });
-  const [output, setOutput] = useState<singleOutput>({
+  const [output, setOutput] = useState<SingleOutput>({
     ingredient: "",
     unit: "",
     amount: 0,
   });
-  const [inputList, setInputList] = useState<Array<singleInput>>([]);
-  const [outputList, setOutputList] = useState<Array<singleOutput>>([]);
+  const [inputList, setInputList] = useState<Array<SingleInput>>([]);
+  const [outputList, setOutputList] = useState<Array<SingleOutput>>([]);
 
   const inputListComplete =
     !inputList.length ||
     (!!inputList.length && !!inputList.every((input) => inputComplete(input)));
-
-  const addInputBox = (convType: conversionTypes) => {
-    setConversionType(convType);
-    setInputList([...inputList, input]);
-  };
 
   const handleListConversion = async () => {
     let data = [{ ingredient: "", unit: "", amount: 0 }];
@@ -53,33 +46,8 @@ export default function MultipleConversions() {
 
   return (
     <div className="text-center">
-      {!!inputList.length &&
-        inputList.map((currentInput, index) => {
-          return (
-            <SingleInput
-              key={`input_${index}`}
-              input={input}
-              setInput={setInput}
-              conversionType={currentInput.inputSystem}
-            />
-          );
-        })}
-      <Button
-        className={`mt-3 mb-3 ${!!inputListComplete && "hover:bg-teal-100"}`}
-        disabled={!inputListComplete}
-        variant="outline"
-        onClick={() => addInputBox("usa")}
-      >
-        Add US Conversion
-      </Button>
-      <Button
-        className={`mb-1 ${!!inputListComplete && "hover:bg-teal-100"}`}
-        disabled={!inputListComplete}
-        variant="outline"
-        onClick={() => addInputBox("metric")}
-      >
-        Add Metric Conversion
-      </Button>
+      <MultipleInputsComp inputList={inputList} setInputList={setInputList} />
+      <AddInputDropdown inputList={inputList} setInputList={setInputList} />
 
       {/* <Button
         className={`mt-3 mb-3 ${!!inputList.length && "hover:bg-lime-100"}`}
