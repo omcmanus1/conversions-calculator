@@ -10,7 +10,8 @@ type SelectProps = {
   handleChange?: (inp: string, val?: string) => void;
   placeholder: string;
   selectContent: Array<string>;
-  disabled?: boolean;
+  disabled?: boolean ;
+  setWidth?: string;
 };
 
 export default function SelectSh({
@@ -18,9 +19,10 @@ export default function SelectSh({
   placeholder,
   selectContent,
   disabled = false,
+  setWidth,
 }: SelectProps) {
   return (
-    <div className="mb-1">
+    <div className={`mb-1 ${setWidth}`}>
       <Select onValueChange={handleChange}>
         <SelectTrigger disabled={disabled}>
           <SelectValue placeholder={placeholder} />

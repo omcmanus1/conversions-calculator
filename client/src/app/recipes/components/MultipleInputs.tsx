@@ -53,37 +53,46 @@ export default function MultipleInputsComp({
       <CardContent>
         {inputList.map((inp, index) => {
           return (
-            <div key={`inputList_${index}`} className="flex mb-2">
-              <p className="mr-2 mt-2">Ingredient: </p>
-              <Input
-                className="mr-2"
-                value={inp.ingredient}
-                onChange={(e) =>
-                  handleInputChange(e.target.value, index, "ingredient")
-                }
-              />
-              <p className="mr-2 mt-2">Amount: </p>
-              <Input
-                className="mr-2"
-                value={inp.amount || ""}
-                type="number"
-                onChange={(e) =>
-                  handleInputChange(e.target.value, index, "amount")
-                }
-              />
-              <p className="mr-2 mt-2">Unit: </p>
-              <SelectSh
-                handleChange={(e) => handleInputChange(e, index, "inputUnit")}
-                placeholder="Choose..."
-                selectContent={decideDropdowns(inp, "input")}
-              />
-              <p className="ml-2 mr-2 mt-2">Output: </p>
-              <SelectSh
-                handleChange={(e) => handleInputChange(e, index, "outputUnit")}
-                placeholder="Choose..."
-                selectContent={decideDropdowns(inp, "output")}
-              />
-            </div>
+            <>
+              {index > 0 && <hr className="flex-grow mb-3" />}
+              <div key={`inputList_${index}`} className="flex mb-2">
+                <p className="mr-2 mt-2">Ingredient: </p>
+                <Input
+                  className="mr-2 w-28"
+                  placeholder="..."
+                  value={inp.ingredient}
+                  onChange={(e) =>
+                    handleInputChange(e.target.value, index, "ingredient")
+                  }
+                />
+                <p className="mr-2 mt-2">Amount: </p>
+                <Input
+                  className="mr-2 w-28"
+                  placeholder="..."
+                  value={inp.amount || ""}
+                  type="number"
+                  onChange={(e) =>
+                    handleInputChange(e.target.value, index, "amount")
+                  }
+                />
+                <p className="mr-2 mt-2">Unit: </p>
+                <SelectSh
+                  handleChange={(e) => handleInputChange(e, index, "inputUnit")}
+                  placeholder="..."
+                  selectContent={decideDropdowns(inp, "input")}
+                  setWidth="w-28"
+                />
+                <p className="ml-2 mr-2 mt-2">Output: </p>
+                <SelectSh
+                  handleChange={(e) =>
+                    handleInputChange(e, index, "outputUnit")
+                  }
+                  placeholder="..."
+                  selectContent={decideDropdowns(inp, "output")}
+                  setWidth="w-28"
+                />
+              </div>
+            </>
           );
         })}
       </CardContent>
