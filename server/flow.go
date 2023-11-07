@@ -20,7 +20,7 @@ func Flow(inp []types.Input) ([]types.Output, error) {
 			return nil, errors.New("please supply a valid amount")
 		}
 
-		if entry.InputSystem == "US" {
+		if entry.InputSystem == "usa" {
 			if entry.Type == "volume" {
 				result, err = VolumeUS(entry)
 			} else if entry.Type == "weight" {
