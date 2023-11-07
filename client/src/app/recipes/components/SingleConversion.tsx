@@ -18,13 +18,9 @@ import SingleInputComp from "./SingleInput";
 
 export type Props = {
   conversionType: ConversionSystem;
-  list?: boolean;
 };
 
-export default function SingleConversion({
-  conversionType,
-  list = false,
-}: Props) {
+export default function SingleConversion({ conversionType }: Props) {
   const [input, setInput] = useState<SingleInput>({
     ingredient: "",
     inputSystem: conversionType === "usa" ? "usa" : "metric",
