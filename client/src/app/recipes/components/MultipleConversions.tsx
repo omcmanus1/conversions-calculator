@@ -36,10 +36,10 @@ export default function MultipleConversions() {
         Convert All
         <ChevronDoubleRight className="w-5" />
       </Button>
-      <Card>
-        <CardHeader>
-          {!!outputList.length &&
-            outputList.map((output, index) => {
+      {!!outputList.length && (
+        <Card>
+          <CardHeader>
+            {outputList.map((output, index) => {
               return (
                 <Fragment key={`output_${index}`}>
                   <CardTitle className="text-lg">{output?.ingredient}</CardTitle>
@@ -47,8 +47,9 @@ export default function MultipleConversions() {
                 </Fragment>
               );
             })}
-        </CardHeader>
-      </Card>
+          </CardHeader>
+        </Card>
+      )}
     </div>
   );
 }
