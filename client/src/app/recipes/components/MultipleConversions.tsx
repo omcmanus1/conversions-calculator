@@ -1,13 +1,8 @@
 import { postRequest } from "@/api/fetchRequests";
 import { Button } from "@/components/ui/button";
-import {
-  ConversionSystem,
-  ConversionType,
-  SingleInput,
-  SingleOutput,
-} from "@/types/conversionTypes";
+import { SingleInput, SingleOutput } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import MultipleInputsComp from "./MultipleInputs";
 import AddInputDropdown from "./AddInputDropdown";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
@@ -41,14 +36,19 @@ export default function MultipleConversions() {
         Convert All
         <ChevronDoubleRight className="w-5" />
       </Button>
-      {/* {!!output?.amount && (
-        <Card>
+      <Card>
         <CardHeader>
-        <CardTitle>{output?.ingredient}</CardTitle>
-        <CardDescription>{`${output?.amount} ${output?.unit}`}</CardDescription>
+          {!!outputList.length &&
+            outputList.map((output, index) => {
+              return (
+                <Fragment key={`output_${index}`}>
+                  <CardTitle className="text-lg">{output?.ingredient}</CardTitle>
+                  <CardDescription className="text-sm">{`${output?.amount} ${output?.unit}`}</CardDescription>
+                </Fragment>
+              );
+            })}
         </CardHeader>
-        </Card>
-      )} */}
+      </Card>
     </div>
   );
 }
