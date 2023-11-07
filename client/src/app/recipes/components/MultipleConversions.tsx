@@ -10,60 +10,43 @@ import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import MultipleInputsComp from "./MultipleInputs";
 import AddInputDropdown from "./AddInputDropdown";
+import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function MultipleConversions() {
-  const [conversionSystem, setConversionSystem] = useState<ConversionSystem>("usa");
-  const [conversionType, setConversionType] = useState<ConversionType>("volume");
-
-  const [input, setInput] = useState<SingleInput>({
-    ingredient: "",
-    inputSystem: conversionSystem === "usa" ? "usa" : "metric",
-    inputUnit: "",
-    outputSystem: conversionSystem === "usa" ? "usa" : "metric",
-    outputUnit: "",
-    type: "",
-    amount: 0,
-  });
-  const [output, setOutput] = useState<SingleOutput>({
-    ingredient: "",
-    unit: "",
-    amount: 0,
-  });
   const [inputList, setInputList] = useState<Array<SingleInput>>([]);
   const [outputList, setOutputList] = useState<Array<SingleOutput>>([]);
 
   const inputListComplete =
-    !inputList.length ||
-    (!!inputList.length && !!inputList.every((input) => inputComplete(input)));
+    !!inputList.length && !!inputList.every((input) => inputComplete(input));
 
   const handleListConversion = async () => {
-    let data = [{ ingredient: "", unit: "", amount: 0 }];
+    let data: SingleOutput[];
     data = await postRequest("list", inputList);
     setOutputList(data);
   };
 
   return (
     <div className="text-center">
-      <MultipleInputsComp inputList={inputList} setInputList={setInputList} />
-      <AddInputDropdown inputList={inputList} setInputList={setInputList} />
-
-      {/* <Button
-        className={`mt-3 mb-3 ${!!inputList.length && "hover:bg-lime-100"}`}
-        disabled={!inputList.length}
+      <div className="text-center">
+        <MultipleInputsComp inputList={inputList} setInputList={setInputList} />
+        <AddInputDropdown inputList={inputList} setInputList={setInputList} />
+      </div>
+      <Button
+        className={`mt-3 mb-3 ${!inputListComplete && "hover:bg-lime-100"}`}
+        disabled={!inputListComplete}
         variant="outline"
         onClick={handleListConversion}
       >
         Convert All
         <ChevronDoubleRight className="w-5" />
       </Button>
-      {!!output?.amount && (
+      {/* {!!output?.amount && (
         <Card>
-          <CardHeader>
-            <CardTitle>{output?.ingredient}</CardTitle>
-            <CardDescription>
-              {`${output?.amount} ${output?.unit}`}
-            </CardDescription>
-          </CardHeader>
+        <CardHeader>
+        <CardTitle>{output?.ingredient}</CardTitle>
+        <CardDescription>{`${output?.amount} ${output?.unit}`}</CardDescription>
+        </CardHeader>
         </Card>
       )} */}
     </div>
