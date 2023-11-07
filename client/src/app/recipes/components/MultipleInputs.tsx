@@ -6,10 +6,6 @@ import { InputFields, InputListProps, SingleInput } from "@/types/conversionType
 import { Fragment } from "react";
 
 export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {
-  console.log(
-    "🚀 ~ file: MultipleInputs.tsx:8 ~ MultipleInputsComp ~ inputList:",
-    inputList
-  );
   const handleInputChange = (val: string | number, index: number, field: InputFields) => {
     const updatedList = inputList.map((item, i) =>
       i === index ? { ...item, [field]: val } : item
