@@ -10,7 +10,7 @@ type SelectProps = {
   handleChange?: (inp: string, val?: string) => void;
   placeholder: string;
   selectContent: Array<string>;
-  disabled?: boolean ;
+  disabled?: boolean;
   setWidth?: string;
 };
 

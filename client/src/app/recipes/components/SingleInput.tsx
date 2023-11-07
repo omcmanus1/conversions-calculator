@@ -1,11 +1,6 @@
 import SelectSh from "@/components/select";
 import { Input } from "@/components/ui/input";
-import {
-  METRIC_VOLUME,
-  METRIC_WEIGHT,
-  US_VOLUME,
-  US_WEIGHT,
-} from "@/constants/measures";
+import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
 import { ConversionSystem, SingleInput } from "@/types/conversionTypes";
 import { Dispatch, SetStateAction } from "react";
 
@@ -15,11 +10,7 @@ interface Props {
   conversionType: ConversionSystem;
 }
 
-export default function SingleInputComp({
-  input,
-  setInput,
-  conversionType,
-}: Props) {
+export default function SingleInputComp({ input, setInput, conversionType }: Props) {
   const weightInputs = conversionType === "usa" ? US_WEIGHT : METRIC_WEIGHT;
   const weightOutputs = conversionType === "usa" ? METRIC_WEIGHT : US_WEIGHT;
   const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;

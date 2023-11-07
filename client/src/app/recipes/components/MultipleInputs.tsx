@@ -1,37 +1,18 @@
 import SelectSh from "@/components/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  METRIC_VOLUME,
-  METRIC_WEIGHT,
-  US_VOLUME,
-  US_WEIGHT,
-} from "@/constants/measures";
-import {
-  InputFields,
-  InputListProps,
-  SingleInput,
-} from "@/types/conversionTypes";
+import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
+import { InputFields, InputListProps, SingleInput } from "@/types/conversionTypes";
 
-export default function MultipleInputsComp({
-  inputList,
-  setInputList,
-}: InputListProps) {
-  const handleInputChange = (
-    val: string | number,
-    index: number,
-    field: InputFields
-  ) => {
+export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {
+  const handleInputChange = (val: string | number, index: number, field: InputFields) => {
     const updatedList = inputList.map((item, i) =>
       i === index ? { ...item, [field]: val } : item
     );
     setInputList(updatedList);
   };
 
-  const decideDropdowns = (
-    inp: SingleInput,
-    selectType: "input" | "output"
-  ) => {
+  const decideDropdowns = (inp: SingleInput, selectType: "input" | "output") => {
     switch (true) {
       case inp.inputSystem === "usa" && inp.type === "weight":
         return selectType === "input" ? US_WEIGHT : METRIC_WEIGHT;
@@ -45,6 +26,7 @@ export default function MultipleInputsComp({
         return ["Please specify a unit"];
     }
   };
+
   return (
     <Card>
       <CardHeader>
@@ -61,9 +43,7 @@ export default function MultipleInputsComp({
                   className="mr-2 w-28"
                   placeholder="..."
                   value={inp.ingredient}
-                  onChange={(e) =>
-                    handleInputChange(e.target.value, index, "ingredient")
-                  }
+                  onChange={(e) => handleInputChange(e.target.value, index, "ingredient")}
                 />
                 <p className="mr-2 mt-2">Amount: </p>
                 <Input
@@ -71,9 +51,7 @@ export default function MultipleInputsComp({
                   placeholder="..."
                   value={inp.amount || ""}
                   type="number"
-                  onChange={(e) =>
-                    handleInputChange(e.target.value, index, "amount")
-                  }
+                  onChange={(e) => handleInputChange(e.target.value, index, "amount")}
                 />
                 <p className="mr-2 mt-2">Unit: </p>
                 <SelectSh
@@ -84,9 +62,7 @@ export default function MultipleInputsComp({
                 />
                 <p className="ml-2 mr-2 mt-2">Output: </p>
                 <SelectSh
-                  handleChange={(e) =>
-                    handleInputChange(e, index, "outputUnit")
-                  }
+                  handleChange={(e) => handleInputChange(e, index, "outputUnit")}
                   placeholder="..."
                   selectContent={decideDropdowns(inp, "output")}
                   setWidth="w-28"

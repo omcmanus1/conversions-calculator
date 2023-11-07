@@ -6,11 +6,7 @@ import Navigation from "@/components/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const navigationTabs = [
     { title: "Convert US To Metric", path: "/recipes/convert-usa" },
     { title: "Convert Metric To US", path: "/recipes/convert-metric" },

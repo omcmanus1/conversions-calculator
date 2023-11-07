@@ -11,14 +11,8 @@ import {
   InputListProps,
 } from "@/types/conversionTypes";
 
-export default function AddInputDropdown({
-  inputList,
-  setInputList,
-}: InputListProps) {
-  const handleAddInput = (
-    inputSystem: ConversionSystem,
-    type: ConversionType
-  ) => {
+export default function AddInputDropdown({ inputList, setInputList }: InputListProps) {
+  const handleAddInput = (inputSystem: ConversionSystem, type: ConversionType) => {
     setInputList([
       ...inputList,
       {

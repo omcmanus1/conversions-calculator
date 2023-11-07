@@ -1,17 +1,8 @@
 import { postRequest } from "@/api/fetchRequests";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ConversionSystem,
-  SingleInput,
-  SingleOutput,
-} from "@/types/conversionTypes";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ConversionSystem, SingleInput, SingleOutput } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInputComp from "./SingleInput";
@@ -74,9 +65,7 @@ export default function SingleConversion({ conversionType }: Props) {
         <Card>
           <CardHeader>
             <CardTitle>{output?.ingredient}</CardTitle>
-            <CardDescription>
-              {`${output?.amount} ${output?.unit}`}
-            </CardDescription>
+            <CardDescription>{`${output?.amount} ${output?.unit}`}</CardDescription>
           </CardHeader>
         </Card>
       )}

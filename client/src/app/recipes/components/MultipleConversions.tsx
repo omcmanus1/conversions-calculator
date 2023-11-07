@@ -12,10 +12,8 @@ import MultipleInputsComp from "./MultipleInputs";
 import AddInputDropdown from "./AddInputDropdown";
 
 export default function MultipleConversions() {
-  const [conversionSystem, setConversionSystem] =
-    useState<ConversionSystem>("usa");
-  const [conversionType, setConversionType] =
-    useState<ConversionType>("volume");
+  const [conversionSystem, setConversionSystem] = useState<ConversionSystem>("usa");
+  const [conversionType, setConversionType] = useState<ConversionType>("volume");
 
   const [input, setInput] = useState<SingleInput>({
     ingredient: "",
