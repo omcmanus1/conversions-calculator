@@ -29,7 +29,7 @@ export default function AddInputDropdown({ inputList, setInputList }: InputListP
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="m-1" asChild>
+        <DropdownMenuTrigger className="m-1 mt-4" asChild>
           <Button>From Metric</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -42,7 +42,7 @@ export default function AddInputDropdown({ inputList, setInputList }: InputListP
         </DropdownMenuContent>
       </DropdownMenu>
       <DropdownMenu>
-        <DropdownMenuTrigger className="m-1" asChild>
+        <DropdownMenuTrigger className="m-1 mt-4 w-28" asChild>
           <Button>From US</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
