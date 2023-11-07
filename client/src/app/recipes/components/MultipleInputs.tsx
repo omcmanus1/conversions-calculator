@@ -3,8 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
 import { InputFields, InputListProps, SingleInput } from "@/types/conversionTypes";
+import { Fragment } from "react";
 
 export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {
+  console.log(
+    "🚀 ~ file: MultipleInputs.tsx:8 ~ MultipleInputsComp ~ inputList:",
+    inputList
+  );
   const handleInputChange = (val: string | number, index: number, field: InputFields) => {
     const updatedList = inputList.map((item, i) =>
       i === index ? { ...item, [field]: val } : item
@@ -35,9 +40,9 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
       <CardContent>
         {inputList.map((inp, index) => {
           return (
-            <>
+            <Fragment key={`inputList_${index}`}>
               {index > 0 && <hr className="flex-grow mb-3" />}
-              <div key={`inputList_${index}`} className="flex mb-2">
+              <div className="flex mb-2">
                 <p className="mr-2 mt-2">Ingredient: </p>
                 <Input
                   className="mr-2 w-28"
@@ -45,20 +50,22 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                   value={inp.ingredient}
                   onChange={(e) => handleInputChange(e.target.value, index, "ingredient")}
                 />
-                <p className="mr-2 mt-2">Amount: </p>
-                <Input
-                  className="mr-2 w-28"
-                  placeholder="..."
-                  value={inp.amount || ""}
-                  type="number"
-                  onChange={(e) => handleInputChange(e.target.value, index, "amount")}
-                />
                 <p className="mr-2 mt-2">Unit: </p>
                 <SelectSh
                   handleChange={(e) => handleInputChange(e, index, "inputUnit")}
                   placeholder="..."
                   selectContent={decideDropdowns(inp, "input")}
                   setWidth="w-28"
+                />
+                <p className="ml-2 mr-2 mt-2">Amount: </p>
+                <Input
+                  className="w-28"
+                  placeholder="..."
+                  value={inp.amount || ""}
+                  type="number"
+                  onChange={(e) =>
+                    handleInputChange(Number(e.target.value), index, "amount")
+                  }
                 />
                 <p className="ml-2 mr-2 mt-2">Output: </p>
                 <SelectSh
@@ -68,7 +75,7 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                   setWidth="w-28"
                 />
               </div>
-            </>
+            </Fragment>
           );
         })}
       </CardContent>
