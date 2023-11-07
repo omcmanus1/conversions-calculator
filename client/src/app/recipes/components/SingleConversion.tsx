@@ -28,7 +28,7 @@ export default function SingleConversion({ conversionType }: Props) {
   });
 
   const handleSingleConversion = async () => {
-    let data = { ingredient: "", unit: "", amount: 0 };
+    let data: SingleOutput;
     switch (input.inputSystem) {
       case "usa":
         input.type === "volume"
