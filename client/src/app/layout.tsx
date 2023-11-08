@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`flex flex-col min-h-screen items-center bg-slate-200 text-center ${inter.className}`}
       >
-        <header className="m-5 flex flex-col items-center">
+        <header className="md:m-5 flex flex-col items-center">
           <h1 className="m-4 text-4xl md:text-6xl uppercase shrink">
             Recipe Unit Converter
           </h1>

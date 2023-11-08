@@ -24,7 +24,7 @@ export default function Navigation({
 
   return (
     <NavigationMenu className="mb-5">
-      <NavigationMenuList className=" flex-col md:flex-row">
+      <NavigationMenuList className="flex-col md:flex-row">
         {navigationTabs.map((tab) => {
           const isSelected = pathname.includes(tab.path);
           return (

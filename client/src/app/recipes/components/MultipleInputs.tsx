@@ -29,7 +29,7 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
   };
 
   return (
-    <Card>
+    <Card className="max-h-64 overflow-y-auto">
       <CardHeader>
         <CardTitle>Add Ingredients Below...</CardTitle>
       </CardHeader>
