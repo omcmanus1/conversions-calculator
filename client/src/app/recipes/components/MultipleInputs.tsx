@@ -37,39 +37,49 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
         {inputList.map((inp, index) => {
           return (
             <Fragment key={`inputList_${index}`}>
-              {index > 0 && <hr className="flex-grow mb-3" />}
-              <div className="flex mb-2">
-                <p className="mr-2 mt-2">Ingredient: </p>
-                <Input
-                  className="mr-2 w-28"
-                  placeholder="..."
-                  value={inp.ingredient}
-                  onChange={(e) => handleInputChange(e.target.value, index, "ingredient")}
-                />
-                <p className="mr-2 mt-2">Unit: </p>
-                <SelectSh
-                  handleChange={(e) => handleInputChange(e, index, "inputUnit")}
-                  placeholder="..."
-                  selectContent={decideDropdowns(inp, "input")}
-                  setWidth="w-28"
-                />
-                <p className="ml-2 mr-2 mt-2">Amount: </p>
-                <Input
-                  className="w-28"
-                  placeholder="..."
-                  value={inp.amount || ""}
-                  type="number"
-                  onChange={(e) =>
-                    handleInputChange(Number(e.target.value), index, "amount")
-                  }
-                />
-                <p className="ml-2 mr-2 mt-2">Output: </p>
-                <SelectSh
-                  handleChange={(e) => handleInputChange(e, index, "outputUnit")}
-                  placeholder="..."
-                  selectContent={decideDropdowns(inp, "output")}
-                  setWidth="w-28"
-                />
+              {index > 0 && <hr className="flex-grow mt-3 md:mt-0 mb-4 md:mb-3" />}
+              <div className="flex md:mb-2 flex-col md:flex-row">
+                <div className="flex flex-row align-center justify-end">
+                  <p className="md:mr-2 mt-2 mr-4">Ingredient: </p>
+                  <Input
+                    className="md:mr-2 md:w-28 w-44"
+                    placeholder="..."
+                    value={inp.ingredient}
+                    onChange={(e) =>
+                      handleInputChange(e.target.value, index, "ingredient")
+                    }
+                  />
+                </div>
+                <div className="flex flex-row align-center justify-end">
+                  <p className="md:mr-2 mt-2 mr-4">Unit: </p>
+                  <SelectSh
+                    handleChange={(e) => handleInputChange(e, index, "inputUnit")}
+                    placeholder="..."
+                    selectContent={decideDropdowns(inp, "input")}
+                    classNames="md:w-28 w-44 mb-0"
+                  />
+                </div>
+                <div className="flex flex-row align-center justify-end">
+                  <p className="md:mr-2 mt-2 mr-4 md:ml-2">Amount: </p>
+                  <Input
+                    className="md:w-28 w-44"
+                    placeholder="..."
+                    value={inp.amount || ""}
+                    type="number"
+                    onChange={(e) =>
+                      handleInputChange(Number(e.target.value), index, "amount")
+                    }
+                  />
+                </div>
+                <div className="flex flex-row align-center justify-end">
+                  <p className="md:mr-2 mt-2 mr-4 md:ml-2">Output: </p>
+                  <SelectSh
+                    handleChange={(e) => handleInputChange(e, index, "outputUnit")}
+                    placeholder="..."
+                    selectContent={decideDropdowns(inp, "output")}
+                    classNames="md:w-28 w-44"
+                  />
+                </div>
               </div>
             </Fragment>
           );
