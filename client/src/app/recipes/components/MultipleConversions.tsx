@@ -37,18 +37,22 @@ export default function MultipleConversions() {
         <ChevronDoubleRight className="w-5" />
       </Button>
       {!!outputList.length && (
-        <Card>
-          <CardHeader>
-            {outputList.map((output, index) => {
-              return (
-                <Fragment key={`output_${index}`}>
-                  <CardTitle className="text-lg">{output?.ingredient}</CardTitle>
-                  <CardDescription className="text-sm">{`${output?.amount} ${output?.unit}`}</CardDescription>
-                </Fragment>
-              );
-            })}
-          </CardHeader>
-        </Card>
+        <div className="flex justify-center">
+          <Card className="text-center">
+            <CardHeader className="flex-row text-center">
+              {outputList.map((output, index) => {
+                return (
+                  <Fragment key={`output_${index}`}>
+                    <CardTitle className="text-lg mr-1 text-center">
+                      {output?.ingredient}:
+                    </CardTitle>
+                    <CardDescription className="text-sm text-center">{`${output?.amount} ${output?.unit}`}</CardDescription>
+                  </Fragment>
+                );
+              })}
+            </CardHeader>
+          </Card>
+        </div>
       )}
     </div>
   );

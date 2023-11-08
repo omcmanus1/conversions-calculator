@@ -24,11 +24,11 @@ export default function Navigation({
 
   return (
     <NavigationMenu className="mb-5">
-      <NavigationMenuList>
+      <NavigationMenuList className=" flex-col md:flex-row">
         {navigationTabs.map((tab) => {
           const isSelected = pathname.includes(tab.path);
           return (
-            <NavigationMenuItem key={`${tab.path}_key`}>
+            <NavigationMenuItem key={`${tab.path}_key`} className="mt-2">
               <Button className="mr-2" asChild>
                 <Link href={tab.path} legacyBehavior passHref>
                   <NavigationMenuLink
