@@ -38,8 +38,8 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
           return (
             <Fragment key={`inputList_${index}`}>
               {index > 0 && <hr className="flex-grow mt-3 md:mt-0 mb-4 md:mb-3" />}
-              <div className="flex md:mb-2 flex-col md:flex-row">
-                <div className="flex flex-row align-center justify-end">
+              <div className="flex md:mb-2 flex-col md:flex-row ">
+                <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4">Ingredient: </p>
                   <Input
                     className="md:mr-2 md:w-28 w-44"
@@ -50,7 +50,7 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                     }
                   />
                 </div>
-                <div className="flex flex-row align-center justify-end">
+                <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4">Unit: </p>
                   <SelectSh
                     handleChange={(e) => handleInputChange(e, index, "inputUnit")}
@@ -59,19 +59,20 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                     classNames="md:w-28 w-44 mb-0"
                   />
                 </div>
-                <div className="flex flex-row align-center justify-end">
+                <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4 md:ml-2">Amount: </p>
                   <Input
                     className="md:w-28 w-44"
                     placeholder="..."
                     value={inp.amount || ""}
                     type="number"
+                    min="0"
                     onChange={(e) =>
                       handleInputChange(Number(e.target.value), index, "amount")
                     }
                   />
                 </div>
-                <div className="flex flex-row align-center justify-end">
+                <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4 md:ml-2">Output: </p>
                   <SelectSh
                     handleChange={(e) => handleInputChange(e, index, "outputUnit")}
