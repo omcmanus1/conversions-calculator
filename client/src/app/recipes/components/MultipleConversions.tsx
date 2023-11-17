@@ -36,7 +36,7 @@ export default function MultipleConversions() {
         Convert All
         <ChevronDoubleRight className="w-5" />
       </Button>
-      {!!outputList.length && (
+      {!!outputList?.length && (
         <div className="flex justify-center">
           <Card className="text-center">
             <CardHeader className="flex-row text-center">
