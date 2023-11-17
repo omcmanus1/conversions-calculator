@@ -7,10 +7,12 @@ import { Fragment } from "react";
 
 export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {
   const handleInputChange = (val: string | number, index: number, field: InputFields) => {
-    const updatedList = inputList.map((item, i) =>
-      i === index ? { ...item, [field]: val } : item
-    );
-    setInputList(updatedList);
+    if (!(typeof val === "number" && val < 0)) {
+      const updatedList = inputList.map((item, i) => {
+        return i === index ? { ...item, [field]: val } : item;
+      });
+      setInputList(updatedList);
+    }
   };
 
   const decideDropdowns = (inp: SingleInput, selectType: "input" | "output") => {
@@ -62,7 +64,9 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                 <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4 md:ml-2">Amount: </p>
                   <Input
-                    className="md:w-28 w-44"
+                    className={`md:w-28 w-44 ${
+                      inp.amount < 0 && "border-2 border-red-500"
+                    }`}
                     placeholder="..."
                     value={inp.amount || ""}
                     type="number"

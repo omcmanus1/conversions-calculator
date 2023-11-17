@@ -16,13 +16,10 @@ export default function SingleInputComp({ input, setInput, conversionType }: Pro
   const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
   const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
 
-  const handleInput = <K extends keyof SingleInput>(
-    property: K,
-    value: SingleInput[K]
-  ) => {
+  const handleInput = <K extends keyof SingleInput>(property: K, val: SingleInput[K]) => {
     setInput({
       ...input,
-      [property]: typeof value === "string" ? value.toLowerCase() : value,
+      [property]: typeof val === "string" ? val.toLowerCase() : val,
     });
   };
 
@@ -53,9 +50,10 @@ export default function SingleInputComp({ input, setInput, conversionType }: Pro
         }
       />
       <Input
-        className="mb-1"
+        className={`mb-1 ${input.amount < 0 && "border-2 border-red-500"}`}
         disabled={!input.inputUnit}
         type="number"
+        min="0"
         placeholder="Amount"
         onChange={(e) => handleInput("amount", Number(e.target.value))}
       />
