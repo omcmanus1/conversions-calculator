@@ -53,7 +53,7 @@ export default function SingleConversion({ conversionType }: Props) {
       />
       <Button
         className={`mt-3 mb-3 ${inputComplete(input) && "hover:bg-lime-100"}`}
-        disabled={!inputComplete}
+        disabled={!inputComplete(input)}
         variant="outline"
         onClick={handleSingleConversion}
       >
