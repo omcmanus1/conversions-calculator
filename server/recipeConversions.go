@@ -7,24 +7,24 @@ import (
 	"github.com/omcmanus1/converter/types"
 )
 
-func VolumeMetric(inp types.Input) (types.Output, error) {
+func VolumeMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	var input float64
 	var output float64
-	var result = types.Output{
+	var result = types.RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
 
 	if inp.Ingredient == "" {
-		return types.Output{}, errors.New("please submit an ingredient name")
+		return types.RecipeOutput{}, errors.New("please submit an ingredient name")
 	}
 
 	if inp.Type != "volume" {
-		return types.Output{}, errors.New("invalid conversion type" + inp.Type)
+		return types.RecipeOutput{}, errors.New("invalid conversion type" + inp.Type)
 	}
 
 	if inp.InputSystem != "metric" {
-		return types.Output{}, errors.New("invalid input system: " + inp.InputSystem)
+		return types.RecipeOutput{}, errors.New("invalid input system: " + inp.InputSystem)
 	}
 
 	if inp.InputUnit == "litres" {
@@ -32,7 +32,7 @@ func VolumeMetric(inp types.Input) (types.Output, error) {
 	} else if inp.InputUnit == "millilitres" {
 		input = float64(inp.Amount)
 	} else {
-		return types.Output{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "fluid oz" {
@@ -45,11 +45,11 @@ func VolumeMetric(inp types.Input) (types.Output, error) {
 		output = float64(input / 3785)
 	} else if inp.OutputUnit == "cups" {
 		if input < 40 {
-			return types.Output{}, errors.New("too small for cups")
+			return types.RecipeOutput{}, errors.New("too small for cups")
 		}
 		output = float64(input) / 236.6
 	} else {
-		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
@@ -57,9 +57,9 @@ func VolumeMetric(inp types.Input) (types.Output, error) {
 	return result, nil
 }
 
-func VolumeUS(inp types.Input) (types.Output, error) {
+func VolumeUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 	var output float64
-	var result = types.Output{
+	var result = types.RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
@@ -75,7 +75,7 @@ func VolumeUS(inp types.Input) (types.Output, error) {
 	} else if inp.InputUnit == "fluid oz" {
 		output = float64(inp.Amount) * 240
 	} else {
-		return types.Output{}, errors.New("invalid input unit" + inp.InputUnit)
+		return types.RecipeOutput{}, errors.New("invalid input unit" + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "millilitres" {
@@ -84,7 +84,7 @@ func VolumeUS(inp types.Input) (types.Output, error) {
 		output = output / 1000
 		output = float64(math.Round(output*10)) / 10
 	} else {
-		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output
@@ -92,10 +92,10 @@ func VolumeUS(inp types.Input) (types.Output, error) {
 	return result, nil
 }
 
-func WeightMetric(inp types.Input) (types.Output, error) {
+func WeightMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	var input float64
 	var output float64
-	var result = types.Output{
+	var result = types.RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
@@ -105,7 +105,7 @@ func WeightMetric(inp types.Input) (types.Output, error) {
 	} else if inp.InputUnit == "grams" {
 		input = float64(inp.Amount)
 	} else {
-		return types.Output{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "oz" {
@@ -114,11 +114,11 @@ func WeightMetric(inp types.Input) (types.Output, error) {
 		output = float64(input / 453.6)
 	} else if inp.OutputUnit == "cups" {
 		if input < 40 {
-			return types.Output{}, errors.New("too small for cups")
+			return types.RecipeOutput{}, errors.New("too small for cups")
 		}
 		output = input / 250
 	} else {
-		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
@@ -126,15 +126,15 @@ func WeightMetric(inp types.Input) (types.Output, error) {
 	return result, nil
 }
 
-func WeightUS(inp types.Input) (types.Output, error) {
+func WeightUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 	var output float64
-	var result = types.Output{
+	var result = types.RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
 
 	if inp.Type != "weight" {
-		return types.Output{}, errors.New("invalid type: " + inp.Type)
+		return types.RecipeOutput{}, errors.New("invalid type: " + inp.Type)
 	}
 
 	if inp.InputUnit == "cups" {
@@ -144,7 +144,7 @@ func WeightUS(inp types.Input) (types.Output, error) {
 	} else if inp.InputUnit == "oz" {
 		output = float64(inp.Amount) * 28.35
 	} else {
-		return types.Output{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "grams" {
@@ -153,7 +153,7 @@ func WeightUS(inp types.Input) (types.Output, error) {
 		output = output / 1000
 		output = float64(math.Round(output*10)) / 10
 	} else {
-		return types.Output{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output

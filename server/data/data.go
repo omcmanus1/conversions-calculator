@@ -2,7 +2,7 @@ package data
 
 import "github.com/omcmanus1/converter/types"
 
-var Input = []types.Input{
+var Input = []types.RecipeInput{
 	{
 		Ingredient:   "haribos",
 		InputSystem:  "US",
@@ -41,7 +41,7 @@ var Input = []types.Input{
 	},
 }
 
-var SingleInput = []types.Input{
+var SingleInput = []types.RecipeInput{
 	{
 		Ingredient:   "tomatoes",
 		InputSystem:  "US",

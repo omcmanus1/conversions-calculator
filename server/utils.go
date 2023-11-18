@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
+func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []types.RecipeInput, inputFn func(data []types.RecipeInput) ([]types.RecipeOutput, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
 	result, err := inputFn(data)
@@ -29,7 +29,7 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []type
 	w.Write(jsonResult)
 }
 
-func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types.Input, inputFn func(data []types.Input) ([]types.Output, error)) {
+func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types.RecipeInput, inputFn func(data []types.RecipeInput) ([]types.RecipeOutput, error)) {
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
 	result, err := inputFn(data)
@@ -54,7 +54,7 @@ func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types
 	w.Write(prettyJSON.Bytes())
 }
 
-func HandlePostRequest[I types.Input | []types.Input, O types.Output | []types.Output](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
+func HandlePostRequest[I types.RecipeInput | []types.RecipeInput, O types.RecipeOutput | []types.RecipeOutput](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var input I
@@ -79,7 +79,7 @@ func HandlePostRequest[I types.Input | []types.Input, O types.Output | []types.O
 	w.Write(jsonResult)
 }
 
-func CheckGotWant(t testing.TB, got, want types.Output) {
+func CheckGotWant(t testing.TB, got, want types.RecipeOutput) {
 	t.Helper()
 	if got != want {
 		t.Errorf(`got %v want %v`, got, want)
