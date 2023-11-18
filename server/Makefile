@@ -29,3 +29,9 @@ test_coverage:
 
 dep:
 	go mod download
+
+vet:
+	go vet ./...
+	shadow ./...
+
+.PHONY:vet
