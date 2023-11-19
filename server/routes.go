@@ -29,6 +29,8 @@ func SetupRoutes() *chi.Mux {
 	r.Post("/api/convert/volume-us", PostVolumeUS)
 	r.Post("/api/convert/weight-metric", PostWeightMetric)
 	r.Post("/api/convert/volume-metric", PostVolumeMetric)
+	r.Post("/api/convert/height-feet", PostHeightFeet)
+	r.Post("/api/convert/height-metric", PostHeightMetric)
 
 	return r
 }
@@ -63,4 +65,12 @@ func PostWeightMetric(w http.ResponseWriter, r *http.Request) {
 
 func PostVolumeMetric(w http.ResponseWriter, r *http.Request) {
 	HandlePostRequest(w, r, VolumeMetric)
+}
+
+func PostHeightFeet(w http.ResponseWriter, r *http.Request) {
+	HandlePostRequest(w, r, FromFeet)
+}
+
+func PostHeightMetric(w http.ResponseWriter, r *http.Request) {
+	HandlePostRequest(w, r, FromMetric)
 }
