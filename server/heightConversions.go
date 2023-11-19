@@ -2,70 +2,60 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math"
 )
-
-type HeightFromMetric interface {
-	GetHeightInFeet() (HeightFeet, error)
-}
 
 type HeightFeet struct {
 	Feet   float32 `json:"feet"`
 	Inches float32 `json:"inches"`
 }
 
-type HeightCentimetres struct {
+type HeightMetric struct {
 	Centimetres float32 `json:"centimetres"`
+	Metres      float32 `json:"metres"`
 }
 
-type HeightMetres struct {
-	Metres float32 `json:"metres"`
-}
+func FromFeet(inp HeightFeet) (HeightMetric, error) {
+	var output HeightMetric
 
-func (h HeightCentimetres) GetHeightInFeet() (HeightFeet, error) {
-	var output HeightFeet
-
-	if h.Centimetres < 0 {
+	switch true {
+	case inp.Feet == 0 && inp.Inches == 0:
+		return output, errors.New("please input a height")
+	case inp.Feet < 0 || inp.Inches < 0 || inp.Inches >= 12:
 		return output, errors.New("invalid input")
 	}
-	totalInches := float64(h.Centimetres) / 2.54
-	feet := math.Floor(totalInches / 12)
-	remainingInches := math.Mod(totalInches, 12)
-	output.Feet = float32(feet)
-	output.Inches = float32(remainingInches)
 
-	return output, nil
-}
-
-func (h HeightMetres) GetHeightInFeet() (HeightFeet, error) {
-	var output HeightFeet
-
-	if h.Metres < 0 {
-		return output, errors.New("invalid input")
-	}
-	totalInches := float64(h.Metres / 0.0254)
-	feet := math.Floor(totalInches / 12)
-	remainingInches := math.Mod(totalInches, 12)
-	output.Feet = float32(feet)
-	output.Inches = float32(remainingInches)
-
-	return output, nil
-}
-
-func FromFeet(inp HeightFeet) (HeightCentimetres, error) {
-	var output HeightCentimetres
-
-	if inp.Feet < 0 || inp.Inches < 0 || inp.Inches >= 12 {
-		return output, errors.New("invalid input")
-	}
 	feet := 30.48 * inp.Feet
 	inches := 2.54 * inp.Inches
 
 	output.Centimetres = feet + inches
+	output.Metres = (feet + inches) / 100
 	return output, nil
 }
 
-func FromMetric(inp HeightFromMetric) (HeightFeet, error) {
-	output, err := inp.GetHeightInFeet()
-	return output, err
+func FromMetric(inp HeightMetric) (HeightFeet, error) {
+	var output HeightFeet
+	var totalInches float64
+
+	switch true {
+	case inp.Centimetres == 0 && inp.Metres == 0:
+		return output, errors.New("please enter a height")
+	case inp.Centimetres > 0 && inp.Metres != 0 || inp.Metres > 0 && inp.Centimetres != 0:
+		return output, errors.New("please only enter one unit")
+	}
+
+	switch true {
+	case inp.Centimetres > 0:
+		totalInches = float64(inp.Centimetres) / 2.54
+	case inp.Metres > 0:
+		totalInches = float64(inp.Metres) / 0.0254
+	}
+	fmt.Println(totalInches)
+	feet := math.Floor(totalInches / 12)
+	remainingInches := math.Mod(totalInches, 12)
+
+	output.Feet = float32(feet)
+	output.Inches = float32(remainingInches)
+	return output, nil
 }
