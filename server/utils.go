@@ -10,6 +10,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type PostInputs interface {
+	RecipeInput | []RecipeInput | HeightFeet | HeightMetric
+}
+
+type PostOutputs interface {
+	RecipeOutput | []RecipeOutput | HeightFeet | HeightMetric
+}
+
 func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -53,11 +61,10 @@ func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []Recip
 	w.Write(prettyJSON.Bytes())
 }
 
-func HandlePostRequest[I RecipeInput | []RecipeInput, O RecipeOutput | []RecipeOutput](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
+func HandlePostRequest[I PostInputs, O PostOutputs](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var input I
-
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		log.Printf("Unable to decode JSON: %v", err)
 		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
