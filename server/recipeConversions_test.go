@@ -2,13 +2,11 @@ package main
 
 import (
 	"testing"
-
-	"github.com/omcmanus1/converter/types"
 )
 
 func TestVolumeMetric(t *testing.T) {
 	t.Run("empty inputs results in error", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:   "",
 			InputSystem:  "",
 			InputUnit:    "",
@@ -18,12 +16,12 @@ func TestVolumeMetric(t *testing.T) {
 			Amount:       0.0,
 		}
 		got, err := VolumeMetric(inp)
-		want := types.RecipeOutput{}
+		want := RecipeOutput{}
 		CheckGotWant(t, got, want)
 		CheckError(t, err, "please submit an ingredient name")
 	})
 	t.Run("invalid input system results in error", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:   "haribos",
 			InputSystem:  "dollars",
 			InputUnit:    "litres",
@@ -33,12 +31,12 @@ func TestVolumeMetric(t *testing.T) {
 			Amount:       24,
 		}
 		got, err := VolumeMetric(inp)
-		want := types.RecipeOutput{}
+		want := RecipeOutput{}
 		CheckGotWant(t, got, want)
 		CheckError(t, err, "invalid input system")
 	})
 	t.Run("invalid ingredient results in error", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:  "",
 			Type:        "volume",
 			InputSystem: "metric",
@@ -47,12 +45,12 @@ func TestVolumeMetric(t *testing.T) {
 			Amount:      344,
 		}
 		got, err := VolumeMetric(inp)
-		want := types.RecipeOutput{}
+		want := RecipeOutput{}
 		CheckGotWant(t, got, want)
 		CheckError(t, err, "please submit an ingredient name")
 	})
 	t.Run("invalid conversion type results in error", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:  "sugar",
 			Type:        "weight",
 			InputSystem: "metric",
@@ -61,12 +59,12 @@ func TestVolumeMetric(t *testing.T) {
 			Amount:      1000,
 		}
 		got, err := VolumeMetric(inp)
-		want := types.RecipeOutput{}
+		want := RecipeOutput{}
 		CheckGotWant(t, got, want)
 		CheckError(t, err, "invalid conversion type")
 	})
 	t.Run("valid millilitres to fluid oz conversion", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:  "water",
 			Type:        "volume",
 			InputSystem: "metric",
@@ -74,7 +72,7 @@ func TestVolumeMetric(t *testing.T) {
 			OutputUnit:  "fluid oz",
 			Amount:      1000,
 		}
-		got := types.RecipeOutput{
+		got := RecipeOutput{
 			Ingredient: "water",
 			OutputUnit: "fluid oz",
 			Amount:     33.8,
@@ -83,7 +81,7 @@ func TestVolumeMetric(t *testing.T) {
 		CheckGotWant(t, result, got)
 	})
 	t.Run("valid litres to cups conversion", func(t *testing.T) {
-		inp := types.RecipeInput{
+		inp := RecipeInput{
 			Ingredient:  "milk",
 			Type:        "volume",
 			InputSystem: "metric",
@@ -91,7 +89,7 @@ func TestVolumeMetric(t *testing.T) {
 			OutputUnit:  "cups",
 			Amount:      2,
 		}
-		got := types.RecipeOutput{
+		got := RecipeOutput{
 			Ingredient: "milk",
 			OutputUnit: "cups",
 			Amount:     8.5,
@@ -103,14 +101,14 @@ func TestVolumeMetric(t *testing.T) {
 
 func TestVolumeUS(t *testing.T) {
 	t.Run("ValidConversionFromCupsToMillilitres", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "coffee",
 			Type:       "volume",
 			InputUnit:  "cups",
 			OutputUnit: "millilitres",
 			Amount:     2,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "coffee",
 			OutputUnit: "millilitres",
 			Amount:     473,
@@ -122,14 +120,14 @@ func TestVolumeUS(t *testing.T) {
 		CheckGotWant(t, result, expected)
 	})
 	t.Run("ValidConversionFromGallonsToLitres", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "water",
 			Type:       "volume",
 			InputUnit:  "gallons",
 			OutputUnit: "litres",
 			Amount:     5,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "water",
 			OutputUnit: "litres",
 			Amount:     18.9,
@@ -141,7 +139,7 @@ func TestVolumeUS(t *testing.T) {
 		CheckGotWant(t, result, expected)
 	})
 	t.Run("InvalidInputUnit", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "soda",
 			Type:       "volume",
 			InputUnit:  "invalid",
@@ -152,7 +150,7 @@ func TestVolumeUS(t *testing.T) {
 		CheckError(t, err, "invalid input unit")
 	})
 	t.Run("InvalidOutputUnit", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "juice",
 			Type:       "volume",
 			InputUnit:  "pints",
@@ -166,14 +164,14 @@ func TestVolumeUS(t *testing.T) {
 
 func TestWeightMetric(t *testing.T) {
 	t.Run("ValidConversionFromKilogramsToPounds", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "flour",
 			Type:       "weight",
 			InputUnit:  "kg",
 			OutputUnit: "lbs",
 			Amount:     2,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "flour",
 			OutputUnit: "lbs",
 			Amount:     4.4,
@@ -182,14 +180,14 @@ func TestWeightMetric(t *testing.T) {
 		CheckGotWant(t, result, expected)
 	})
 	t.Run("ValidConversionFromGramsToOunces", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "sugar",
 			Type:       "weight",
 			InputUnit:  "grams",
 			OutputUnit: "oz",
 			Amount:     500,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "sugar",
 			OutputUnit: "oz",
 			Amount:     17.6,
@@ -199,7 +197,7 @@ func TestWeightMetric(t *testing.T) {
 	})
 
 	t.Run("InvalidInputUnit", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "salt",
 			Type:       "weight",
 			InputUnit:  "invalid",
@@ -210,7 +208,7 @@ func TestWeightMetric(t *testing.T) {
 		CheckError(t, err, "invalid input unit")
 	})
 	t.Run("InvalidOutputUnit", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "rice",
 			Type:       "weight",
 			InputUnit:  "kg",
@@ -224,14 +222,14 @@ func TestWeightMetric(t *testing.T) {
 
 func TestWeightUS(t *testing.T) {
 	t.Run("ValidConversionFromCupsToGrams", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "sugar",
 			Type:       "weight",
 			InputUnit:  "cups",
 			OutputUnit: "grams",
 			Amount:     2,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "sugar",
 			OutputUnit: "grams",
 			Amount:     480,
@@ -240,14 +238,14 @@ func TestWeightUS(t *testing.T) {
 		CheckGotWant(t, result, expected)
 	})
 	t.Run("ValidConversionFromPoundsToKilograms", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "flour",
 			Type:       "weight",
 			InputUnit:  "lbs",
 			OutputUnit: "kg",
 			Amount:     5,
 		}
-		expected := types.RecipeOutput{
+		expected := RecipeOutput{
 			Ingredient: "flour",
 			OutputUnit: "kg",
 			Amount:     2.3,
@@ -256,7 +254,7 @@ func TestWeightUS(t *testing.T) {
 		CheckGotWant(t, result, expected)
 	})
 	t.Run("InvalidType", func(t *testing.T) {
-		input := types.RecipeInput{
+		input := RecipeInput{
 			Ingredient: "rice",
 			Type:       "volume",
 			InputUnit:  "cups",

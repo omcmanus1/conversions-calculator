@@ -7,11 +7,10 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/omcmanus1/converter/types"
 	"github.com/stretchr/testify/assert"
 )
 
-func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []types.RecipeInput, inputFn func(data []types.RecipeInput) ([]types.RecipeOutput, error)) {
+func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
 	result, err := inputFn(data)
@@ -29,7 +28,7 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []type
 	w.Write(jsonResult)
 }
 
-func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types.RecipeInput, inputFn func(data []types.RecipeInput) ([]types.RecipeOutput, error)) {
+func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
 	result, err := inputFn(data)
@@ -54,7 +53,7 @@ func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []types
 	w.Write(prettyJSON.Bytes())
 }
 
-func HandlePostRequest[I types.RecipeInput | []types.RecipeInput, O types.RecipeOutput | []types.RecipeOutput](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
+func HandlePostRequest[I RecipeInput | []RecipeInput, O RecipeOutput | []RecipeOutput](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var input I
@@ -79,7 +78,7 @@ func HandlePostRequest[I types.RecipeInput | []types.RecipeInput, O types.Recipe
 	w.Write(jsonResult)
 }
 
-func CheckGotWant(t testing.TB, got, want types.RecipeOutput) {
+func CheckGotWant(t testing.TB, got, want RecipeOutput) {
 	t.Helper()
 	if got != want {
 		t.Errorf(`got %v want %v`, got, want)

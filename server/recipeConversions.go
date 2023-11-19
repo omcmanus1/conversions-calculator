@@ -3,28 +3,42 @@ package main
 import (
 	"errors"
 	"math"
-
-	"github.com/omcmanus1/converter/types"
 )
 
-func VolumeMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
+type RecipeInput struct {
+	Ingredient   string
+	InputSystem  string
+	InputUnit    string
+	OutputSystem string
+	OutputUnit   string
+	Type         string
+	Amount       float32
+}
+
+type RecipeOutput struct {
+	Ingredient string  `json:"ingredient"`
+	OutputUnit string  `json:"unit"`
+	Amount     float64 `json:"amount"`
+}
+
+func VolumeMetric(inp RecipeInput) (RecipeOutput, error) {
 	var input float64
 	var output float64
-	var result = types.RecipeOutput{
+	var result = RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
 
 	if inp.Ingredient == "" {
-		return types.RecipeOutput{}, errors.New("please submit an ingredient name")
+		return RecipeOutput{}, errors.New("please submit an ingredient name")
 	}
 
 	if inp.Type != "volume" {
-		return types.RecipeOutput{}, errors.New("invalid conversion type" + inp.Type)
+		return RecipeOutput{}, errors.New("invalid conversion type" + inp.Type)
 	}
 
 	if inp.InputSystem != "metric" {
-		return types.RecipeOutput{}, errors.New("invalid input system: " + inp.InputSystem)
+		return RecipeOutput{}, errors.New("invalid input system: " + inp.InputSystem)
 	}
 
 	if inp.InputUnit == "litres" {
@@ -32,7 +46,7 @@ func VolumeMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	} else if inp.InputUnit == "millilitres" {
 		input = float64(inp.Amount)
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "fluid oz" {
@@ -45,11 +59,11 @@ func VolumeMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 		output = float64(input / 3785)
 	} else if inp.OutputUnit == "cups" {
 		if input < 40 {
-			return types.RecipeOutput{}, errors.New("too small for cups")
+			return RecipeOutput{}, errors.New("too small for cups")
 		}
 		output = float64(input) / 236.6
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
@@ -57,9 +71,9 @@ func VolumeMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	return result, nil
 }
 
-func VolumeUS(inp types.RecipeInput) (types.RecipeOutput, error) {
+func VolumeUS(inp RecipeInput) (RecipeOutput, error) {
 	var output float64
-	var result = types.RecipeOutput{
+	var result = RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
@@ -75,7 +89,7 @@ func VolumeUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 	} else if inp.InputUnit == "fluid oz" {
 		output = float64(inp.Amount) * 240
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid input unit" + inp.InputUnit)
+		return RecipeOutput{}, errors.New("invalid input unit" + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "millilitres" {
@@ -84,7 +98,7 @@ func VolumeUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 		output = output / 1000
 		output = float64(math.Round(output*10)) / 10
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output
@@ -92,10 +106,10 @@ func VolumeUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 	return result, nil
 }
 
-func WeightMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
+func WeightMetric(inp RecipeInput) (RecipeOutput, error) {
 	var input float64
 	var output float64
-	var result = types.RecipeOutput{
+	var result = RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
@@ -105,7 +119,7 @@ func WeightMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	} else if inp.InputUnit == "grams" {
 		input = float64(inp.Amount)
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "oz" {
@@ -114,11 +128,11 @@ func WeightMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 		output = float64(input / 453.6)
 	} else if inp.OutputUnit == "cups" {
 		if input < 40 {
-			return types.RecipeOutput{}, errors.New("too small for cups")
+			return RecipeOutput{}, errors.New("too small for cups")
 		}
 		output = input / 250
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
@@ -126,15 +140,15 @@ func WeightMetric(inp types.RecipeInput) (types.RecipeOutput, error) {
 	return result, nil
 }
 
-func WeightUS(inp types.RecipeInput) (types.RecipeOutput, error) {
+func WeightUS(inp RecipeInput) (RecipeOutput, error) {
 	var output float64
-	var result = types.RecipeOutput{
+	var result = RecipeOutput{
 		Ingredient: inp.Ingredient,
 		OutputUnit: inp.OutputUnit,
 	}
 
 	if inp.Type != "weight" {
-		return types.RecipeOutput{}, errors.New("invalid type: " + inp.Type)
+		return RecipeOutput{}, errors.New("invalid type: " + inp.Type)
 	}
 
 	if inp.InputUnit == "cups" {
@@ -144,7 +158,7 @@ func WeightUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 	} else if inp.InputUnit == "oz" {
 		output = float64(inp.Amount) * 28.35
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
+		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
 	if inp.OutputUnit == "grams" {
@@ -153,7 +167,7 @@ func WeightUS(inp types.RecipeInput) (types.RecipeOutput, error) {
 		output = output / 1000
 		output = float64(math.Round(output*10)) / 10
 	} else {
-		return types.RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
+		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output

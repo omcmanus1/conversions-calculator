@@ -4,17 +4,15 @@ import (
 	"errors"
 	"fmt"
 	"log"
-
-	"github.com/omcmanus1/converter/types"
 )
 
-func Flow(inp []types.RecipeInput) ([]types.RecipeOutput, error) {
+func Flow(inp []RecipeInput) ([]RecipeOutput, error) {
 	var output []string
-	var arrOutput []types.RecipeOutput
+	var arrOutput []RecipeOutput
 	var err error
 
 	for _, entry := range inp {
-		var result types.RecipeOutput
+		var result RecipeOutput
 
 		if entry.Amount <= 0 {
 			return nil, errors.New("please supply a valid amount")
