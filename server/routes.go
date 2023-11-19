@@ -7,7 +7,6 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
-	"github.com/omcmanus1/converter/data"
 )
 
 func SetupRoutes() *chi.Mux {
@@ -39,11 +38,11 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestMarshal(w, r, data.Input, Flow)
+	HandleGetRequestMarshal(w, r, Input, Flow)
 }
 
 func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestEncode(w, r, data.SingleInput, Flow)
+	HandleGetRequestEncode(w, r, SingleInput, Flow)
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
