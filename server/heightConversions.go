@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"math"
 )
 
@@ -51,7 +50,7 @@ func FromMetric(inp HeightMetric) (HeightFeet, error) {
 	case inp.Metres > 0:
 		totalInches = float64(inp.Metres) / 0.0254
 	}
-	fmt.Println(totalInches)
+
 	feet := math.Floor(totalInches / 12)
 	remainingInches := math.Mod(totalInches, 12)
 
