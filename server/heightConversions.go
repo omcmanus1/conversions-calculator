@@ -19,7 +19,7 @@ type HeightMetric struct {
 func FromFeet(inp HeightFeet) (HeightMetric, error) {
 	var output HeightMetric
 
-	switch true {
+	switch {
 	case inp.Feet == 0 && inp.Inches == 0:
 		return output, errors.New("please input a height")
 	case inp.Feet < 0 || inp.Inches < 0 || inp.Inches >= 12:
@@ -38,14 +38,14 @@ func FromMetric(inp HeightMetric) (HeightFeet, error) {
 	var output HeightFeet
 	var totalInches float64
 
-	switch true {
+	switch {
 	case inp.Centimetres == 0 && inp.Metres == 0:
 		return output, errors.New("please enter a height")
 	case inp.Centimetres > 0 && inp.Metres != 0 || inp.Metres > 0 && inp.Centimetres != 0:
 		return output, errors.New("please only enter one unit")
 	}
 
-	switch true {
+	switch {
 	case inp.Centimetres > 0:
 		totalInches = float64(inp.Centimetres) / 2.54
 	case inp.Metres > 0:

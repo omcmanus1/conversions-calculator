@@ -29,45 +29,39 @@ func VolumeMetric(inp RecipeInput) (RecipeOutput, error) {
 		OutputUnit: inp.OutputUnit,
 	}
 
-	if inp.Ingredient == "" {
-		return RecipeOutput{}, errors.New("please submit an ingredient name")
+	if inp.InputSystem != "metric" || inp.Type != "volume" {
+		return RecipeOutput{}, errors.New("please provide a metric volume input")
 	}
 
-	if inp.Type != "volume" {
-		return RecipeOutput{}, errors.New("invalid conversion type" + inp.Type)
-	}
-
-	if inp.InputSystem != "metric" {
-		return RecipeOutput{}, errors.New("invalid input system: " + inp.InputSystem)
-	}
-
-	if inp.InputUnit == "litres" {
+	switch inp.InputUnit {
+	case "litres":
 		input = float64(inp.Amount) * 1000
-	} else if inp.InputUnit == "millilitres" {
+	case "millilitres":
 		input = float64(inp.Amount)
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
-	if inp.OutputUnit == "fluid oz" {
+	switch inp.OutputUnit {
+	case "fluid oz":
 		output = float64(input / 29.574)
-	} else if inp.OutputUnit == "pints" {
+	case "pints":
 		output = float64(input / 473.2)
-	} else if inp.OutputUnit == "quarts" {
+	case "quarts":
 		output = float64(input / 946.4)
-	} else if inp.OutputUnit == "gallons" {
+	case "gallons":
 		output = float64(input / 3785)
-	} else if inp.OutputUnit == "cups" {
+	case "cups":
 		if input < 40 {
 			return RecipeOutput{}, errors.New("too small for cups")
+		} else {
+			output = float64(input) / 236.6
 		}
-		output = float64(input) / 236.6
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
-
 	return result, nil
 }
 
@@ -78,31 +72,36 @@ func VolumeUS(inp RecipeInput) (RecipeOutput, error) {
 		OutputUnit: inp.OutputUnit,
 	}
 
-	if inp.InputUnit == "cups" {
+	if inp.InputSystem != "usa" || inp.Type != "volume" {
+		return RecipeOutput{}, errors.New("please provide a US volume input")
+	}
+
+	switch inp.InputUnit {
+	case "cups":
 		output = float64(inp.Amount) * 236.6
-	} else if inp.InputUnit == "gallons" {
+	case "gallons":
 		output = float64(inp.Amount) * 3785
-	} else if inp.InputUnit == "quarts" {
+	case "quarts":
 		output = float64(inp.Amount) * 946.4
-	} else if inp.InputUnit == "pints" {
+	case "pints":
 		output = float64(inp.Amount) * 473.2
-	} else if inp.InputUnit == "fluid oz" {
+	case "fluid oz":
 		output = float64(inp.Amount) * 240
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid input unit" + inp.InputUnit)
 	}
 
-	if inp.OutputUnit == "millilitres" {
+	switch inp.OutputUnit {
+	case "millilitres":
 		output = math.Round(output)
-	} else if inp.OutputUnit == "litres" {
-		output = output / 1000
-		output = float64(math.Round(output*10)) / 10
-	} else {
+	case "litres":
+		convertedOutput := output / 1000
+		output = float64(math.Round(convertedOutput*10)) / 10
+	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output
-
 	return result, nil
 }
 
@@ -114,29 +113,34 @@ func WeightMetric(inp RecipeInput) (RecipeOutput, error) {
 		OutputUnit: inp.OutputUnit,
 	}
 
-	if inp.InputUnit == "kg" {
+	if inp.InputSystem != "metric" || inp.Type != "weight" {
+		return RecipeOutput{}, errors.New("please provide a metric weight input")
+	}
+
+	switch inp.InputUnit {
+	case "kg":
 		input = float64(inp.Amount) * 1000
-	} else if inp.InputUnit == "grams" {
+	case "grams":
 		input = float64(inp.Amount)
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
-	if inp.OutputUnit == "oz" {
+	switch inp.OutputUnit {
+	case "oz":
 		output = float64(input / 28.35)
-	} else if inp.OutputUnit == "lbs" {
+	case "lbs":
 		output = float64(input / 453.6)
-	} else if inp.OutputUnit == "cups" {
+	case "cups":
 		if input < 40 {
 			return RecipeOutput{}, errors.New("too small for cups")
 		}
 		output = input / 250
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = float64(math.Round(output*10)) / 10
-
 	return result, nil
 }
 
@@ -147,30 +151,31 @@ func WeightUS(inp RecipeInput) (RecipeOutput, error) {
 		OutputUnit: inp.OutputUnit,
 	}
 
-	if inp.Type != "weight" {
-		return RecipeOutput{}, errors.New("invalid type: " + inp.Type)
+	if inp.InputSystem != "usa" || inp.Type != "weight" {
+		return RecipeOutput{}, errors.New("please provide a US weight input")
 	}
 
-	if inp.InputUnit == "cups" {
+	switch inp.InputUnit {
+	case "cups":
 		output = float64(inp.Amount) * 240
-	} else if inp.InputUnit == "lbs" {
+	case "lbs":
 		output = float64(inp.Amount) * 453.6
-	} else if inp.InputUnit == "oz" {
+	case "oz":
 		output = float64(inp.Amount) * 28.35
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid input unit: " + inp.InputUnit)
 	}
 
-	if inp.OutputUnit == "grams" {
+	switch inp.OutputUnit {
+	case "grams":
 		output = math.Round(output)
-	} else if inp.OutputUnit == "kg" {
+	case "kg":
 		output = output / 1000
 		output = float64(math.Round(output*10)) / 10
-	} else {
+	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	result.Amount = output
-
 	return result, nil
 }
