@@ -101,8 +101,3 @@ func CheckError(t testing.TB, err error, expectedErrMsg string) {
 	assert.ErrorContains(t, err, expectedErrMsg)
 }
 
-func copyArray(arr []any) []any {
-	arrCopy := make([]any, len(arr))
-	copy(arrCopy, arr)
-	return arrCopy
-}
