@@ -6,7 +6,7 @@ import (
 )
 
 type HeightFeet struct {
-	Feet   float32 `json:"feet"`
+	Feet   int     `json:"feet"`
 	Inches float32 `json:"inches"`
 }
 
@@ -20,16 +20,16 @@ func FromFeet(inp HeightFeet) (HeightMetric, error) {
 
 	switch {
 	case inp.Feet == 0 && inp.Inches == 0:
-		return output, errors.New("please input a height")
+		return output, errors.New("please input an imperial height")
 	case inp.Feet < 0 || inp.Inches < 0 || inp.Inches >= 12:
 		return output, errors.New("invalid input")
 	}
 
-	feet := 30.48 * inp.Feet
+	feet := 30.48 * float32(inp.Feet)
 	inches := 2.54 * inp.Inches
 
-	output.Centimetres = feet + inches
-	output.Metres = (feet + inches) / 100
+	output.Centimetres = float32(math.Round(float64(feet + inches)))
+	output.Metres = float32(math.Round(float64((feet+inches)/100*100))) / 100
 	return output, nil
 }
 
@@ -39,9 +39,11 @@ func FromMetric(inp HeightMetric) (HeightFeet, error) {
 
 	switch {
 	case inp.Centimetres == 0 && inp.Metres == 0:
-		return output, errors.New("please enter a height")
+		return output, errors.New("please input a metric height")
 	case inp.Centimetres > 0 && inp.Metres != 0 || inp.Metres > 0 && inp.Centimetres != 0:
-		return output, errors.New("please only enter one unit")
+		return output, errors.New("please only input one unit")
+	case inp.Centimetres < 0 || inp.Metres < 0:
+		return output, errors.New("invalid input")
 	}
 
 	switch {
@@ -51,10 +53,11 @@ func FromMetric(inp HeightMetric) (HeightFeet, error) {
 		totalInches = float64(inp.Metres) / 0.0254
 	}
 
+	totalInches = math.Round(totalInches*10) / 10
 	feet := math.Floor(totalInches / 12)
 	remainingInches := math.Mod(totalInches, 12)
 
-	output.Feet = float32(feet)
+	output.Feet = int(feet)
 	output.Inches = float32(remainingInches)
 	return output, nil
 }
