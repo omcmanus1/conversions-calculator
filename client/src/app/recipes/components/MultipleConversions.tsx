@@ -38,16 +38,14 @@ export default function MultipleConversions() {
       </Button>
       {!!outputList?.length && (
         <div className="flex justify-center">
-          <Card className="text-center">
-            <CardHeader className="flex-row text-center">
+          <Card className="flex-row text-center">
+            <CardHeader className="text-center">
               {outputList.map((output, index) => {
                 return (
-                  <Fragment key={`output_${index}`}>
-                    <CardTitle className="text-lg mr-1 text-center">
-                      {output?.ingredient}:
-                    </CardTitle>
-                    <CardDescription className="text-sm text-center">{`${output?.amount} ${output?.unit}`}</CardDescription>
-                  </Fragment>
+                  <div key={`output_${index}`} className="flex items-center">
+                    <CardTitle className="text-lg mr-1">{output?.ingredient}:</CardTitle>
+                    <CardDescription className="text-sm pt-0.5">{`${output?.amount} ${output?.unit}`}</CardDescription>
+                  </div>
                 );
               })}
             </CardHeader>
