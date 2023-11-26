@@ -2,7 +2,7 @@ import SelectSh from "@/components/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
-import { InputFields, InputListProps, SingleInput } from "@/types/conversionTypes";
+import { InputFields, InputListProps, RecipeInput } from "@/types/conversionTypes";
 import { Fragment } from "react";
 
 export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {
@@ -15,7 +15,7 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
     }
   };
 
-  const decideDropdowns = (inp: SingleInput, selectType: "input" | "output") => {
+  const decideDropdowns = (inp: RecipeInput, selectType: "input" | "output") => {
     switch (true) {
       case inp.inputSystem === "usa" && inp.type === "weight":
         return selectType === "input" ? US_WEIGHT : METRIC_WEIGHT;

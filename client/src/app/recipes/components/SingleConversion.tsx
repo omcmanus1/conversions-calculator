@@ -2,7 +2,7 @@ import { postRequest } from "@/api/fetchRequests";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ConversionSystem, SingleInput, SingleOutput } from "@/types/conversionTypes";
+import { ConversionSystem, RecipeInput, RecipeOutput } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInputComp from "./SingleInput";
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 export default function SingleConversion({ conversionType }: Props) {
-  const [input, setInput] = useState<SingleInput>({
+  const [input, setInput] = useState<RecipeInput>({
     ingredient: "",
     inputSystem: conversionType === "usa" ? "usa" : "metric",
     inputUnit: "",
@@ -21,14 +21,14 @@ export default function SingleConversion({ conversionType }: Props) {
     type: "",
     amount: 0,
   });
-  const [output, setOutput] = useState<SingleOutput>({
+  const [output, setOutput] = useState<RecipeOutput>({
     ingredient: "",
     unit: "",
     amount: 0,
   });
 
   const handleSingleConversion = async () => {
-    let data: SingleOutput;
+    let data: RecipeOutput;
     switch (input.inputSystem) {
       case "usa":
         input.type === "volume"

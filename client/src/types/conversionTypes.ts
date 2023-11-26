@@ -6,7 +6,7 @@ export type ConversionType = "volume" | "weight";
 
 export type InputFields = "ingredient" | "amount" | "inputUnit" | "outputUnit";
 
-export type SingleInput = {
+export type RecipeInput = {
   ingredient: string;
   inputSystem: ConversionSystem;
   inputUnit: string;
@@ -16,13 +16,13 @@ export type SingleInput = {
   amount: number;
 };
 
-export type SingleOutput = {
+export type RecipeOutput = {
   ingredient: string;
   unit: string;
   amount: number;
 };
 
 export type InputListProps = {
-  inputList: SingleInput[];
-  setInputList: Dispatch<SetStateAction<SingleInput[]>>;
+  inputList: RecipeInput[];
+  setInputList: Dispatch<SetStateAction<RecipeInput[]>>;
 };

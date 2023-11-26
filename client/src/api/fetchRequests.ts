@@ -1,4 +1,4 @@
-import { SingleInput } from "@/types/conversionTypes";
+import { RecipeInput } from "@/types/conversionTypes";
 
 const baseUrl = "http://localhost:8080/api/convert";
 
@@ -17,7 +17,7 @@ export const getRequest = async () => {
 
 export const postRequest = async (
   path: string,
-  data: SingleInput | Array<SingleInput>
+  data: RecipeInput | Array<RecipeInput>
 ) => {
   try {
     const res = await fetch(`${baseUrl}/${path}`, {

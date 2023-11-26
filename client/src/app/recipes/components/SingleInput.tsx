@@ -1,12 +1,12 @@
 import SelectSh from "@/components/select";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
-import { ConversionSystem, SingleInput } from "@/types/conversionTypes";
+import { ConversionSystem, RecipeInput } from "@/types/conversionTypes";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  input: SingleInput;
-  setInput: Dispatch<SetStateAction<SingleInput>>;
+  input: RecipeInput;
+  setInput: Dispatch<SetStateAction<RecipeInput>>;
   conversionType: ConversionSystem;
 }
 
@@ -16,7 +16,7 @@ export default function SingleInputComp({ input, setInput, conversionType }: Pro
   const volumeInputs = conversionType === "usa" ? US_VOLUME : METRIC_VOLUME;
   const volumeOutputs = conversionType === "usa" ? METRIC_VOLUME : US_VOLUME;
 
-  const handleInput = <K extends keyof SingleInput>(property: K, val: SingleInput[K]) => {
+  const handleInput = <K extends keyof RecipeInput>(property: K, val: RecipeInput[K]) => {
     setInput({
       ...input,
       [property]: typeof val === "string" ? val.toLowerCase() : val,

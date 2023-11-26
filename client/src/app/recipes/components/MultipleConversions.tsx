@@ -1,6 +1,6 @@
 import { postRequest } from "@/api/fetchRequests";
 import { Button } from "@/components/ui/button";
-import { SingleInput, SingleOutput } from "@/types/conversionTypes";
+import { RecipeInput, RecipeOutput } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
 import { Fragment, useState } from "react";
 import MultipleInputsComp from "./MultipleInputs";
@@ -9,14 +9,14 @@ import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function MultipleConversions() {
-  const [inputList, setInputList] = useState<Array<SingleInput>>([]);
-  const [outputList, setOutputList] = useState<Array<SingleOutput>>([]);
+  const [inputList, setInputList] = useState<Array<RecipeInput>>([]);
+  const [outputList, setOutputList] = useState<Array<RecipeOutput>>([]);
 
   const inputListComplete =
     !!inputList.length && !!inputList.every((input) => inputComplete(input));
 
   const handleListConversion = async () => {
-    let data: SingleOutput[];
+    let data: RecipeOutput[];
     data = await postRequest("list", inputList);
     setOutputList(data);
   };
