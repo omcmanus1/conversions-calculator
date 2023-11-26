@@ -18,6 +18,10 @@ type PostOutputs interface {
 	RecipeOutput | []RecipeOutput | HeightFeet | HeightMetric
 }
 
+type TestOutputs interface {
+	RecipeOutput | HeightFeet | HeightMetric
+}
+
 func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -85,7 +89,7 @@ func HandlePostRequest[I PostInputs, O PostOutputs](w http.ResponseWriter, r *ht
 	w.Write(jsonResult)
 }
 
-func CheckGotWant(t testing.TB, got, want RecipeOutput) {
+func CheckGotWant[TO TestOutputs](t testing.TB, got, want TO) {
 	t.Helper()
 	if got != want {
 		t.Errorf(`got %v want %v`, got, want)
@@ -100,4 +104,3 @@ func CheckError(t testing.TB, err error, expectedErrMsg string) {
 	}
 	assert.ErrorContains(t, err, expectedErrMsg)
 }
-
