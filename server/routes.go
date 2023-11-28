@@ -22,15 +22,15 @@ func SetupRoutes() *chi.Mux {
 		MaxAge:           300,
 	}))
 	r.Get("/api", Home)
-	r.Get("/api/convert/get-encode", GetHandlerEncode)
-	r.Get("/api/convert/get-marshal", GetHandlerMarshal)
-	r.Post("/api/convert/list", PostConversions)
-	r.Post("/api/convert/weight-us", PostWeightUS)
-	r.Post("/api/convert/volume-us", PostVolumeUS)
-	r.Post("/api/convert/weight-metric", PostWeightMetric)
-	r.Post("/api/convert/volume-metric", PostVolumeMetric)
-	r.Post("/api/convert/height-feet", PostHeightFeet)
-	r.Post("/api/convert/height-metric", PostHeightMetric)
+	r.Get("/api/get-encode", GetHandlerEncode)
+	r.Get("/api/get-marshal", GetHandlerMarshal)
+	r.Post("/api/list", PostConversions)
+	r.Post("/api/weight-us", PostWeightUS)
+	r.Post("/api/volume-us", PostVolumeUS)
+	r.Post("/api/weight-metric", PostWeightMetric)
+	r.Post("/api/volume-metric", PostVolumeMetric)
+	r.Post("/api/height-feet", PostHeightFeet)
+	r.Post("/api/height-metric", PostHeightMetric)
 
 	return r
 }
