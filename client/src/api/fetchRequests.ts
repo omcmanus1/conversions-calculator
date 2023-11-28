@@ -1,6 +1,6 @@
 import { RecipeInput } from "@/types/conversionTypes";
 
-const baseUrl = "http://localhost:8080/api/convert";
+const baseUrl = "http://localhost:8080/api";
 
 export const getRequest = async () => {
   try {
