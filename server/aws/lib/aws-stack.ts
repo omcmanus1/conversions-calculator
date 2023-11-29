@@ -10,8 +10,8 @@ export class AwsStack extends cdk.Stack {
 
     const myFunction = new lambda.Function(this, "MyLambda", {
       code: lambda.Code.fromAsset("../bin/build"),
-      handler: "main",
-      runtime: lambda.Runtime.PROVIDED_AL2023,
+      handler: "darwin",
+      runtime: lambda.Runtime.GO_1_X,
     });
 
     const gateway = new RestApi(this, "myGateway", {
