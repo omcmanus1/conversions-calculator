@@ -12,6 +12,7 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 ## TODO
 
 - ~~Add metric > US conversion~~
+- Remove conversions from list after adding 
 - Page Structure
   - Add Top Level routes (recipe converter, measurements, etc.)
   - New Pages
