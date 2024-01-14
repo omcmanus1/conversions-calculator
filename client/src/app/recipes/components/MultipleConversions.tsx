@@ -1,12 +1,12 @@
 import { postRequest } from "@/api/fetchRequests";
+import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RecipeInput, RecipeOutput } from "@/types/conversionTypes";
 import { inputComplete } from "@/utils/recipe";
-import { Fragment, useState } from "react";
-import MultipleInputsComp from "./MultipleInputs";
+import { useState } from "react";
 import AddInputDropdown from "./AddInputDropdown";
-import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import MultipleInputsComp from "./MultipleInputs";
 
 export default function MultipleConversions() {
   const [inputList, setInputList] = useState<Array<RecipeInput>>([]);
