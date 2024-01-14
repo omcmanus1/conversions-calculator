@@ -1,4 +1,6 @@
+import XIcon from "@/components/icons/XIcon";
 import SelectSh from "@/components/select";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
@@ -40,23 +42,21 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
           return (
             <Fragment key={`inputList_${index}`}>
               {index > 0 && <hr className="flex-grow mt-3 md:mt-0 mb-4 md:mb-3" />}
-              <div className="flex md:mb-2 flex-col md:flex-row ">
+              <div className="flex md:mb-2 flex-col md:flex-row md:items-center">
                 <div className="flex flex-row align-center justify-end mb-1">
                   <p className="md:mr-2 mt-2 mr-4">Ingredient: </p>
                   <Input
                     className="md:mr-2 md:w-28 w-44"
-                    placeholder="..."
                     value={inp.ingredient}
                     onChange={(e) =>
                       handleInputChange(e.target.value, index, "ingredient")
                     }
                   />
                 </div>
-                <div className="flex flex-row align-center justify-end mb-1">
+                <div className="flex flex-row align-center justify-end mb-1 mt-1">
                   <p className="md:mr-2 mt-2 mr-4">Unit: </p>
                   <SelectSh
                     handleChange={(e) => handleInputChange(e, index, "inputUnit")}
-                    placeholder="..."
                     selectContent={decideDropdowns(inp, "input")}
                     classNames="md:w-28 w-44 mb-0"
                   />
@@ -67,7 +67,6 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                     className={`md:w-28 w-44 ${
                       inp.amount < 0 && "border-2 border-red-500"
                     }`}
-                    placeholder="..."
                     value={inp.amount || ""}
                     type="number"
                     min="0"
@@ -76,15 +75,22 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                     }
                   />
                 </div>
-                <div className="flex flex-row align-center justify-end mb-1">
+                <div className="flex flex-row align-center justify-end mb-1 mt-1">
                   <p className="md:mr-2 mt-2 mr-4 md:ml-2">Output: </p>
                   <SelectSh
                     handleChange={(e) => handleInputChange(e, index, "outputUnit")}
-                    placeholder="..."
                     selectContent={decideDropdowns(inp, "output")}
                     classNames="md:w-28 w-44"
                   />
                 </div>
+                <Button
+                  variant="ghost"
+                  className="sm:mt-2 mb-1 md:mt-0 ml-28 md:ml-2 text-center"
+                  onClick={() => setInputList([...inputList.slice(0, -1)])}
+                >
+                  <span className="mr-1">Cancel Selection</span>
+                  <XIcon className="h-6 w-6 text-red-500" />
+                </Button>
               </div>
             </Fragment>
           );

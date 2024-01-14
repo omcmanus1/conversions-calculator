@@ -8,7 +8,7 @@ import {
 
 type SelectProps = {
   handleChange?: (inp: string, val?: string) => void;
-  placeholder: string;
+  placeholder?: string;
   selectContent: Array<string>;
   disabled?: boolean;
   classNames?: string;
