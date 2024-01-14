@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	lambda "github.com/omcmanus1/converter/aws/lambdas"
 )
 
 func main() {
@@ -16,5 +14,4 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to start server: %w", err)
 	}
-	lambda.AwsLambdaFunction()
 }
