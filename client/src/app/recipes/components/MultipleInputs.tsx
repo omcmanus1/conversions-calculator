@@ -17,7 +17,10 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
     }
   };
 
-  const decideDropdowns = (inp: RecipeInput, selectType: "input" | "output") => {
+  const decideDropdowns = (
+    inp: RecipeInput,
+    selectType: "input" | "output"
+  ): string[] => {
     switch (true) {
       case inp.inputSystem === "usa" && inp.type === "weight":
         return selectType === "input" ? US_WEIGHT : METRIC_WEIGHT;

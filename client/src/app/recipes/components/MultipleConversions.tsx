@@ -9,8 +9,8 @@ import AddInputDropdown from "./AddInputDropdown";
 import MultipleInputsComp from "./MultipleInputs";
 
 export default function MultipleConversions() {
-  const [inputList, setInputList] = useState<Array<RecipeInput>>([]);
-  const [outputList, setOutputList] = useState<Array<RecipeOutput>>([]);
+  const [inputList, setInputList] = useState<RecipeInput[]>([]);
+  const [outputList, setOutputList] = useState<RecipeOutput[]>([]);
 
   const inputListComplete =
     !!inputList.length && !!inputList.every((input) => inputComplete(input));

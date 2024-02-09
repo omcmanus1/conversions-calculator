@@ -18,7 +18,7 @@ type NavigationTab = {
 export default function Navigation({
   navigationTabs,
 }: {
-  navigationTabs: Array<NavigationTab>;
+  navigationTabs: NavigationTab[];
 }) {
   const pathname = usePathname() || "";
 

@@ -15,10 +15,7 @@ export const getRequest = async () => {
   }
 };
 
-export const postRequest = async (
-  path: string,
-  data: RecipeInput | Array<RecipeInput>
-) => {
+export const postRequest = async (path: string, data: RecipeInput | RecipeInput[]) => {
   try {
     const res = await fetch(`${baseUrl}/${path}`, {
       method: "POST",
