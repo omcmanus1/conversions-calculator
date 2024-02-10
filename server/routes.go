@@ -40,15 +40,15 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestMarshal(w, r, Input, Flow)
+	HandleGetRequestMarshal(w, r, Input, RecipeList)
 }
 
 func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestEncode(w, r, SingleInput, Flow)
+	HandleGetRequestEncode(w, r, SingleInput, RecipeList)
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
-	HandlePostRequest(w, r, Flow)
+	HandlePostRequest(w, r, RecipeList)
 }
 
 func PostWeightUS(w http.ResponseWriter, r *http.Request) {

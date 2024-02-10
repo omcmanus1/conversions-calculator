@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func Flow(inp []RecipeInput) ([]RecipeOutput, error) {
+func RecipeList(inp []RecipeInput) ([]RecipeOutput, error) {
 	var output []string
 	var arrOutput []RecipeOutput
 	var err error

@@ -27,8 +27,8 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []Reci
 
 	result, err := inputFn(data)
 	if err != nil {
-		log.Printf("Conversion error (Flow func): %v", err)
-		http.Error(w, "Conversion error (Flow func)", http.StatusBadRequest)
+		log.Printf("Conversion error (RecipeList func): %v", err)
+		http.Error(w, "Conversion error (RecipeList func)", http.StatusBadRequest)
 		return
 	}
 	jsonResult, err := json.MarshalIndent(result, "", " ")
