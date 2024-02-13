@@ -1,9 +1,9 @@
-package main
+package converter
 
 var Input = []RecipeInput{
 	{
 		Ingredient:   "haribos",
-		InputSystem:  "US",
+		InputSystem:  "usa",
 		InputUnit:    "cups",
 		OutputSystem: "metric",
 		OutputUnit:   "grams",
@@ -12,7 +12,7 @@ var Input = []RecipeInput{
 	},
 	{
 		Ingredient:   "basmati rice",
-		InputSystem:  "US",
+		InputSystem:  "usa",
 		InputUnit:    "lbs",
 		OutputSystem: "metric",
 		OutputUnit:   "grams",
@@ -21,7 +21,7 @@ var Input = []RecipeInput{
 	},
 	{
 		Ingredient:   "chicken thighs",
-		InputSystem:  "US",
+		InputSystem:  "usa",
 		InputUnit:    "oz",
 		OutputSystem: "metric",
 		OutputUnit:   "grams",
@@ -32,7 +32,7 @@ var Input = []RecipeInput{
 		Ingredient:   "golden syrup",
 		InputSystem:  "metric",
 		InputUnit:    "millilitres",
-		OutputSystem: "US",
+		OutputSystem: "usa",
 		OutputUnit:   "fluid oz",
 		Type:         "volume",
 		Amount:       12,
@@ -42,7 +42,7 @@ var Input = []RecipeInput{
 var SingleInput = []RecipeInput{
 	{
 		Ingredient:   "tomatoes",
-		InputSystem:  "US",
+		InputSystem:  "usa",
 		InputUnit:    "cups",
 		OutputSystem: "metric",
 		OutputUnit:   "grams",

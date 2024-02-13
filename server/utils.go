@@ -1,8 +1,9 @@
-package main
+package converter
 
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"testing"
@@ -41,6 +42,9 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []Reci
 }
 
 func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
+
+	fmt.Println(data)
+
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
 	result, err := inputFn(data)

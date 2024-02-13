@@ -1,4 +1,4 @@
-package main
+package converter
 
 import (
 	"net/http"
@@ -36,7 +36,7 @@ func SetupRoutes() *chi.Mux {
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello, welcome to the recipe converter..."))
+	w.Write([]byte("hello, welcome to the recipe .."))
 }
 
 func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
