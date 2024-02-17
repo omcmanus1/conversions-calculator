@@ -47,6 +47,6 @@ var SingleInput = []RecipeInput{
 		OutputSystem: "metric",
 		OutputUnit:   "grams",
 		Type:         "weight",
-		Amount:       1.5,
+		Amount:       22,
 	},
 }
