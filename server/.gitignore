@@ -22,4 +22,4 @@ go.work
 coverage.out
 
 # development
-/tmp
+*/tmp
