@@ -1,16 +1,6 @@
 # Go Backend
 
-A basic Go server with endpoints to translate US recipe measurements into UK formats.
-
-## HOW TO RUN LOCALLY
-
-- See [Makefile](Makefile) for all options
-- `make run` will build and run the server for test usage if on mac
-  - Or use `make run_linux` / `make_run_windows` as applicable
-- `make run_dev` will run the project in development mode (hot reloading with [Air](https://github.com/cosmtrek/air))
-- `make test` will run the test suite
-
-- Server is currently set up to run on port 8080, but feel free to change setup in [main file](main.go)
+A basic Go server with endpoints to calculate conversions from US measurements to metric format (recipes, heights etc.). Runs using a local server in development mode, and cloud functions in production.
 
 ## TODO
 

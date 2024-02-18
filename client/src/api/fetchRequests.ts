@@ -1,10 +1,14 @@
 import { RecipeInput } from "@/types/conversionTypes";
 
-const baseUrl = "http://localhost:8080/api";
+const devUrl = process.env.NEXT_PUBLIC_DEV_API_URL;
+const productionUrl = process.env.NEXT_PUBLIC_PROD_API_URL;
+
+const isProduction = process.env.NODE_ENV === "production";
+const apiUrl = isProduction ? productionUrl : devUrl;
 
 export const getRequest = async () => {
   try {
-    const res = await fetch(`${baseUrl}/get-encode`);
+    const res = await fetch(`${apiUrl}/get-encode`);
     if (!res.ok) {
       throw new Error("Failed to fetch conversions");
     }
@@ -17,7 +21,7 @@ export const getRequest = async () => {
 
 export const postRequest = async (path: string, data: RecipeInput | RecipeInput[]) => {
   try {
-    const res = await fetch(`${baseUrl}/${path}`, {
+    const res = await fetch(`${apiUrl}/${path}`, {
       method: "POST",
       mode: "cors",
       cache: "default",

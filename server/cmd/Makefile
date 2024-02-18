@@ -16,7 +16,7 @@ run_windows: build
 	@../bin/${BINARY_NAME}/windows
 
 run_dev: build
-	@air
+	@ENVIRONMENT=local air
 
 clean:
 	@rm -rf ../bin/build
