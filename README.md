@@ -20,7 +20,7 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
 - Server is currently set up to run on port 8080, but feel free to change setup in [main file](main.go)
 
 ### Client
-- Create an `.env.local` file in `/client` root, with the following variables (if you want to create your own cloud functions populate the second):
-```
-NEXT_PUBLIC_DEV_API_URL=http://localhost:<CHOSEN_PORT>/api
-NEXT_PUBLIC_PROD_API_URL=<YOUR_CLOUD_FUNCTION_URL>
+- Create an `.env.local` file in `/client` root, with the following variable: 
+  - `NEXT_PUBLIC_DEV_API_URL=http://localhost:<CHOSEN_PORT>/api`
+- If you want to create your own cloud functions, generate URLs with suffixes corresponding to the route paths defined in `/server/routes.go`, then set the below NextJS environment variable as the URL path up to (excluding) the endpoint suffix
+  - `NEXT_PUBLIC_PROD_API_URL=<YOUR_CLOUD_FUNCTION_URL>`
