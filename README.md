@@ -22,5 +22,4 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
 ### Client
 - Create an `.env.local` file in `/client` root, with the following variable: 
   - `NEXT_PUBLIC_DEV_API_URL=http://localhost:<CHOSEN_PORT>/api`
-- If you want to create your own cloud functions, generate URLs with suffixes corresponding to the route paths defined in `/server/routes.go`, then set the variable as the URL path up to (excluding) the endpoint suffix
-  - `NEXT_PUBLIC_DEV_API_URL=<YOUR_CLOUD_FUNCTION_URL>`
+  - Make sure the port matches up with the port in `/server/cmd/main.go`
