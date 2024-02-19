@@ -3,8 +3,10 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
 
 - Server / Backend written in Go
   - Mainly aiming to get used to language syntax & concepts
+  - Hosted using cloud functions
 - Client / Frontend written in NextJS
   - Learning Typescript, NextJS and Tailwind CSS
+  - Hosted on Vercel
 
 ## HOW TO RUN LOCALLY
 
@@ -17,7 +19,7 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
   - (hot reloading with [Air](https://github.com/cosmtrek/air))
 - `make test` will run the test suite
 
-- Server is currently set up to run on port 8080, but feel free to change setup in [main file](main.go)
+- Server is currently set up to run on port 8080, but feel free to change setup in [main file](server/cmd/main.go)
 
 ### Client
 - Create an `.env.local` file in `/client` root, with the following variable: 
