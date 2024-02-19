@@ -3,7 +3,6 @@ package converter
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"testing"
@@ -28,8 +27,8 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []Reci
 
 	result, err := inputFn(data)
 	if err != nil {
-		log.Printf("Conversion error (RecipeList func): %v", err)
-		http.Error(w, "Conversion error (RecipeList func)", http.StatusBadRequest)
+		log.Printf("Conversion error: %v", err)
+		http.Error(w, "Conversion error", http.StatusBadRequest)
 		return
 	}
 	jsonResult, err := json.MarshalIndent(result, "", " ")
@@ -42,9 +41,6 @@ func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []Reci
 }
 
 func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
-
-	fmt.Println(data)
-
 	// Set the content type to JSON
 	w.Header().Set("Content-Type", "application/json")
 	result, err := inputFn(data)
@@ -101,7 +97,6 @@ func CheckGotWant[TO TestOutputs](t testing.TB, got, want TO) {
 }
 
 func CheckError(t testing.TB, err error, expectedErrMsg string) {
-	print(err)
 	t.Helper()
 	if err == nil {
 		t.Errorf("got %v want nil", err)
