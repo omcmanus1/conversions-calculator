@@ -11,8 +11,12 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 
 ## TODO
 
-- ~~Add metric > US conversion~~
+- Fix request behaviour
+  - Loading state UI
+  - Disable button on click
 - Remove conversions from list after adding 
+  - Fix remove button (delete correct row)
+- Add Analytics script
 - Page Structure
   - Add Top Level routes (recipe converter, measurements, etc.)
   - New Pages
