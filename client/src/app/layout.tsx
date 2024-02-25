@@ -3,6 +3,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navigation from "@/components/navigation";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Change icons created by Smashicons - Flaticon
           </a>
+          <Analytics />
         </footer>
       </body>
     </html>
