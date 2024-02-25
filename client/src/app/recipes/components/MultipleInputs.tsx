@@ -35,6 +35,12 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
     }
   };
 
+  const handleRemoveClick = (index: number) => {
+    let newArr = [...inputList];
+    newArr.splice(index, 1);
+    setInputList(newArr);
+  };
+
   return (
     <Card className="max-h-64 overflow-y-auto">
       <CardHeader>
@@ -89,7 +95,7 @@ export default function MultipleInputsComp({ inputList, setInputList }: InputLis
                 <Button
                   variant="ghost"
                   className="sm:mt-2 mb-1 md:mt-0 ml-28 md:ml-2 text-center"
-                  onClick={() => setInputList([...inputList.slice(0, -1)])}
+                  onClick={() => handleRemoveClick(index)}
                 >
                   <span className="mr-1">Remove</span>
                   <XIcon className="h-6 w-6 text-red-500" />
