@@ -26,69 +26,34 @@ func PostListHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostWeightUsHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodOptions {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Access-Control-Max-Age", "3600")
-		w.WriteHeader(http.StatusNoContent)
-		return
-	}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
+	setHeaders(w, r)
 	PostWeightUS(w, r)
 }
 
 func PostVolumeUsHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodOptions {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Access-Control-Max-Age", "3600")
-		w.WriteHeader(http.StatusNoContent)
-		return
-	}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
+	setHeaders(w, r)
 	PostVolumeUS(w, r)
 }
 
 func PostWeightMetricHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodOptions {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Access-Control-Max-Age", "3600")
-		w.WriteHeader(http.StatusNoContent)
-		return
-	}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
+	setHeaders(w, r)
 	PostWeightMetric(w, r)
 }
 
 func PostVolumeMetricHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodOptions {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Access-Control-Max-Age", "3600")
-		w.WriteHeader(http.StatusNoContent)
-		return
-	}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
+	setHeaders(w, r)
 	PostVolumeMetric(w, r)
 }
 
-func setHeaders(w http.ResponseWriter, r *http.Request) http.ResponseWriter {
+func setHeaders(w http.ResponseWriter, r *http.Request) {
 	corsOrigin := os.Getenv("CORS_ORIGIN")
+	w.Header().Set("Access-Control-Allow-Origin", corsOrigin)
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "3600")
+
 	if r.Method == http.MethodOptions {
-		w.Header().Set("Access-Control-Allow-Origin", corsOrigin)
-		w.Header().Set("Access-Control-Allow-Methods", "POST")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Access-Control-Max-Age", "3600")
 		w.WriteHeader(http.StatusNoContent)
+		return
 	}
-	return w
 }
