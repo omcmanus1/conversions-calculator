@@ -7,8 +7,10 @@ import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import AddInputDropdown from "./AddInputDropdown";
 import MultipleInputsComp from "./MultipleInputs";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 export default function MultipleConversions() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputList, setInputList] = useState<RecipeInput[]>([]);
   const [outputList, setOutputList] = useState<RecipeOutput[]>([]);
 
@@ -16,9 +18,11 @@ export default function MultipleConversions() {
     !!inputList.length && !!inputList.every((input) => inputComplete(input));
 
   const handleListConversion = async () => {
+    setIsLoading(true);
     let data: RecipeOutput[];
     data = await postRequest("list", inputList);
     setOutputList(data);
+    setIsLoading(false);
   };
 
   return (
@@ -29,16 +33,22 @@ export default function MultipleConversions() {
       </div>
       <Button
         className={`mt-3 mb-3 ${!inputListComplete && "hover:bg-lime-100"}`}
-        disabled={!inputListComplete}
+        disabled={!inputListComplete || isLoading}
         variant="outline"
         onClick={handleListConversion}
       >
-        Convert All
-        <ChevronDoubleRight className="w-5" />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            Convert All
+            <ChevronDoubleRight className="w-5" />
+          </>
+        )}
       </Button>
-      {!!outputList?.length && (
-        <div className="flex justify-center">
-          <Card className="flex-row text-center">
+      {!!outputList?.length && !isLoading && (
+        <div className="flex justify-center text-center">
+          <Card>
             <CardHeader className="text-center">
               {outputList.map((output, index) => {
                 return (

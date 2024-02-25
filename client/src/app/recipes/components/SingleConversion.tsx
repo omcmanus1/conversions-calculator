@@ -6,12 +6,14 @@ import { ConversionSystem, RecipeInput, RecipeOutput } from "@/types/conversionT
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInputComp from "./SingleInput";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 export type Props = {
   conversionType: ConversionSystem;
 };
 
 export default function SingleConversion({ conversionType }: Props) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [input, setInput] = useState<RecipeInput>({
     ingredient: "",
     inputSystem: conversionType === "usa" ? "usa" : "metric",
@@ -28,6 +30,7 @@ export default function SingleConversion({ conversionType }: Props) {
   });
 
   const handleSingleConversion = async () => {
+    setIsLoading(true);
     let data: RecipeOutput;
     switch (input.inputSystem) {
       case "usa":
@@ -42,6 +45,7 @@ export default function SingleConversion({ conversionType }: Props) {
         break;
     }
     setOutput(data);
+    setIsLoading(false);
   };
 
   return (
@@ -53,15 +57,21 @@ export default function SingleConversion({ conversionType }: Props) {
       />
       <Button
         className={`mt-3 mb-3 ${inputComplete(input) && "hover:bg-lime-100"}`}
-        disabled={!inputComplete(input)}
+        disabled={!inputComplete(input) || isLoading}
         variant="outline"
         onClick={handleSingleConversion}
       >
-        {input.inputSystem === "usa" ? "Freedom" : "Metric"}
-        <ChevronDoubleRight className="w-5" />
-        {input.inputSystem === "usa" ? "Metric" : "Freedom"}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            {input.inputSystem === "usa" ? "USA" : "Metric"}
+            <ChevronDoubleRight className="w-5" />
+            {input.inputSystem === "usa" ? "Metric" : "USA"}
+          </>
+        )}
       </Button>
-      {!!output?.amount && (
+      {Object.values(output).every((item) => item) && !isLoading && (
         <Card>
           <CardHeader>
             <CardTitle>{output?.ingredient}</CardTitle>
