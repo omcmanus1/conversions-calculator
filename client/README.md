@@ -11,26 +11,15 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 
 ## TODO
 
-- Fix request behaviour
-  - Loading state UI
-  - Disable button on click
-- Remove conversions from list after adding 
-  - Fix remove button (delete correct row)
-- Add Analytics script
+- Fix loading behaviour
+  - Only show after 200ms delay
 - Page Structure
   - Add Top Level routes (recipe converter, measurements, etc.)
   - New Pages
     - Heights/weights
 - Refactor
-  - ~~Reusable component for single conversion~~
-  - ~~Fix prop drilling~~
-  - ~~Refactor volume/weight inputs (reusable object?)~~
-  - ~~Abstract inputs component - reuse for single & list conversion~~
-  - ~~Make new input list component (multiple items in one card)~~
   - Fix card outputs - utilise space better
-  - Add delete button in list component
 - API
-  - ~~Single fetch request~~
   - Set up API endpoints
     - Route Handler?
     - React Query?
