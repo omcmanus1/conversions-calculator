@@ -13,6 +13,9 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 
 - Fix loading behaviour
   - Only show after 200ms delay
+- Fix error handling
+- Reset input obj after changing dropdown
+  - At least disable until new object populated
 - Page Structure
   - Add Top Level routes (recipe converter, measurements, etc.)
   - New Pages
