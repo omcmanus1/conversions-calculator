@@ -7,6 +7,7 @@ import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInputComp from "./SingleInput";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { toast } from "sonner";
 
 export type Props = {
   conversionType: ConversionSystem;
@@ -44,6 +45,18 @@ export default function SingleConversion({ conversionType }: Props) {
           : (data = await postRequest("weight-metric", input));
         break;
     }
+
+    if (data?.error) {
+      setOutput({
+        ingredient: "",
+        unit: "",
+        amount: 0,
+      });
+      toast.error(data?.error);
+      setIsLoading(false);
+      return;
+    }
+
     setOutput(data);
     setIsLoading(false);
   };

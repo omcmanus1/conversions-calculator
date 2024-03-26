@@ -3,6 +3,7 @@ package converter
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"testing"
@@ -67,19 +68,22 @@ func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []Recip
 
 func HandlePostRequest[I PostInputs, O PostOutputs](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
-
 	var input I
+
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		log.Printf("Unable to decode JSON: %v", err)
 		http.Error(w, "Unable to decode JSON", http.StatusBadRequest)
 		return
 	}
+
 	result, err := inputFn(input)
 	if err != nil {
-		log.Printf("Conversion error: %v", err)
-		http.Error(w, "Conversion error", http.StatusInternalServerError)
+		errMsg := fmt.Sprintf("Conversion error: %v", err)
+		log.Println(errMsg)
+		http.Error(w, errMsg, http.StatusBadRequest)
 		return
 	}
+
 	jsonResult, err := json.MarshalIndent(result, "", "  ")
 	if err != nil {
 		log.Printf("Unable to encode JSON: %v", err)

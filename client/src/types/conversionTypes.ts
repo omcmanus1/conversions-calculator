@@ -20,6 +20,7 @@ export type RecipeOutput = {
   ingredient: string;
   unit: string;
   amount: number;
+  error?: string;
 };
 
 export type InputListProps = {

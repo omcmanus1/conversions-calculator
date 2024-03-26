@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Navigation from "@/components/navigation";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navigation navigationTabs={navigationTabs}></Navigation>
         </header>
         <div>{children}</div>
+        <Toaster richColors />
         <footer className="text-center p-1 absolute bottom-0 bg-slate-200">
           <a
             href="https://www.flaticon.com/free-icons/change"

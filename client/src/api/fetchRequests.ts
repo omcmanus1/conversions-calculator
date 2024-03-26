@@ -14,8 +14,10 @@ export const getRequest = async () => {
     }
     const jsonData = await res.json();
     return jsonData[0];
-  } catch (e) {
-    console.log("getRequest: ", e);
+  } catch (err) {
+    if (err instanceof Error) {
+      return { error: err.message };
+    }
   }
 };
 
@@ -32,9 +34,17 @@ export const postRequest = async (path: string, data: RecipeInput | RecipeInput[
       redirect: "follow",
       body: JSON.stringify(data),
     });
+
+    if (!res.ok) {
+      const errorText = (await res.text()).trim();
+      throw new Error(errorText);
+    }
+
     const jsonData = await res.json();
     return jsonData;
-  } catch (e) {
-    console.log("postRequest: ", e);
+  } catch (err) {
+    if (err instanceof Error) {
+      return { error: err.message };
+    }
   }
 };
