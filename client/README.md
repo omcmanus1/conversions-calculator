@@ -11,9 +11,9 @@ Simple NextJS frontend app to host recipe conversions backend. Will have a few d
 
 ## TODO
 
-- Fix loading behaviour
-  - Only show after 200ms delay
 - Fix error handling
+  - ~~Single Conv~~
+  - Multiple Conv - show toast + stop hanging
 - Reset input obj after changing dropdown
   - At least disable until new object populated
 - Page Structure
