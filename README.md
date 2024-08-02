@@ -25,3 +25,5 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
 - Create an `.env.local` file in `/client` root, with the following variable: 
   - `NEXT_PUBLIC_DEV_API_URL=http://localhost:<CHOSEN_PORT>/api`
   - Make sure the port matches up with the port in `/server/cmd/main.go`
+  
+- Run `npm run dev`
