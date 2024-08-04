@@ -15,17 +15,13 @@ type NavigationTab = {
   title: string;
 };
 
-export default function Navigation({
-  navigationTabs,
-}: {
-  navigationTabs: NavigationTab[];
-}) {
+export default function Navigation({ tabs }: { tabs: NavigationTab[] }) {
   const pathname = usePathname() || "";
 
   return (
-    <NavigationMenu className="mb-5">
+    <NavigationMenu className="mb-2">
       <NavigationMenuList className="flex-col md:flex-row">
-        {navigationTabs.map((tab) => {
+        {tabs.map((tab) => {
           const isSelected = pathname.includes(tab.path);
           return (
             <NavigationMenuItem key={`${tab.path}_key`} className="mt-2">
@@ -34,7 +30,7 @@ export default function Navigation({
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      isSelected && "underline",
+                      isSelected && "underline bg-teal-100",
                       "border border-blue-300"
                     )}
                   >
