@@ -32,7 +32,7 @@ export default function Navigation({ tabs }: { tabs: NavigationTab[] }) {
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      isSelected && "underline bg-teal-100",
+                      isSelected && "!bg-teal-100",
                       "border border-blue-300"
                     )}
                   >
