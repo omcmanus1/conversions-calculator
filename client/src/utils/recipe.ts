@@ -1,4 +1,4 @@
-import { RecipeInput } from "@/types/conversionTypes";
+import { RecipeInput } from "@/types/recipeTypes";
 
 export const inputComplete = (input: RecipeInput): boolean => {
   if (input.amount < 0) return false;

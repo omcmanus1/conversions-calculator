@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
-import { InputFields, InputListProps, RecipeInput } from "@/types/conversionTypes";
+import { InputFields, InputListProps, RecipeInput } from "@/types/recipeTypes";
 import { Fragment } from "react";
 
 export default function MultipleInputsComp({ inputList, setInputList }: InputListProps) {

@@ -2,7 +2,7 @@ import { postRequest } from "@/api/fetchRequests";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ConversionSystem, RecipeInput, RecipeOutput } from "@/types/conversionTypes";
+import { ConversionSystem, RecipeInput, RecipeOutput } from "@/types/recipeTypes";
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import SingleInputComp from "./SingleInput";
@@ -62,7 +62,7 @@ export default function SingleConversion({ conversionType }: Props) {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center w-[200px]">
       <SingleInputComp
         input={input}
         setInput={setInput}

@@ -2,7 +2,7 @@ import { postRequest } from "@/api/fetchRequests";
 import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { RecipeInput, RecipeOutput } from "@/types/conversionTypes";
+import { RecipeInput, RecipeOutput } from "@/types/recipeTypes";
 import { inputComplete } from "@/utils/recipe";
 import { useState } from "react";
 import AddInputDropdown from "./AddInputDropdown";

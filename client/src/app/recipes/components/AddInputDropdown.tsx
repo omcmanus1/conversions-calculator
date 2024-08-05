@@ -5,11 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  ConversionSystem,
-  ConversionType,
-  InputListProps,
-} from "@/types/conversionTypes";
+import { ConversionSystem, ConversionType, InputListProps } from "@/types/recipeTypes";
 
 export default function AddInputDropdown({ inputList, setInputList }: InputListProps) {
   const handleAddInput = (inputSystem: ConversionSystem, type: ConversionType) => {

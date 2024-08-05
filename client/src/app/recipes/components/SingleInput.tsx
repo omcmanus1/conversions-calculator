@@ -1,7 +1,7 @@
 import SelectSh from "@/components/select";
 import { Input } from "@/components/ui/input";
 import { METRIC_VOLUME, METRIC_WEIGHT, US_VOLUME, US_WEIGHT } from "@/constants/measures";
-import { ConversionSystem, RecipeInput } from "@/types/conversionTypes";
+import { ConversionSystem, RecipeInput } from "@/types/recipeTypes";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
