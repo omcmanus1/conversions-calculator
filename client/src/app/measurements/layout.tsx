@@ -2,9 +2,8 @@ import Navigation from "@/components/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const recipeTabs = [
-    { title: "Convert US To Metric", path: "/recipes/usa" },
-    { title: "Convert Metric To US", path: "/recipes/metric" },
-    { title: "Convert List", path: "/recipes/list" },
+    { title: "Convert Height", path: "/measurements/height" },
+    { title: "Convert Weight", path: "/measurements/weight" },
   ];
 
   return (
