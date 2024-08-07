@@ -3,7 +3,12 @@ import Navigation from "@/components/navigation";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const recipeTabs = [
     { title: "Convert Height", path: "/measurements/height" },
-    { title: "Convert Weight", path: "/measurements/weight" },
+    {
+      title: "Convert Weight",
+      path: "/measurements/weight",
+      disabled: true,
+      tooltip: "Coming Soon!",
+    },
   ];
 
   return (
