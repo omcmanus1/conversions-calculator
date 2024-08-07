@@ -8,8 +8,7 @@ export type HeightMetric = {
   metres: number;
 };
 
-export enum ValidInputs {
-  centimetres = "Centimetres",
-  metres = "Metres",
-  feet = "Feet",
-}
+const INPUTS = ["centimetres", "metres", "feet"] as const;
+type InputsTuple = typeof INPUTS;
+
+export type ValidInputs = InputsTuple[number];
