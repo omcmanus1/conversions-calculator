@@ -14,12 +14,12 @@ export default function TooltipSh({
   tooltip: string;
 }) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={80}>
       <Tooltip>
         <TooltipTrigger className="cursor-not-allowed">{title}</TooltipTrigger>
         <TooltipContent sideOffset={10}>
           <p>{tooltip}</p>
-          <TooltipArrow />
+          <TooltipArrow fill="white" />
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
