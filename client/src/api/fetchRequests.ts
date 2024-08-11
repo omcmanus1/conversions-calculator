@@ -1,3 +1,4 @@
+import { HeightFeet, HeightMetric } from "@/types/heightTypes";
 import { RecipeInput } from "@/types/recipeTypes";
 
 const devUrl = process.env.NEXT_PUBLIC_DEV_API_URL;
@@ -21,7 +22,10 @@ export const getRequest = async () => {
   }
 };
 
-export const postRequest = async (path: string, data: RecipeInput | RecipeInput[]) => {
+export const postRequest = async (
+  path: string,
+  data: RecipeInput | RecipeInput[] | HeightFeet | HeightMetric
+) => {
   try {
     const res = await fetch(`${apiUrl}/${path}`, {
       method: "POST",

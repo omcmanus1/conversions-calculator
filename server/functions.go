@@ -14,6 +14,8 @@ func init() {
 	functions.HTTP("PostVolumeUsHTTP", PostVolumeUsHTTP)
 	functions.HTTP("PostWeightMetricHTTP", PostWeightMetricHTTP)
 	functions.HTTP("PostVolumeMetricHTTP", PostVolumeMetricHTTP)
+	functions.HTTP("PostHeightMetricHTTP", PostHeightMetricHTTP)
+	functions.HTTP("PostHeightFeetHTTP", PostHeightFeetHTTP)
 }
 
 func GetRequest(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +45,16 @@ func PostWeightMetricHTTP(w http.ResponseWriter, r *http.Request) {
 func PostVolumeMetricHTTP(w http.ResponseWriter, r *http.Request) {
 	setHeaders(w, r)
 	PostVolumeMetric(w, r)
+}
+
+func PostHeightMetricHTTP(w http.ResponseWriter, r *http.Request) {
+	setHeaders(w, r)
+	PostHeightMetric(w, r)
+}
+
+func PostHeightFeetHTTP(w http.ResponseWriter, r *http.Request) {
+	setHeaders(w, r)
+	PostHeightFeet(w, r)
 }
 
 func setHeaders(w http.ResponseWriter, r *http.Request) {
