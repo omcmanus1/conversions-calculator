@@ -11,6 +11,7 @@ import (
 
 func SetupRoutes() *chi.Mux {
 	r := chi.NewRouter()
+
 	r.Use(middleware.Logger)
 	r.Use(middleware.Timeout(60 * time.Second))
 	r.Use(cors.Handler(cors.Options{
@@ -21,9 +22,8 @@ func SetupRoutes() *chi.Mux {
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
+
 	r.Get("/api", Home)
-	r.Get("/api/get-encode", GetHandlerEncode)
-	r.Get("/api/get-marshal", GetHandlerMarshal)
 	r.Post("/api/list", PostConversions)
 	r.Post("/api/weight-us", PostWeightUS)
 	r.Post("/api/volume-us", PostVolumeUS)
@@ -37,14 +37,6 @@ func SetupRoutes() *chi.Mux {
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello, welcome to the recipe .."))
-}
-
-func GetHandlerMarshal(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestMarshal(w, r, Input, RecipeList)
-}
-
-func GetHandlerEncode(w http.ResponseWriter, r *http.Request) {
-	HandleGetRequestEncode(w, r, SingleInput, RecipeList)
 }
 
 func PostConversions(w http.ResponseWriter, r *http.Request) {
