@@ -8,8 +8,9 @@ A basic Go server with endpoints to calculate conversions from US measurements t
 - Sample CLI command (`entry-point` must match first argument in `functions.HTTP()` call):
 
 ```
-gcloud functions deploy height-metric --region=europe-west2 --trigger-http --runtime=go121 --gen2 --source=. --entry-point=PostHeightMetric --allow-unauthenticated --set-env-vars CORS_ORIGIN=https://recipe-converter-ebon.vercel.app
+gcloud functions deploy height-metric --region=europe-west2 --trigger-http --runtime=go121 --gen2 --source=. --entry-point=PostHeightMetric --allow-unauthenticated --set-env-vars CORS_ORIGIN=https://conversions-calculator.vercel.app
 ```
 
 ## TODO
+
 - Fix error handling for `deploy_cloud_functions` script
