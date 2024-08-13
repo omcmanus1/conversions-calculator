@@ -7,56 +7,6 @@ import (
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 )
 
-func init() {
-	functions.HTTP("GetRequest", GetRequest)
-	functions.HTTP("PostListHTTP", PostListHTTP)
-	functions.HTTP("PostWeightUsHTTP", PostWeightUsHTTP)
-	functions.HTTP("PostVolumeUsHTTP", PostVolumeUsHTTP)
-	functions.HTTP("PostWeightMetricHTTP", PostWeightMetricHTTP)
-	functions.HTTP("PostVolumeMetricHTTP", PostVolumeMetricHTTP)
-	functions.HTTP("PostHeightMetricHTTP", PostHeightMetricHTTP)
-	functions.HTTP("PostHeightFeetHTTP", PostHeightFeetHTTP)
-}
-
-func GetRequest(w http.ResponseWriter, r *http.Request) {
-	GetHandlerEncode(w, r)
-}
-
-func PostListHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostConversions(w, r)
-}
-
-func PostWeightUsHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostWeightUS(w, r)
-}
-
-func PostVolumeUsHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostVolumeUS(w, r)
-}
-
-func PostWeightMetricHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostWeightMetric(w, r)
-}
-
-func PostVolumeMetricHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostVolumeMetric(w, r)
-}
-
-func PostHeightMetricHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostHeightMetric(w, r)
-}
-
-func PostHeightFeetHTTP(w http.ResponseWriter, r *http.Request) {
-	setHeaders(w, r)
-	PostHeightFeet(w, r)
-}
-
 func setHeaders(w http.ResponseWriter, r *http.Request) {
 	corsOrigin := os.Getenv("CORS_ORIGIN")
 	w.Header().Set("Access-Control-Allow-Origin", corsOrigin)
@@ -68,4 +18,21 @@ func setHeaders(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 		return
 	}
+}
+
+func requestHandler(handlerFunc http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		setHeaders(w, r)
+		handlerFunc(w, r)
+	}
+}
+
+func init() {
+	functions.HTTP("PostConversions", requestHandler(PostConversions))
+	functions.HTTP("PostWeightUS", requestHandler(PostWeightUS))
+	functions.HTTP("PostVolumeUS", requestHandler(PostVolumeUS))
+	functions.HTTP("PostWeightMetric", requestHandler(PostWeightMetric))
+	functions.HTTP("PostVolumeMetric", requestHandler(PostVolumeMetric))
+	functions.HTTP("PostHeightMetric", requestHandler(PostHeightMetric))
+	functions.HTTP("PostHeightFeet", requestHandler(PostHeightFeet))
 }
