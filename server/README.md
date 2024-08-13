@@ -14,3 +14,4 @@ gcloud functions deploy height-metric --region=europe-west2 --trigger-http --run
 ## TODO
 
 - Fix error handling for `deploy_cloud_functions` script
+- Fix log message for successful deployment
