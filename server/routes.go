@@ -24,7 +24,7 @@ func SetupRoutes() *chi.Mux {
 	}))
 
 	r.Get("/api", Home)
-	r.Post("/api/list", PostConversions)
+	r.Post("/api/list", PostList)
 	r.Post("/api/weight-us", PostWeightUS)
 	r.Post("/api/volume-us", PostVolumeUS)
 	r.Post("/api/weight-metric", PostWeightMetric)
@@ -39,7 +39,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello, welcome to the recipe .."))
 }
 
-func PostConversions(w http.ResponseWriter, r *http.Request) {
+func PostList(w http.ResponseWriter, r *http.Request) {
 	HandlePostRequest(w, r, RecipeList)
 }
 
