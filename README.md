@@ -18,6 +18,8 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
   - Sets `ENVIRONMENT` variable to "local", which causes server to be launched on localhost
   - (hot reloading with [Air](https://github.com/cosmtrek/air))
 - `make test` will run the test suite
+- `make_deploy` will deploy all cloud functions, and output logs to `scripts/logs/deploy_cloud_functions`
+- `make clean_logs` will remove the log files
 
 - Server is currently set up to run on port 8080, but feel free to change setup in [main.go file](server/cmd/main.go)
 

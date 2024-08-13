@@ -21,6 +21,12 @@ run_dev: build
 clean:
 	@rm -rf ../bin/build
 
+deploy:
+	@../scripts/deploy_cloud_functions.sh
+
+clean_logs:
+	@rm ../scripts/logs/deploy_cloud_functions/*
+
 test: 
 	go test -v ../... -count=1
 
