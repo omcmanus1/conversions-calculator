@@ -25,7 +25,7 @@ deploy:
 	@../scripts/deploy_cloud_functions.sh
 
 clean_logs:
-	@rm ../scripts/logs/deploy_cloud_functions/*
+	@rm -rf ../scripts/logs/deploy_cloud_functions/*
 
 test: 
 	go test -v ../... -count=1
