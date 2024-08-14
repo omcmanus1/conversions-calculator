@@ -3,15 +3,15 @@
 # This script deploys all cloud functions named with the
 # corresponding route suffix as defined in `routes.go`
 
-# Ensure the script fails on any error
-set -e
+RED='\033[0;31m'
+NO_COLOUR='\033[0m'
 
 # Source environment variables
 if [ ! -f ../.env.local ]; then
-  echo "Error: ../.env.local file not found!"
+  echo "Error: env.local file not found!"
   exit 1
 fi
-# shellcheck source=../.env.local
+# execute file to set env variable
 . ../.env.local
 
 # Check CORS_ORIGIN is set
@@ -20,9 +20,13 @@ if [ -z "$CORS_ORIGIN" ]; then
   exit 1
 fi
 
-# Ensure routes.go exists
+# Ensure target files exist
 if [ ! -f ../routes.go ]; then
   echo "Error: routes.go file not found!"
+  exit 1
+fi
+if [ ! -f ../functions.go ]; then
+  echo "Error: functions.go file not found!"
   exit 1
 fi
 
@@ -41,14 +45,14 @@ while IFS= read -r line; do
     continue
   fi
 
+  echo ">---------------------------------------------------------------------<"
   echo "deploying '$name' with entrypoint '$entry_point'..."
 
-  command="gcloud functions deploy $name --region=europe-west2 --trigger-http --runtime=go121 --gen2 --source=../. --entry-point=$entry_point --allow-unauthenticated --set-env-vars CORS_ORIGIN=$CORS_ORIGIN"
+  command="gcloud functions deploy $name --region=europe-west222 --trigger-http --runtime=go121 --gen2 --source=../. --entry-point=$entry_point --allow-unauthenticated --set-env-vars CORS_ORIGIN=$CORS_ORIGIN"
 
-  # Execute the command in the background and capture the PID
+  # Execute the command in the background and capture the Process ID
   eval "$command" >"../scripts/logs/deploy_cloud_functions/${name}.log" 2>&1 &
   pid=$!
-  echo "Started deployment for '$name'."
   echo "Output will be logged in ../scripts/logs/deploy_cloud_functions/${name}.log"
 
   # Track the background jobs
@@ -62,7 +66,12 @@ for pid in $pids; do
   if [ $status -eq 0 ]; then
     echo "Deployment for process $pid was successful."
   else
+    echo -e "${RED}!!!!!!!!!!!!!!!!!!"
+    echo -e "!!!!!!!!!!!!!!!!!!${NO_COLOUR}"
     echo "Error deploying function for process $pid. See the corresponding log for details."
+    echo -e "${RED}!!!!!!!!!!!!!!!!!!"
+    echo -e "!!!!!!!!!!!!!!!!!!${NO_COLOUR}"
+    set -e
   fi
 done
 
