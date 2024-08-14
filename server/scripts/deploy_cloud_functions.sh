@@ -3,6 +3,11 @@
 # This script deploys all cloud functions named with the
 # corresponding route suffix as defined in `routes.go`
 
+LIGHT_CYAN="\033[1;36m"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NO_COLOUR="\033[0m"
+
 # Source environment variables
 if [ ! -f ../.env.local ]; then
   echo "Error: env.local file not found!"
@@ -31,7 +36,7 @@ echo -e "${LIGHT_CYAN}>---------------------------------------------------------
 pids=()
 names=()
 
-# Read all `r.Post()` routes from `SetupRoutes()`
+# Read all `r.Post()` routes
 while IFS= read -r line; do
   # Parse name from first argument
   name=$(echo "$line" | awk -F'api/ *' '{print $2}' | awk -F'["]' '{print $1}')
@@ -39,7 +44,7 @@ while IFS= read -r line; do
   entry_point=$(echo "$line" | awk -F', *' '{print $2}' | awk -F'[)]' '{print $1}')
 
   if [ -z "$name" ] || [ -z "$entry_point" ]; then
-    echo "Warning: Skipping malformed line: $line"
+    echo -e "${RED}Warning: Skipping malformed line: $line ${NO_COLOUR}"
     continue
   fi
 
@@ -50,7 +55,7 @@ while IFS= read -r line; do
   # Execute the command in the background and capture the Process ID
   eval "$command" >"../scripts/logs/deploy_cloud_functions/${name}.log" 2>&1 &
   pid=$!
-  echo "Output will be logged in ../scripts/logs/deploy_cloud_functions/${name}.log"
+  echo "Output will be logged in 'deploy_cloud_functions/${name}.log'"
   echo -e "${LIGHT_CYAN}>---------------------------------------------------------------------< ${NO_COLOUR}"
 
   # Track background jobs
@@ -77,7 +82,7 @@ for i in "${!pids[@]}"; do
     echo -e "${RED}!!!!!!!!!!!!!!!!!!"
     echo -e "!!!!!!!!!!!!!!!!!!${NO_COLOUR}"
     cat "$log_file"
-    exit 0
+    exit 1
   fi
 done
 
