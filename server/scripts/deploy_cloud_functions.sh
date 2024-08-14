@@ -25,10 +25,38 @@ if [ ! -f ../routes.go ]; then
   echo "Error: routes.go file not found!"
   exit 1
 fi
+if [ ! -f ../functions.go ]; then
+  echo "Error: functions.go file not found!"
+  exit 1
+fi
 
-LIGHT_CYAN="\033[1;36m"
-RED="\033[0;31m"
-NO_COLOUR="\033[0m"
+# Read all existing functions
+existing_funcs=()
+while IFS= read -r line; do
+  existing_funcs+=("$line")
+done < <(grep 'functions\.HTTP' ../functions.go)
+
+add_func_if_missing() {
+  # Search existing functions for match with entry point
+  found=false
+  for i in "${!existing_funcs[@]}"; do
+    if [[ "${existing_funcs[$i]}" == *"$entry_point"* ]]; then
+      found=true
+      break
+    fi
+  done
+  # Add function to 'functions.go' file and proceed with deployment
+  if [ "$found" = false ]; then
+    echo -e "${RED}!!!!!!!!!!!!!!!!!!${NO_COLOUR}"
+    echo "Entry point $entry_point missing in functions list"
+    echo -e "${RED}!!!!!!!!!!!!!!!!!!${NO_COLOUR}"
+    echo -e "${GREEN}Adding to 'functions.go'... ${NO_COLOUR}"
+    sed -i '' "/func init() {/a\\
+  functions.HTTP(\"$entry_point\", requestHandler($entry_point))
+    " ../functions.go
+    echo -e "${GREEN}Successfully added $entry_point to functions.go${NO_COLOUR}"
+  fi
+}
 
 echo -e "${LIGHT_CYAN}>---------------------------------------------------------------------< ${NO_COLOUR}"
 
@@ -47,6 +75,8 @@ while IFS= read -r line; do
     echo -e "${RED}Warning: Skipping malformed line: $line ${NO_COLOUR}"
     continue
   fi
+
+  add_func_if_missing
 
   echo "deploying '$name' with entrypoint '$entry_point'..."
 
