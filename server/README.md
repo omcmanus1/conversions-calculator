@@ -10,9 +10,3 @@ A basic Go server with endpoints to calculate conversions from US measurements t
 ```
 gcloud functions deploy height-metric --region=europe-west2 --trigger-http --runtime=go121 --gen2 --source=. --entry-point=PostHeightMetric --allow-unauthenticated --set-env-vars CORS_ORIGIN=https://conversions-calculator.vercel.app
 ```
-
-## TODO
-
-- ~~Fix error handling for `deploy_cloud_functions` script~~
-- Update script output logging 
-- Programmatically add new routes to `functions.go`?
