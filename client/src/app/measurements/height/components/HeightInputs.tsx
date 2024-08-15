@@ -1,19 +1,24 @@
 import SelectSh from "@/components/select";
 import { Input } from "@/components/ui/input";
 import { HeightFeet, HeightMetric, ValidInputs } from "@/types/heightTypes";
+import { inputComplete } from "@/utils/heights";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   input: ValidInputs | "";
   setInput: Dispatch<SetStateAction<ValidInputs | "">>;
+  heightFeet: HeightFeet;
   setHeightFeet: Dispatch<SetStateAction<HeightFeet>>;
+  heightMetric: HeightMetric;
   setHeightMetric: Dispatch<SetStateAction<HeightMetric>>;
 };
 
 export default function HeightInputs({
   input,
   setInput,
+  heightFeet,
   setHeightFeet,
+  heightMetric,
   setHeightMetric,
 }: Props) {
   return (
@@ -30,6 +35,11 @@ export default function HeightInputs({
           onChange={(e) =>
             setHeightMetric({ metres: 0, centimetres: Number(e.target.value) })
           }
+          className={
+            !inputComplete(input, heightFeet, heightMetric)
+              ? "border-2 border-red-500"
+              : ""
+          }
         />
       )}
       {input === "metres" && (
@@ -38,6 +48,11 @@ export default function HeightInputs({
           placeholder="Metres"
           onChange={(e) =>
             setHeightMetric({ centimetres: 0, metres: Number(e.target.value) })
+          }
+          className={
+            !inputComplete(input, heightFeet, heightMetric)
+              ? "border-2 border-red-500"
+              : ""
           }
         />
       )}
@@ -49,13 +64,24 @@ export default function HeightInputs({
             onChange={(e) =>
               setHeightFeet((prev) => ({ ...prev, feet: Number(e.target.value) }))
             }
+            className={
+              !inputComplete(input, heightFeet, heightMetric)
+                ? "border-2 border-red-500"
+                : ""
+            }
           />
           <Input
             type="number"
+            min={0}
             max={11}
             placeholder="Inches"
             onChange={(e) =>
               setHeightFeet((prev) => ({ ...prev, inches: Number(e.target.value) }))
+            }
+            className={
+              !inputComplete(input, heightFeet, heightMetric)
+                ? "border-2 border-red-500"
+                : ""
             }
           />
         </>

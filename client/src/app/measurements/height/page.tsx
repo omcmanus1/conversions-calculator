@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import HeightInputs from "./components/HeightInputs";
 import HeightOutputComp from "./components/HeightOutput";
+import { inputComplete } from "@/utils/heights";
 
 export default function ConvertHeight() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,13 +20,6 @@ export default function ConvertHeight() {
   });
   const [heightFeet, setHeightFeet] = useState<HeightFeet>({ feet: 0, inches: 0 });
   const [output, setOutput] = useState<HeightOutput | {}>({});
-
-  const inputComplete =
-    input === "feet"
-      ? !!heightFeet.feet && !!heightFeet.inches
-      : input === "centimetres"
-      ? !!heightMetric.centimetres
-      : !!heightMetric.metres;
 
   const handleConversion = async () => {
     setIsLoading(true);
@@ -50,13 +44,17 @@ export default function ConvertHeight() {
       <HeightInputs
         input={input}
         setInput={setInput}
+        heightFeet={heightFeet}
         setHeightFeet={setHeightFeet}
+        heightMetric={heightMetric}
         setHeightMetric={setHeightMetric}
       />
       {input && (
         <Button
-          className={`mt-3 mb-3 ${inputComplete && "hover:bg-lime-100"}`}
-          disabled={!inputComplete || isLoading}
+          className={`mt-3 mb-3 ${
+            inputComplete(input, heightFeet, heightMetric) && "hover:bg-lime-100"
+          }`}
+          disabled={!inputComplete(input, heightFeet, heightMetric) || isLoading}
           variant="outline"
           onClick={handleConversion}
         >

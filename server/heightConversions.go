@@ -21,7 +21,7 @@ func FromFeet(inp HeightFeet) (HeightMetric, error) {
 	switch {
 	case inp.Feet == 0 && inp.Inches == 0:
 		return output, errors.New("please input an imperial height")
-	case inp.Feet < 0 || inp.Inches < 0 || inp.Inches >= 12:
+	case inp.Feet < 0 || inp.Inches < 0:
 		return output, errors.New("invalid input")
 	}
 

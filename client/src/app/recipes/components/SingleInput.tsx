@@ -53,7 +53,7 @@ export default function SingleInputComp({ input, setInput, conversionType }: Pro
         className={`mb-1 ${input.amount < 0 && "border-2 border-red-500"}`}
         disabled={!input.inputUnit}
         type="number"
-        min="0"
+        min={0}
         placeholder="Amount"
         onChange={(e) => handleInput("amount", Number(e.target.value))}
       />
