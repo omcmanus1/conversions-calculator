@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head className="text-center">
-        <title>Unit Converter</title>
+        <title>Conversions Calculator</title>
       </head>
       <body
         className={`flex flex-col min-h-screen items-center bg-slate-200 text-center ${inter.className}`}
