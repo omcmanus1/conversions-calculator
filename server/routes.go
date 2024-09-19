@@ -36,7 +36,7 @@ func SetupRoutes() *chi.Mux {
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello, welcome to the recipe .."))
+	w.Write([]byte("hello, welcome to the conversions calculator..."))
 }
 
 func PostList(w http.ResponseWriter, r *http.Request) {

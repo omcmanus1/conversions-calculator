@@ -1,4 +1,4 @@
-# Recipe Converter App
+# Conversions Calculator App
 
 A simple app to calculate common US > Metric / Metric > US ingredient list conversions. Hosted at: https://conversions-calculator.vercel.app/
 

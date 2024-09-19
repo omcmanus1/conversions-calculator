@@ -1,6 +1,6 @@
 # NextJS Frontend
 
-Simple NextJS frontend app to host recipe conversions backend. Will have a few different pages to support multiple inputs of various configuration, plus single US / Metric ad hoc calculations.
+Simple NextJS frontend app to interface with backend to calculate conversions. Will have a few different pages to support multiple inputs of various configuration, plus single US / Metric ad hoc calculations.
 
 ## Tech Used
 
