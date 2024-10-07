@@ -8,12 +8,16 @@ GREEN="\033[0;32m"
 RED="\033[0;31m"
 NO_COLOUR="\033[0m"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ENV_FILE="${SCRIPT_DIR}/../.env.local"
+
 # Source environment variables
-if [[ ! -f ../.env.local ]]; then
+if [[ ! -f $ENV_FILE ]]; then
   echo "Error: env.local file not found!"
   exit 1
 fi
-. ../.env.local
+# shellcheck source=/dev/null
+. "$ENV_FILE"
 
 # Check CORS_ORIGIN is set
 if [[ -z "$CORS_ORIGIN" ]]; then
