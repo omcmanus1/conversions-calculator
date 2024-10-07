@@ -11,16 +11,20 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type AllMeasurements interface {
+	HeightFeet | HeightMetric | BodyWeightMetric | BodyWeightImperial
+}
+
 type PostInputs interface {
-	RecipeInput | []RecipeInput | HeightFeet | HeightMetric
+	RecipeInput | []RecipeInput | AllMeasurements
 }
 
 type PostOutputs interface {
-	RecipeOutput | []RecipeOutput | HeightFeet | HeightMetric
+	RecipeOutput | []RecipeOutput | AllMeasurements
 }
 
 type TestOutputs interface {
-	RecipeOutput | HeightFeet | HeightMetric
+	RecipeOutput | AllMeasurements
 }
 
 func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
