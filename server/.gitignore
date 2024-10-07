@@ -23,3 +23,6 @@ coverage.out
 
 # development
 */tmp
+
+# script log outputs
+/scripts/logs
