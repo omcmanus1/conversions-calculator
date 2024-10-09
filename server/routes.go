@@ -32,6 +32,8 @@ func SetupRoutes() *chi.Mux {
 	r.Post("/api/height-feet", PostHeightFeet)
 	r.Post("/api/height-metric", PostHeightMetric)
 	r.Post("/api/bodyweight-metric", PostBodyWeightMetric)
+	r.Post("/api/bodyweight-stone", PostBodyWeightStone)
+	r.Post("/api/bodyweight-lbs", PostBodyWeightLbs)
 
 	return r
 }
@@ -70,4 +72,12 @@ func PostHeightMetric(w http.ResponseWriter, r *http.Request) {
 
 func PostBodyWeightMetric(w http.ResponseWriter, r *http.Request) {
 	HandlePostRequest(w, r, FromBodyWeightMetric)
+}
+
+func PostBodyWeightStone(w http.ResponseWriter, r *http.Request) {
+	HandlePostRequest(w, r, FromBodyWeightStone)
+}
+
+func PostBodyWeightLbs(w http.ResponseWriter, r *http.Request) {
+	HandlePostRequest(w, r, FromBodyWeightLbs)
 }

@@ -8,6 +8,8 @@ import (
 )
 
 func init() {
+  functions.HTTP("PostBodyWeightLbs", requestHandler(PostBodyWeightLbs))
+  functions.HTTP("PostBodyWeightStone", requestHandler(PostBodyWeightStone))
   functions.HTTP("PostBodyWeightMetric", requestHandler(PostBodyWeightMetric))
 	functions.HTTP("PostList", requestHandler(PostList))
 	functions.HTTP("PostWeightUS", requestHandler(PostWeightUS))

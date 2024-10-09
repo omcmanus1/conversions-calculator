@@ -12,7 +12,7 @@ import (
 )
 
 type AllMeasurements interface {
-	HeightFeet | HeightMetric | BodyWeightMetric | BodyWeightImperial
+	HeightFeet | HeightMetric | BodyWeightUnits
 }
 
 type PostInputs interface {
