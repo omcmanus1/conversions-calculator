@@ -48,6 +48,7 @@ func FromBodyWeightStone(inp BodyWeightUnits) (BodyWeightUnits, error) {
 	if inp.TotalStone > 0 {
 		inp.Stone = int(inp.TotalStone)
 		inp.Lbs = (inp.TotalStone - float32(inp.Stone)) * 14
+		inp.TotalLbs = inp.TotalStone * 14
 		inp.Kilograms = inp.TotalStone * 6.35029
 
 		return inp, nil
