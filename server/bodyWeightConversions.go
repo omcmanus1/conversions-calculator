@@ -5,11 +5,11 @@ import (
 )
 
 type BodyWeightUnits struct {
-	TotalLbs   float32 `json:"totalLbs"`
-	TotalStone float32 `json:"totalStone"`
+	TotalLbs   float64 `json:"totalLbs"`
+	TotalStone float64 `json:"totalStone"`
 	Stone      int     `json:"stone"`
-	Lbs        float32 `json:"lbs"`
-	Kilograms  float32 `json:"kilograms"`
+	Lbs        float64 `json:"lbs"`
+	Kilograms  float64 `json:"kilograms"`
 }
 
 func FromBodyWeightMetric(inp BodyWeightUnits) (BodyWeightUnits, error) {
@@ -17,14 +17,14 @@ func FromBodyWeightMetric(inp BodyWeightUnits) (BodyWeightUnits, error) {
 		return inp, errors.New("please input a positive value for kilograms")
 	}
 
-	totalLbs := float32(inp.Kilograms) * 2.20462
+	totalLbs := float64(inp.Kilograms) * 2.20462
 	stone := (totalLbs) / 14
-	remainingLbs := totalLbs - (float32(int(stone)) * 14)
+	remainingLbs := totalLbs - (float64(int(stone)) * 14)
 
-	inp.TotalLbs = totalLbs
-	inp.TotalStone = stone
+	inp.TotalLbs = RoundToCustom((totalLbs), 2)
+	inp.TotalStone = RoundToCustom(stone, 2)
 	inp.Stone = int(stone)
-	inp.Lbs = remainingLbs
+	inp.Lbs = RoundToCustom(remainingLbs, 2)
 
 	return inp, nil
 }
@@ -38,18 +38,18 @@ func FromBodyWeightStone(inp BodyWeightUnits) (BodyWeightUnits, error) {
 		if inp.Lbs > 14 {
 			return inp, errors.New("please input a valid 'lbs' value")
 		}
-		inp.TotalLbs = float32(inp.Stone)*14 + inp.Lbs
-		inp.TotalStone = inp.TotalLbs * 0.0714286
-		inp.Kilograms = inp.TotalLbs / 2.20462
+		inp.TotalLbs = RoundToCustom((float64(inp.Stone)*14 + inp.Lbs), 2)
+		inp.TotalStone = RoundToCustom((inp.TotalLbs * 0.0714286), 2)
+		inp.Kilograms = RoundToCustom((inp.TotalLbs / 2.20462), 2)
 
 		return inp, nil
 	}
 
 	if inp.TotalStone > 0 {
 		inp.Stone = int(inp.TotalStone)
-		inp.Lbs = (inp.TotalStone - float32(inp.Stone)) * 14
-		inp.TotalLbs = inp.TotalStone * 14
-		inp.Kilograms = inp.TotalStone * 6.35029
+		inp.Lbs = RoundToCustom(((inp.TotalStone - float64(inp.Stone)) * 14), 2)
+		inp.TotalLbs = RoundToCustom((inp.TotalStone * 14), 2)
+		inp.Kilograms = RoundToCustom((inp.TotalStone * 6.35029), 2)
 
 		return inp, nil
 	}
@@ -62,10 +62,10 @@ func FromBodyWeightLbs(inp BodyWeightUnits) (BodyWeightUnits, error) {
 		return inp, errors.New("please input a positive value for total lbs")
 	}
 
-	inp.TotalStone = inp.TotalLbs * 0.0714286
+	inp.TotalStone = RoundToCustom((inp.TotalLbs * 0.0714286), 2)
 	inp.Stone = int(inp.TotalStone)
-	inp.Lbs = (inp.TotalStone - float32(inp.Stone)) * 14
-	inp.Kilograms = inp.TotalStone * 6.35029
+	inp.Lbs = RoundToCustom(((inp.TotalStone - float64(inp.Stone)) * 14), 2)
+	inp.Kilograms = RoundToCustom((inp.TotalStone * 6.35029), 2)
 
 	return inp, nil
 }

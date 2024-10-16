@@ -62,9 +62,9 @@ func VolumeMetric(inp RecipeInput) (RecipeOutput, error) {
 	}
 
 	if output < 0.1 {
-		result.Amount = float64(math.Round(output*100)) / 100
+		result.Amount = RoundToCustom(output, 2)
 	} else {
-		result.Amount = float64(math.Round(output*10)) / 10
+		result.Amount = RoundToCustom(output, 1)
 	}
 
 	return result, nil
@@ -101,7 +101,7 @@ func VolumeUS(inp RecipeInput) (RecipeOutput, error) {
 		output = math.Round(output)
 	case "litres":
 		convertedOutput := output / 1000
-		output = float64(math.Round(convertedOutput*10)) / 10
+		output = RoundToCustom(convertedOutput, 1)
 	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
@@ -146,9 +146,9 @@ func WeightMetric(inp RecipeInput) (RecipeOutput, error) {
 	}
 
 	if output < 0.1 {
-		result.Amount = float64(math.Round(output*100)) / 100
+		result.Amount = RoundToCustom(output, 2)
 	} else {
-		result.Amount = float64(math.Round(output*10)) / 10
+		result.Amount = RoundToCustom(output, 1)
 	}
 
 	return result, nil
@@ -181,15 +181,15 @@ func WeightUS(inp RecipeInput) (RecipeOutput, error) {
 		output = math.Round(output)
 	case "kg":
 		output = output / 1000
-		output = float64(math.Round(output*10)) / 10
+		output = RoundToCustom(output, 1)
 	default:
 		return RecipeOutput{}, errors.New("invalid output unit: " + inp.OutputUnit)
 	}
 
 	if output < 0.1 {
-		result.Amount = float64(math.Round(output*100)) / 100
+		result.Amount = RoundToCustom(output, 2)
 	} else {
-		result.Amount = float64(math.Round(output*10)) / 10
+		result.Amount = RoundToCustom(output, 1)
 	}
 
 	return result, nil
