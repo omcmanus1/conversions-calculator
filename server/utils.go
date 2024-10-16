@@ -113,7 +113,7 @@ func CheckError(t testing.TB, err error, expectedErrMsg string) {
 	assert.ErrorContains(t, err, expectedErrMsg)
 }
 
-// Returns a float64 rounded to the specified amount decimal places.
+// Returns a float64 rounded to the specified amount of decimal places.
 func RoundToCustom(num float64, decimalPlaces int) float64 {
 	multiplier := math.Pow(10, float64(decimalPlaces))
 	return math.Round((num)*multiplier) / multiplier
