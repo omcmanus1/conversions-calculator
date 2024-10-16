@@ -5,8 +5,8 @@ import (
 )
 
 type BodyWeightUnits struct {
-	TotalLbs   float32 `json:"total_lbs"`
-	TotalStone float32 `json:"total_stone"`
+	TotalLbs   float32 `json:"totalLbs"`
+	TotalStone float32 `json:"totalStone"`
 	Stone      int     `json:"stone"`
 	Lbs        float32 `json:"lbs"`
 	Kilograms  float32 `json:"kilograms"`
@@ -59,7 +59,7 @@ func FromBodyWeightStone(inp BodyWeightUnits) (BodyWeightUnits, error) {
 
 func FromBodyWeightLbs(inp BodyWeightUnits) (BodyWeightUnits, error) {
 	if inp.TotalLbs <= 0 {
-		return inp, errors.New("please input a positive value for total_lbs")
+		return inp, errors.New("please input a positive value for total lbs")
 	}
 
 	inp.TotalStone = inp.TotalLbs * 0.0714286
