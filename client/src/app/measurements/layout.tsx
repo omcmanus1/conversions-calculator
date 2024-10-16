@@ -6,8 +6,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     {
       title: "Convert Weight",
       path: "/measurements/weight",
-      disabled: true,
-      tooltip: "Coming Soon!",
     },
   ];
 

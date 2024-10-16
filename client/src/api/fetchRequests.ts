@@ -1,3 +1,4 @@
+import { BodyWeightTypes } from "@/types/bodyWeightTypes";
 import { HeightFeet, HeightMetric } from "@/types/heightTypes";
 import { RecipeInput } from "@/types/recipeTypes";
 
@@ -8,7 +9,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const apiUrl = isProduction ? productionUrl : devUrl;
 
 export const getRequest = async () => {
-  try {
+try {
     const res = await fetch(`${apiUrl}/get-encode`);
     if (!res.ok) {
       throw new Error("Failed to fetch conversions");
@@ -24,7 +25,7 @@ export const getRequest = async () => {
 
 export const postRequest = async (
   path: string,
-  data: RecipeInput | RecipeInput[] | HeightFeet | HeightMetric
+  data: RecipeInput | RecipeInput[] | HeightFeet | HeightMetric | BodyWeightTypes
 ) => {
   try {
     const res = await fetch(`${apiUrl}/${path}`, {
