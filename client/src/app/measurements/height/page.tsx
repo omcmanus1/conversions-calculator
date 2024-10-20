@@ -21,6 +21,8 @@ export default function ConvertHeight() {
   const [heightFeet, setHeightFeet] = useState<HeightFeet>({ feet: 0, inches: 0 });
   const [output, setOutput] = useState<HeightOutput | {}>({});
 
+  const outputEmpty = Object.values(output).every((measure) => !measure);
+
   const handleConversion = async () => {
     setIsLoading(true);
     const data =
@@ -69,7 +71,7 @@ export default function ConvertHeight() {
           )}
         </Button>
       )}
-      <HeightOutputComp isLoading={isLoading} output={output} />
+      {!outputEmpty && <HeightOutputComp isLoading={isLoading} output={output} />}
     </div>
   );
 }
