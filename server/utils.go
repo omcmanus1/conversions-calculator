@@ -1,7 +1,6 @@
 package converter
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -28,49 +27,13 @@ type TestOutputs interface {
 	RecipeOutput | AllMeasurements
 }
 
-func HandleGetRequestMarshal(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
-	w.Header().Set("Content-Type", "application/json")
-
-	result, err := inputFn(data)
-	if err != nil {
-		log.Printf("Conversion error: %v", err)
-		http.Error(w, "Conversion error", http.StatusBadRequest)
-		return
-	}
-	jsonResult, err := json.MarshalIndent(result, "", " ")
-	if err != nil {
-		log.Printf("Unable to encode JSON: %v", err)
-		http.Error(w, "Unable to encode JSON", http.StatusInternalServerError)
-		return
-	}
-	w.Write(jsonResult)
-}
-
-func HandleGetRequestEncode(w http.ResponseWriter, r *http.Request, data []RecipeInput, inputFn func(data []RecipeInput) ([]RecipeOutput, error)) {
-	// Set the content type to JSON
-	w.Header().Set("Content-Type", "application/json")
-	result, err := inputFn(data)
-	if err != nil {
-		log.Printf("Input function error: %v", err)
-		http.Error(w, "Input function error", http.StatusInternalServerError)
-		return
-	}
-	// Encode the data to a buffer
-	var buf bytes.Buffer
-	if err := json.NewEncoder(&buf).Encode(result); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	// Indent the JSON data
-	var prettyJSON bytes.Buffer
-	if err := json.Indent(&prettyJSON, buf.Bytes(), "", "    "); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	// Write the indented JSON data to the response writer
-	w.Write(prettyJSON.Bytes())
-}
-
+// Reusable handler function for HTTP POST requests. Decodes the incoming JSON into a generic input type,
+// executes a provided input function, and returns a JSON-encoded result or an error.
+//
+// Accepts generic input types using interface implementation.
+//
+// If JSON decoding or encoding fails, or if the input function returns
+// an error, appropriate errors are logged and returned to the client.
 func HandlePostRequest[I PostInputs, O PostOutputs](w http.ResponseWriter, r *http.Request, inputFn func(data I) (O, error)) {
 	w.Header().Set("Content-Type", "application/json")
 	var input I
@@ -98,6 +61,8 @@ func HandlePostRequest[I PostInputs, O PostOutputs](w http.ResponseWriter, r *ht
 	w.Write(jsonResult)
 }
 
+// Testing util to compare result with expected output -
+// throws error if not equal.
 func CheckGotWant[TO TestOutputs](t testing.TB, got, want TO) {
 	t.Helper()
 	if got != want {
@@ -105,6 +70,8 @@ func CheckGotWant[TO TestOutputs](t testing.TB, got, want TO) {
 	}
 }
 
+// Testing util for checking expected errors as return type -
+// throws new error if err == nil
 func CheckError(t testing.TB, err error, expectedErrMsg string) {
 	t.Helper()
 	if err == nil {
@@ -113,7 +80,7 @@ func CheckError(t testing.TB, err error, expectedErrMsg string) {
 	assert.ErrorContains(t, err, expectedErrMsg)
 }
 
-// Returns a float64 rounded to the specified amount of decimal places.
+// Returns the input number rounded to the specified amount of decimal places.
 func RoundToCustom(num float64, decimalPlaces int) float64 {
 	multiplier := math.Pow(10, float64(decimalPlaces))
 	return math.Round((num)*multiplier) / multiplier
