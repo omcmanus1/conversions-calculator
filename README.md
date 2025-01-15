@@ -13,7 +13,7 @@ A simple app to calculate common US > Metric / Metric > US ingredient list conve
 
 ### Server
 
-- See [Makefile](Makefile) for all options (run in `/server/cmd` directory)
+- See [Makefile](https://github.com/omcmanus1/conversions-calculator/blob/main/server/cmd/Makefile) for all options (run in `/server/cmd` directory)
 - `make run` will build and run the server for test usage if on mac
   - Or use `make run_linux` / `make_run_windows` as applicable
 - `make run_dev` will run the project in development mode:
