@@ -1,6 +1,8 @@
 # Conversions Calculator App
 
-A simple app to calculate common US > Metric / Metric > US ingredient list conversions. Hosted at: https://conversions-calculator.vercel.app/
+A simple app to calculate common US > Metric / Metric > US ingredient list conversions. 
+
+**FYI: Application currently not hosted due to potential NextJS vulnerabilities**
 
 - Server / Backend written in Go
   - Mainly aiming to get used to language syntax & concepts
